@@ -1,0 +1,5 @@
+${{ secrets.HEROKU_API_KEY }}
+${{ secrets.HEROKU_APP_NAME }}
+# - name: Add remote origin
+  # run: |
+    # git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
