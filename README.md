@@ -42,7 +42,9 @@ Install `CRUD-X` with npm
     
 ## Deployment
 
-To deploy this project run
+**Cloud Deployment :** Vercel or Netlify. Will use either Github Actions or Gitlab CI/CD for Devops(On Push to "main" Auto Deploy)
+
+To deploy this project locally run
 
 **For Backend (localhost:3000/)** : 
 
