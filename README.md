@@ -16,13 +16,6 @@ A basic CRUD web application using [X]ERN stack.
 
 **Multi-DB [X - SQL/NoSQL]:** mongodb, mysql, elasticsearch, cockroachdb, cassandra.
 
-## IDE (Local & Cloud) | Tools | Library | Framework | Extensions
-
-Local - VSCode
-
-Cloud - Pending (to be updated soon...)
-
-Will update soon...
 ## Features
 
 - Multi-Authentication (Cookies Vs. JWT)
@@ -39,7 +32,15 @@ Install `CRUD-X` with npm
   cd CRUD-X
   npm install
 ```
-    
+
+## IDE (Local & Cloud) | Tools | Library | Framework | Extensions
+
+Local - VSCode
+
+Cloud - Pending (to be updated soon...)
+
+Will update soon...
+
 ## Deployment
 
 **Cloud Deployment :** Vercel or Netlify. Will use either Github Actions or Gitlab CI/CD for Devops(On Push to "main" Auto Deploy)
