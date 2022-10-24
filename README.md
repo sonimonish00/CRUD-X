@@ -33,17 +33,21 @@ Install `CRUD-X` with npm
   npm install
 ```
 
-## IDE (Local & Cloud) | Tools | Library | Framework | Extensions
+## Development Env. : IDE | Tools | Library | Framework | Extensions
 
-Local - VSCode
+VCS/SCM : XXXXX (Github | Gitlab) - Pending
 
-Cloud - Pending (to be updated soon...)
+Online Web Editor/Sandbox Playground : Pending
 
-Will update soon...
+Local IDE : VSCode 
 
-## Deployment
+Cloud IDE (Remote) : XXXXX (Codespace/vsremote, gitpod, glitch, replit, codesandbox/stackblitz, code-server) - Pending
 
-**Cloud Deployment :** Vercel or Netlify. Will use either Github Actions or Gitlab CI/CD for Devops(On Push to "main" Auto Deploy)
+## Deployment (PaaS | Devops-CI/CD)
+
+PaaS : XXXXX (Vercel, Netlify, heroku etc.) - PENDING
+
+Devops (CI/CD) : XXXXXX (Github Actions, Gitlab CI/CD, Travis CI, Circle CI, Docker, K8 etc.) - PENDING
 
 To deploy this project locally run
 
