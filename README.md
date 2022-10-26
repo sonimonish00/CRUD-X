@@ -33,21 +33,22 @@ Install `CRUD-X` with npm
   npm install
 ```
 
-## Development Env. : IDE | Tools | Library | Framework | Extensions
+## Development Env. Setup Workflow : IDE | VCS/SCM | Deployment/Devops/CI-CD
 
-VCS/SCM : XXXXX (Github | Gitlab) - Pending
+**Local IDE :** VSCode
 
-Online Web Editor/Sandbox Playground : Pending
+**VCS/SCM :** Github
 
-Local IDE : VSCode 
+**Cloud IDE (Remote) :** Github Codespace (Other - Repl.it [Mobile App/Hosting])
 
-Cloud IDE (Remote) : XXXXX (Codespace/vsremote, gitpod, glitch, replit, codesandbox/stackblitz, code-server) - Pending
+**Devops (CI/CD) :** Github Actions
 
-## Deployment (PaaS | Devops-CI/CD)
+**Deployment (PaaS) :** Vercel (Frontend) | Render.com (Backend)
 
-PaaS : XXXXX (Vercel, Netlify, heroku etc.) - PENDING
+**Other :**
+ - **Code Snippet/Sandbox :** carbon.now.sh, Codepen.io
+ - **DBaaS :** MongoDB Atlas | ElephantSQL(Postgre) | Cockroachlab | Astra(Cassandra) | PlanetScale(MySQL) | ElasticCloud
 
-Devops (CI/CD) : XXXXXX (Github Actions, Gitlab CI/CD, Travis CI, Circle CI, Docker, K8 etc.) - PENDING
 
 To deploy this project locally run
 
