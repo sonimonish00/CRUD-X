@@ -8,11 +8,11 @@ A basic CRUD web application using [X]ERN stack.
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 
 
-## Tech Stack : [X]ERN -> Frontend + [Backend + DB]
+## Tech Stack : [X]ERN -> Frontend + (Backend + DB) = Full stack web application (Monolith Arch. - 3 Tier | MVC | Agile)
 
-**Client/Frontend/Static-site/Web-app:** ReactJS
+**Client/Frontend/Static-site:** ReactJS (UI Library)
 
-**Web-server/Backend/Web-API/Web-service:** NodeJS(Express) [Web-workers/cron/scheduler jobs are not included here]
+**Web-server/Backend/Web-host/Web-API/Web-service/App-server:** NodeJS/runtime-engine & Express-FW (Web-workers/cron/scheduler are not included here) (Future HTTP server - Ngnix, Apache web server)
 
 **Multi-DB/DB-driver/Datastore/Data-service [X - SQL/NoSQL]:** mongodb, mysql, elasticsearch, cockroachdb, cassandra.
 
@@ -43,7 +43,7 @@ Install `CRUD-X` with npm
 
 **Devops (CI/CD) :** Github Actions
 
-**Deployment (PaaS) :** Vercel (Frontend) | Render.com (Backend)
+**Deployment (PaaS) :** Vercel (Frontend) | Render.com (Backend) - For database will use DBaaS. (No serverless,microservice,microfrontend used)
 
 **Other :**
  - **Code Snippet/Sandbox :** carbon.now.sh, Codepen.io
