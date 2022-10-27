@@ -8,13 +8,13 @@ A basic CRUD web application using [X]ERN stack.
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 
 
-## Tech Stack : [X]ERN
+## Tech Stack : [X]ERN -> Frontend + [Backend + DB]
 
-**Client:** React (Frontend Library)
+**Client/Frontend/Static-site/Web-app:** ReactJS
 
-**Server:** Express, Node [Future http server - Apache, Ngnix, IIS]
+**Web-server/Backend/Web-API/Web-service:** NodeJS(Express) [Web-workers/cron/scheduler jobs are not included here]
 
-**Multi-DB [X - SQL/NoSQL]:** mongodb, mysql, elasticsearch, cockroachdb, cassandra.
+**Multi-DB/DB-driver/Datastore/Data-service [X - SQL/NoSQL]:** mongodb, mysql, elasticsearch, cockroachdb, cassandra.
 
 ## Features
 
