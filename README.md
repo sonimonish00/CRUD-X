@@ -43,7 +43,10 @@ Install `CRUD-X` with npm
 
 **Devops (CI/CD) :** Github Actions
 
-**Deployment (PaaS) :** Vercel (Frontend) | Render.com (Backend) - For database will use DBaaS. (No serverless,microservice,microfrontend used)
+**Deployment (PaaS) :** Vercel (Frontend) | Render.com (Backend) - For DB will use DBaaS.
+ - Vercel could be used for backend deployment via : 
+   - Serverless Function (i.e. rewrite your backend to make it serverless)
+   - Vercel's NEXTJS Framework
 
 **Other :**
  - **Code Snippet/Sandbox :** carbon.now.sh, Codepen.io
@@ -63,6 +66,20 @@ To deploy this project locally run
 ```bash
   npm run build
 ```
+
+## Folder (Project) Structure : Separation of Concern
+ - CRUD-X (Root Folder)
+   - Client (Frontend Folder)
+      - node_modules
+      - .gitignore
+      - Package.json (frontend)
+   - Server (Backend Folder)
+      - node_modules
+      - .gitignore
+      - Package.json (backend)
+   - Package.json (root) - shared b/w both FE/BE
+   - License
+   - Readme.MD
 
 ## Environment Variables
 
