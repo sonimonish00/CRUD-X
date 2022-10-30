@@ -37,6 +37,8 @@ Install `CRUD-X` with npm
 
 **Local IDE :** VSCode
 
+**Browser :** Mozilla | Chrome (Extension - React devtools, Redux devtools)
+
 **VCS/SCM :** Github
 
 **Cloud IDE (Remote) :** Github Codespace (Other - Repl.it [Mobile App/Hosting])
