@@ -1,0 +1,23 @@
+{
+  "name": "crud-x",
+  "version": "1.0.0",
+  "description": "A basic CRUD web application using [X]ERN stack.",
+  "main": "xyz.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "FSinstall" : "(cd Server && npm install) & (cd ../Client && npm install)",
+    "FSdev" : "concurrently \"cd Server && npm run dev\" \"cd Client && npm run prod\" ",
+    "FSdev2" : "concurrently \"cd Server && npm run dev\" \"cd Client && webpack serve\" "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sonimonish00/CRUD-X.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sonimonish00/CRUD-X/issues"
+  },
+  "homepage": "https://github.com/sonimonish00/CRUD-X#readme"
+}

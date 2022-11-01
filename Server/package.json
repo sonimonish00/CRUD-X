@@ -1,20 +1,17 @@
 {
-  "name": "crud-x",
+  "name": "server",
   "version": "1.0.0",
-  "description": "A basic CRUD web application using [X]ERN stack.",
+  "description": "",
   "main": "server.js",
-  "scripts": {
-    "start" : "node server.js"
+  "directories": {
+    "test": "tests"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sonimonish00/CRUD-X.git"
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prod": "node server.js",
+    "dev": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/sonimonish00/CRUD-X/issues"
-  },
-  "homepage": "https://github.com/sonimonish00/CRUD-X#readme"
+  "license": "ISC"
 }
