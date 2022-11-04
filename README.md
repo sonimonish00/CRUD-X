@@ -10,9 +10,13 @@ A basic CRUD web application using [X]ERN stack.
 
 ## Tech Stack : [X]ERN -> Frontend + (Backend + DB) = Full stack web application (Monolith Arch. - 3 Tier | MVC | Agile/TDD)
 
-**Client/Frontend/Static-site:** ReactJS (UI Library)
+**Client/Frontend/Static-site/Web-asset:** ReactJS (UI Library)
 
-**Web-server/Backend/Web-host/Web-API/Web-service/App-server:** NodeJS/runtime-engine & Express-FW (Web-workers/cron/scheduler are not included here) (Future HTTP server - Ngnix, Apache web server)
+**Web-server/Backend/Web-host/Web-API/Web-service/App-server:** NodeJS/runtime-engine & Express-FW
+
+Note (Tech-stack/Arch. concepts) : monorepo, microservice, microfrontend etc. 
+
+Note (Backend concepts) : Web & Service [workers](https://web.dev/workers-overview)/worklets/cron-job/schedulers, HTTP web server - Ngnix, Apache.
 
 **Multi-DB/DB-driver/Datastore/Data-service [X - SQL/NoSQL]:** mongodb, mysql, elasticsearch, cockroachdb, cassandra.
 
