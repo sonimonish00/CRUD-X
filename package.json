@@ -5,9 +5,9 @@
   "main": "xyz.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "FSinstall" : "(cd Server && npm install) & (cd ../Client && npm install)",
-    "FSdev" : "concurrently \"cd Server && npm run dev\" \"cd Client && npm run prod\" ",
-    "FSdev2" : "concurrently \"cd Server && npm run dev\" \"cd Client && webpack serve\" "
+    "FSinstall": "(cd server && npm install) & (cd ../client && npm install)",
+    "FSdev": "concurrently \"cd server && npm run dev\" \"cd client && npm run start\" ",
+    "FSprod": "concurrently \"cd server && npm run prod\" \"cd client && npm run build\" "
   },
   "repository": {
     "type": "git",
@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/sonimonish00/CRUD-X/issues"
   },
-  "homepage": "https://github.com/sonimonish00/CRUD-X#readme"
+  "homepage": "https://github.com/sonimonish00/CRUD-X#readme",
+  "devDependencies": {
+    "concurrently": "^7.5.0"
+  }
 }
