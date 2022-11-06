@@ -1,20 +1,23 @@
-// Loading Prod Environment 
-const dotenv = require('dotenv').config({ path: 'env/.env' });
-// const port = process.env.PORT || 5000;
-// if (process.env.NODE_ENV === 'production'){console.log("This is production environment")}
-// else if (process.env.NODE_ENV === 'development'){console.log("This is development environment")}
-// else {console.log("I dont know which environment is this")}
+require('dotenv').config({ path: 'env/.env' });
+const port = process.env.PORT || 5000;
 
 const express = require('express')
 const app = express()
-// const port = 6000
 
 app.get('/', (req, res) => {
-  console.log("Testing Nodejs express Server !!")
-  res.send('Hello World!!! This is a CRUD-X Web App (Backend/Node-express)...Coming Soon !!')
+  if (process.env.NODE_ENV === 'production'){
+    res.send('Welcome to CRUD-X : Production Environment')
+  }
+  else if (process.env.NODE_ENV === 'development'){
+    res.send('Welcome to CRUD-X : Development Environment')
+  }
+  else {
+    res.send('Welcome to CRUD-X : Environment Undefined')
+  }  
 })
-app.listen(process.env.PORT || 3000, () => {
-  console.log(`Server Started...`)
+
+app.listen(port, () => {
+  console.log(`Backend : NodeJS/express server started on http://localhost:${port}`)
 })
 
 
