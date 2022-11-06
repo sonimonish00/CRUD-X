@@ -1,6 +1,6 @@
 require('dotenv').config({ path: 'env/.env' });
+const connectDB = require('./database/DBConn')
 const port = process.env.PORT || 5000;
-
 const express = require('express')
 const app = express()
 
@@ -16,8 +16,12 @@ app.get('/', (req, res) => {
   }  
 })
 
-app.listen(port, () => {
-  console.log(`Backend : NodeJS/express server started on http://localhost:${port}`)
-})
+// Connecting to DB
+connectDB(()=>{
+  app.listen(port, () => {
+    console.log(`Backend : NodeJS/express server started on http://localhost:${port}`)
+  })
+});
+
 
 
