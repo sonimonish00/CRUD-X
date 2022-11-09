@@ -8,23 +8,23 @@ A basic CRUD web application using [X]ERN stack.
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 
 
-## Tech Stack : [X]ERN -> Frontend + (Backend + DB) = Full stack web application (Monolith Arch. - 3 Tier | MVC | Agile/TDD)
+## Tech Stack (FE + BE/DB) : [X]ERN 
 
-**Client/Frontend/Static-site/Web-asset:** ReactJS (UI Library)
+**Architectural :** monolith | MVC-3 tier | agile | TDD
 
-**Web-server/Backend/Web-host/Web-API/Web-service/App-server:** NodeJS/runtime-engine & Express-FW
+**Frontend - client | static-site | web-asset | ui:** Reactjs
 
-Note (Tech-stack/Arch. concepts) : monorepo, microservice, microfrontend etc. 
+**Backend - Webserver/service/host/api | app-server:** Nodejs/runtime-engine & express
 
-Note (Backend concepts) : Web & Service [workers](https://web.dev/workers-overview)/worklets/cron-job/schedulers, HTTP web server - Ngnix, Apache.
+**DBaaS [X] :** mongodb atlas | elephantsql (postgre) | cockroachlab | astra (cassandra) | planetscale (mysql) | elasticloud
 
-**Multi-DB/DB-driver/Datastore/Data-service [X - SQL/NoSQL]:** mongodb, mysql, elasticsearch, cockroachdb, cassandra.
+Extra (Just FYI) : monorepo, microservice/frontend, web & service [workers](https://web.dev/workers-overview)/worklets/cron-job/schedulers, HTTP web server - Ngnix, Apache
 
-## Features
+## Major Features
 
-- Multi-Authentication (Cookies Vs. JWT)
+- Multi-AuthN/AuthR (Cookies Vs. JWT) [Authorization & OAuth2.0 Support]
 - Multi-Products CRUD
-- Authorization & OAuth2.0 Support
+- Multi-DB & Multi-Env (Dev/Prod)
 - Cross platform & responsive web design
 
 
@@ -58,11 +58,12 @@ Note (Backend concepts) : Web & Service [workers](https://web.dev/workers-overvi
 ```
 
 
-## Development Env. Setup Workflow : IDE | VCS/SCM | Deployment/Devops/CI-CD
+## Dev. env. setup : IDE | vcs/scm | deployment | devops
 
 **Local IDE :** VSCode (Extension - DotENV, React/Redux & JS(ES6) snippet, ES/TSlint, Jest, Material Icon, Live server, MongoDB, Prettier
 
-**VSCode (Global Install) :** node, npm, ncu, nvm, powershell (updated latest versions)
+  - **VSCode (Global Install) :** node, npm, ncu, nvm, powershell (updated latest versions)
+  - **Code Snippet/Sandbox :** carbon.now.sh, Codepen.io
 
 **Browser :** Mozilla | Chrome (Extension - React devtools, Redux devtools)
 
@@ -72,18 +73,18 @@ Note (Backend concepts) : Web & Service [workers](https://web.dev/workers-overvi
 
 **Devops (CI/CD) :** Github Actions
 
-**Deployment (PaaS) :** Vercel (Frontend) | Railway.app (Backend) - DB (MongoDB Atlas)
- - Vercel could be used for backend deployment via (But will use it for frontend only) : 
-   - Serverless Function (i.e. rewrite your backend to make it serverless)
-   - Vercel's NEXTJS Framework
+**Deployment (PaaS) :** 
+  - Vercel (Frontend/Static-Site/React-CRA)
+    - Vercel could be used for backend deployment via (But will use it for frontend only) :
+      - Serverless Function (i.e. rewrite your backend to make it serverless)
+      - Vercel's NEXTJS Framework
+    - Commands : build (npm run build) & start (npm run start)
+  - Railway.app (Backend/webservice) | DB (MongoDB Atlas)
+    - Commands : build (Default) & start (npm run prod)
 
-**Other :**
- - **Code Snippet/Sandbox :** carbon.now.sh, Codepen.io
- - **DBaaS :** MongoDB Atlas | ElephantSQL(PostgreSQL) | Cockroachlab | Astra(Cassandra) | PlanetScale(MySQL) | ElasticCloud
-
-## File/folder (Project) Structure : Separation of concern
+## File-folder (project) structure : separation of concern
  - **CRUD-X (Root Folder)**
-   - **Client** [Feature/funct./component driven] (group by file type, pages with global folder/colocation of related comp. is not used)
+   - **Client** [Feature/funct./component driven] (Other - group by file type, pages with global folder/colocation of related comp. etc.)
       - public
       - src
         - Assets : images, static file etc. 
