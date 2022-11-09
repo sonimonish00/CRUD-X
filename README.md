@@ -28,18 +28,41 @@ Note (Backend concepts) : Web & Service [workers](https://web.dev/workers-overvi
 - Cross platform & responsive web design
 
 
-## Installation
+## Installation & Deployment (Local)
 
-Install `CRUD-X` with npm
+**For Fullstack (MERN) :**
 
 ```bash
   cd CRUD-X
-  npm install
+  npm FSinstall
+  npm FSdev (For Development - localhost)
+  npm FSprod (For production)
 ```
+
+**For Backend only (Node/Express) :**
+
+```bash
+  cd CRUD-X/server
+  npm install
+  npm dev (For Development - localhost)
+  npm prod (For production)
+```
+
+**For Frontend only (React/CRA) :**
+
+```bash
+  cd CRUD-X/client
+  npm install
+  npm start (For Development - localhost)
+  npm build (For production)
+```
+
 
 ## Development Env. Setup Workflow : IDE | VCS/SCM | Deployment/Devops/CI-CD
 
-**Local IDE :** VSCode
+**Local IDE :** VSCode (Extension - DotENV, React/Redux & JS(ES6) snippet, ES/TSlint, Jest, Material Icon, Live server, MongoDB, Prettier
+
+**VSCode (Global Install) :** node, npm, ncu, nvm, powershell (updated latest versions)
 
 **Browser :** Mozilla | Chrome (Extension - React devtools, Redux devtools)
 
@@ -49,42 +72,62 @@ Install `CRUD-X` with npm
 
 **Devops (CI/CD) :** Github Actions
 
-**Deployment (PaaS) :** Vercel (Frontend) | Render.com (Backend) - For DB will use DBaaS.
- - Vercel could be used for backend deployment via : 
+**Deployment (PaaS) :** Vercel (Frontend) | Railway.app (Backend) - DB (MongoDB Atlas)
+ - Vercel could be used for backend deployment via (But will use it for frontend only) : 
    - Serverless Function (i.e. rewrite your backend to make it serverless)
    - Vercel's NEXTJS Framework
 
 **Other :**
  - **Code Snippet/Sandbox :** carbon.now.sh, Codepen.io
- - **DBaaS :** MongoDB Atlas | ElephantSQL(Postgre) | Cockroachlab | Astra(Cassandra) | PlanetScale(MySQL) | ElasticCloud
+ - **DBaaS :** MongoDB Atlas | ElephantSQL(PostgreSQL) | Cockroachlab | Astra(Cassandra) | PlanetScale(MySQL) | ElasticCloud
 
-
-To deploy this project locally run
-
-**For Backend (localhost:3000/)** : 
-
-```bash
-  npm start
-```
-
-**For Frontend** build the React Project: 
-
-```bash
-  npm run build
-```
-
-## Folder (Project) Structure : Separation of Concern
- - CRUD-X (Root Folder)
-   - Client (Frontend Folder)
+## File/folder (Project) Structure : Separation of concern
+ - **CRUD-X (Root Folder)**
+   - **Client** [Feature/funct./component driven] (group by file type, pages with global folder/colocation of related comp. is not used)
+      - public
+      - src
+        - Assets : images, static file etc. 
+        - Components (Templates/Props)
+          - core : common and basic components, such as Home,Menu components which are common to all other comp.
+          - post : post-related components
+          - user : user-related components
+          - componentFolderN : and so on....
+        - Pages
+        - Config
+        - i18n
+        - navigation : Router (Navigation) -> react-router-dom
+        - redux : actions, reducers, store.js [Redux Toolkit -> Redux & Thunk Dev tools]
+        - Services - API
+          - auth : auth-related components and helper code, routes etc.
+        - styles
+        - utils - Helper methods, validations etc. 
+        - __tests__ : Jest Framework (Unit testing)
+        - index.js ===> Main entry point for react
       - node_modules
       - .gitignore
       - Package.json (frontend)
-   - Server (Backend Folder)
+      - README.MD
+   - **Server** [Separation based on functionality]
+      - config
+      - controllers
+      - database
+      - env
+      - middlewares
+      - models (ORM)
+      - routes
+      - tests
+      - util
+      - server.js ===> Main entry point for nodejs server
+      - node_modules (backend)
+      - .gitignore (backend)
+      - Package.json (backend)
+      - Readme.MD (backend)
       - node_modules
       - .gitignore
       - Package.json (backend)
    - Package.json (root) - shared b/w both FE/BE
    - License
+   - .gitignore
    - Readme.MD
 
 ## Environment Variables
