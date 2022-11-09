@@ -14,12 +14,12 @@ const connectDB = async () => {
     }
 };
 
-// MongoDB Connection Pattern 2 : Using callbacks
-// const connectDB = async (callback) => {
+// MongoDB Connection Pattern 2 : Using async/await with promises/.then (Not good - double load)
+// const connectDB = async (cb) => {
 //     try {
 //         await mongoose.connect(mongoDB_URL, dbOptions)
 //             .then(() => {
-//                 callback();
+//                 cb();
 //                 console.log("Connected to MongoDB");
 //             })
 //     } catch (error) {

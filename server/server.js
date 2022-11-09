@@ -1,5 +1,10 @@
-require('dotenv').config({ path: 'env/.env' });
+// CommonJS/AMD Module(CJS) - require & exports.foo(for single) OR module.exports(for multiple)
 const mongoose = require("mongoose");
+// ES6 Module(ESM) - import & export default(for single) OR export(for multiple)
+  // import {mongoose,schema} from 'mongoose';
+  // import { MongoClient } from 'mongodb'
+
+require('dotenv').config({ path: 'env/.env' });
 const connectDB = require('./database/DBConn')
 const port = process.env.PORT || 5000;
 const express = require('express')
