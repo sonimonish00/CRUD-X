@@ -135,35 +135,11 @@ Extra (Just FYI) : monorepo, microservice/frontend, web & service [workers](http
 
 To run this project, you will need to add the following environment variables to your .env file
 
-`API_KEY`
+`NODE_ENV`
 
-`ANOTHER_API_KEY`
+`PORT`
 
-
-## API Reference
-
-#### To Signup
-
-```http
-  GET /register
-```
-
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `None` | `string` | To signup user |
-
-#### To Login
-
-```http
-  GET /login
-```
-
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `None`      | `string` | To Login user |
-
-
-
+`MONGO_URL`
 
 ## Demo
 
