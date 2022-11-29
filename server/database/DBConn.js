@@ -1,5 +1,8 @@
-const mongoose = require("mongoose");
-require('dotenv').config({ path: 'env/.env' });
+// const mongoose = require("mongoose");
+import mongoose from "mongoose";
+// require('dotenv').config({ path: 'env/.env' });
+import dotenv from "dotenv";
+dotenv.config({ path: 'env/.env' });
 const dev_db_url = 'local dev. db url is not defined.';
 const mongoDB_URL = process.env.MONGO_URL || dev_db_url;
 const dbOptions = {useNewUrlParser: true, useUnifiedTopology: true};
@@ -28,4 +31,5 @@ const connectDB = async () => {
 //     }
 // };
 
-module.exports = connectDB;
+// module.exports = {connectDB};
+export {connectDB};
