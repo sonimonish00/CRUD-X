@@ -1,30 +1,32 @@
 // CommonJS/AMD Module(CJS) - require & exports.foo(for single) OR module.exports(for multiple)
 // const mongoose = require("mongoose");
 // ES6 Module(ESM) - import & export default(for single) OR export(for multiple)
-import {mongoose, Schema} from 'mongoose';
-import { MongoClient } from 'mongodb'
+import { mongoose, Schema } from "mongoose";
+import { MongoClient } from "mongodb";
 
 import dotenv from "dotenv";
-import {connectDB} from './database/DBConn.js'
-import express from 'express';
+import { connectDB } from "./database/DBConn.js";
+import express from "express";
 
-dotenv.config({ path: 'env/.env' });
+dotenv.config({ path: "env/.env" });
 const port = process.env.PORT || 5000;
-const app = express()
+const app = express();
 
-app.get('/', (req, res) => {
-  if (process.env.NODE_ENV === 'production'){
-    res.send('Welcome to CRUD-X : Production Environment')
+app.get("/", (req, res) => {
+  if (process.env.NODE_ENV === "production") {
+    res.send("Welcome to CRUD-X : Production Environment");
+  } else if (process.env.NODE_ENV === "development") {
+    res.send("Welcome to CRUD-X : Development Environment");
+  } else {
+    res.send("Welcome to CRUD-X : Environment Undefined");
   }
-  else if (process.env.NODE_ENV === 'development'){
-    res.send('Welcome to CRUD-X : Development Environment')
-  }
-  else {
-    res.send('Welcome to CRUD-X : Environment Undefined')
-  }  
-})
+});
 
-app.listen(port, () => {console.log(`Backend : Node(express) server started listening on port : ${port}`)})
+app.listen(port, () => {
+  console.log(
+    `Backend : Node(express) server started listening on port : ${port}`
+  );
+});
 // MongoDB Connection Pattern 1 : Using events & w/o callbacks (Recommended)
 // connectDB();
 // mongoose.connection
@@ -40,7 +42,3 @@ app.listen(port, () => {console.log(`Backend : Node(express) server started list
 // connectDB(()=>{
 //     app.listen(port, () => {console.log(`Backend : Node(express) server started listening on port : ${port}`)})
 //   });
-
-
-
-
