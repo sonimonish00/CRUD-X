@@ -12,9 +12,9 @@ A basic CRUD web application using [X]ERN stack.
 
 **Architectural :** monolith | MVC-3 tier | agile | TDD
 
-**Frontend - client | static-site | web-asset | ui:** Reactjs
+**Frontend - client | static-site | web-asset | ui:** Reactjs (Module system : Typescript [TSX,TSC,TSlint] )
 
-**Backend - Webserver/service/host/api | app-server:** Nodejs/runtime-engine & express
+**Backend - Webserver/service/host/api | app-server:** Nodejs/express (Module system : ES6/Eslint (MJS/type=module => package.json))
 
 **DBaaS [X] :** mongodb atlas | elephantsql (postgre) | cockroachlab | astra (cassandra) | planetscale (mysql) | elasticloud
 
@@ -30,8 +30,7 @@ Extra (Just FYI) : monorepo, microservice/frontend, web & service [workers](http
 
 ## Installation & Deployment (Local)
 
-**For Fullstack (MERN) :**
-
+**For Fullstack (MERN) :** npm **FSUpdatePkgs** - to update local pkg to latest ver **PENDING** [Link Here](https://stackoverflow.com/a/34295664)
 ```bash
   cd CRUD-X
   npm FSinstall
@@ -60,18 +59,20 @@ Extra (Just FYI) : monorepo, microservice/frontend, web & service [workers](http
 
 ## Dev. env. setup : IDE | vcs/scm | deployment | devops
 
-**Local IDE :** VSCode (Extension - DotENV, React/Redux & JS(ES6) snippet, ES/TSlint, Jest, Material Icon, Live server, MongoDB, Prettier
+**Local IDE :** VSCode 
+  - **VSCode :** 
+    - Preq. - Git & Node(npm)
+    - [Git-bash](https://stackoverflow.com/a/41199625) : NPM global pkgs manual backup - **npmGpkg** File (CRUD-X Repo)
+    - Ext. : Setting Sync On via Github A/C (update outdated npm global & local pkg manually | VScode ext. autoupdate)
+  - **Online Code Snippet/Sandbox :** carbon.now.sh, Codepen.io
 
-  - **VSCode (Global Install) :** node, npm, ncu, nvm, powershell (updated latest versions)
-  - **Code Snippet/Sandbox :** carbon.now.sh, Codepen.io
-
-**Browser :** Mozilla | Chrome (Extension - React devtools, Redux devtools)
+**Browser :** Mozilla | Chrome (Extension - React devtools, Redux devtools) (Sync Setting on - **Pending**)
 
 **VCS/SCM :** Github
 
-**Cloud IDE (Remote) :** Github Codespace (Other - Repl.it [Mobile App/Hosting])
+**Cloud IDE (Remote) :** Github Codespace (Alternative - Repl.it [Mobile App/Hosting])
 
-**Devops (CI/CD) :** Github Actions
+**Devops (CI/CD) :** Github Actions (For Dockerize : Docker/K8's)
 
 **Deployment (PaaS) :** 
   - Vercel (Frontend/Static-Site/React-CRA)
@@ -94,7 +95,7 @@ Extra (Just FYI) : monorepo, microservice/frontend, web & service [workers](http
           - user : user-related components
           - componentFolderN : and so on....
         - Pages
-        - Config
+        - Config (To overwrite global configs - prettier,eslint,tslint etc. - CRA already has eslint so we dont include it)
         - i18n
         - navigation : Router (Navigation) -> react-router-dom
         - redux : actions, reducers, store.js [Redux Toolkit -> Redux & Thunk Dev tools]
@@ -109,7 +110,7 @@ Extra (Just FYI) : monorepo, microservice/frontend, web & service [workers](http
       - Package.json (frontend)
       - README.MD
    - **Server** [Separation based on functionality]
-      - config
+      - config (overwrite global configs : .editorconfig, .prettierrc, webpack.config.js, .tslintrc.js, .eslintrc.js etc.)
       - controllers
       - database
       - env
