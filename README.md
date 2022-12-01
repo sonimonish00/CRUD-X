@@ -12,7 +12,7 @@ A basic CRUD web application using [X]ERN stack.
 
 **Architectural :** monolith | MVC-3 tier | agile | TDD
 
-**Frontend - client | static-site | web-asset | ui:** Reactjs (Module system : Typescript [TSX,TSC,TSlint] )
+**Frontend - client | static-site | web-asset | ui:** Reactjs (Module system : Typescript [.tsx/.tsc] **tslint is deprecated in favor of eslint**)
 
 **Backend - Webserver/service/host/api | app-server:** Nodejs/express (Module system : ES6/Eslint (MJS/type=module => package.json))
 
@@ -95,7 +95,7 @@ Extra (Just FYI) : monorepo, microservice/frontend, web & service [workers](http
           - user : user-related components
           - componentFolderN : and so on....
         - Pages
-        - Config (To overwrite global configs - prettier,eslint,tslint etc. - CRA already has eslint so we dont include it)
+        - Config (To overwrite global configs - .prettierrc, .eslintrc.js etc. - CRA already has eslint so we dont include it)
         - i18n
         - navigation : Router (Navigation) -> react-router-dom
         - redux : actions, reducers, store.js [Redux Toolkit -> Redux & Thunk Dev tools]
@@ -110,7 +110,7 @@ Extra (Just FYI) : monorepo, microservice/frontend, web & service [workers](http
       - Package.json (frontend)
       - README.MD
    - **Server** [Separation based on functionality]
-      - config (overwrite global configs : .editorconfig, .prettierrc, webpack.config.js, .tslintrc.js, .eslintrc.js etc.)
+      - config (overwrite global configs : .editorconfig, .prettierrc, webpack.config.js, .eslintrc.js etc.)
       - controllers
       - database
       - env
