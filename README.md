@@ -87,6 +87,23 @@ Extra (Just FYI) : monorepo, microservice/frontend, web & service [workers](http
 NOTE : js/jsx & ts/tsx is not diff. it's just use to denote that js/ts is for normal & jsx/tsx is for component. But .cjs & .mjs are diff.
 NOTE : For browser default is CJS in html <script> tag, but if ur using MJS then u need to mention "type=module" in <script> tag. As we are using react here, we dont need to worry as react will build html for us.
 NOTE : Alternative Names CJS => Source Type - Script | MJS => Source Type - Module
+  - **Extensions | NPM Packages (-D)** 
+    - [L1](https://stackoverflow.com/questions/68721073/what-is-the-difference-between-installing-eslint-as-extension-and-installing-as) | [L2](https://stackoverflow.com/questions/61925900/what-is-the-difference-between-installing-prettier-as-a-npm-package-and-installi) | [L3](https://eslint.org/docs/latest/user-guide/getting-started) | [L4](https://prettier.io/docs/en/comparison.html) | [L5](https://www.youtube.com/watch?v=ZXW6Jn6or1w) | [L6](https://www.youtube.com/watch?v=H91aqUHn8sE) | [L7](https://www.robinwieruch.de/prettier-eslint/)
+    - VSCode : Global
+      - Linter : Eslint
+      - Formatter : Prettier
+      - (Lint+Format) : Lintel, Prettier ESlint etc. (Refer Official website of both)
+    - Node/NPM : Local (-D)
+      - React : react, react-dom, jest
+      - Linting (FE/BE)
+        - Eslint : eslint, eslint-cli (CRA ESlint extends "react-app")
+        - TS : typescript, ts-node, types/node, types/react, types/react-dom
+      - Formatter : prettier
+      - (Lint+Format) : prettier-eslint, etc. (Refer Official website of both)
+      - Config (Custom) : .eslintrc.js (extends airbnb, react-app, etc), .prettierrc, .editorconfig, etc.
+        - tsconfig.json (.tslintrc deprecated in favor of .eslintrc)
+          - module = NodeNext for MJS & commonJS for CJS // 'import' needs .js extn. for MJS & .cjs for CJS
+          - moduleResolution = NodeNext 
   - **Frontend (React v18+)** : React is defaulted to ES6/MJS module system.
     - **Current** : Javascript (ES6+)
       - Filename : .js/.jsx (js/jsx are equiv. here but as mentioned in note above, we use it for diff. purpose)
