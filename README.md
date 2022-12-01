@@ -85,48 +85,22 @@ Extra (Just FYI) : monorepo, microservice/frontend, web & service [workers](http
 
 ## Linter | Formatter etc. (VSCode Setup - MERN stack)
 NOTE : js/jsx & ts/tsx is not diff. it's just use to denote that js/ts is for normal & jsx/tsx is for component. But .cjs & .mjs are diff.
-NOTE : For browser default is CJS in html <script> tag, but if ur using MJS then u need to mention "type=module" in <script> tag. As we are using react here, we dont need to worry as react will build html for us. 
+NOTE : For browser default is CJS in html <script> tag, but if ur using MJS then u need to mention "type=module" in <script> tag. As we are using react here, we dont need to worry as react will build html for us.
+NOTE : Alternative Names CJS => Source Type - Script | MJS => Source Type - Module
   - **Frontend (React v18+)** : React is defaulted to ES6/MJS module system.
     - **Current** : Javascript (ES6+)
       - Filename : .js/.jsx (js/jsx are equiv. here but as mentioned in note above, we use it for diff. purpose)
       - Module system : ES6 (.mjs) => import/export (we don't need to have .mjs extension bcz react CRA defaults to mjs so js/jsx=mjs)
-      - VS Code extension (Global) :
-        - Linter : ESlint (CRA/Webpack includes eslint settings inbuilt, still we install eslint)
-        - Formatter : Prettier
-        - Config folder (**Optional** - to locally override) : .eslintrc.js, .prettierrc
-      - NPM Packages (Global/Local) : Prerequiste -> Node/npm 
-        - @react, @react-dom etc.
     - **Future** : Typescript (CRA --template typescript)
       - Filename : .ts/.tsx (ts/tsx are equiv. here but as mentioned in note above, we use it for diff. purpose)
       - Module system : ES6 (.mjs) => import/export (js/jsx=mjs=ts/tsx, so we use ts/tsx only)
-      - VS Code extension (Global) : 
-        - Linter : ESlint (.tslint.json is deprecated in favor of eslint)
-        - Formatter : Prettier
-        - Config folder (**Optional** - to locally override) : .eslintrc.js, .prettierrc, tsconfig.json (`tsc` compiler modify/don't know optional or not)
-      - NPM Packages (Global/Local) : Prerequiste -> Node/npm 
-        - @typescript, @types/node, @types/react, @types/react-dom, @types/jest etc. (Other/extra : @ts-node)
   - **Backend (Node v18+)** : Node is defaulted to commonJS/js/cjs module system => require/module.exports
     - **Current** : Javascript (ES6+) // Node is defaulted to CJS, but here we use MJS so following settings will change.
       - Filename : .js/.mjs (Package.json => "type": "module") // Both js/mjs are equiv here bcz "module" is mentioned in package.json, we stick to .js
       - Module system : ES6 (js/mjs) => import/export // We r using "mjs", but if you wanna use "cjs" somewhere add "abc.cjs" ext. explicitly
-      - VS Code extension (Global) :
-        - Linter : ESlint
-        - Formatter : Prettier
-        - Config folder (**Optional** - to locally override) : .eslintrc.js, .prettierrc
-      - NPM Packages (Global/Local) : Prerequiste -> Node/npm
-        - @eslint, @eslint-cli etc. 
     - **Future** : Typescript [see](https://www.youtube.com/watch?v=H91aqUHn8sE&t=15s)
       - Filename : .ts (Package.json => "type": "module" | `tsc` compiler : a.ts => a.js | node a.js)
       - Module system : ES6 (.mjs) => import/export (js=mjs=ts, so we use ts only)
-      - VS Code extension (Global) :
-        - Linter : ESlint (.tslint.json is deprecated in favor of eslint) (Also NPM global : typescript | types/node | eslint | eslint-cli)
-        - Formatter : Prettier
-        - Config folder (**Optional** - to locally override) : .eslintrc.js, .prettierrc
-          - .tsconfig.json (To configure behaviour of `tsc` compiler - Don't know whether its optional or not)
-            - module = NodeNext for MJS & commonJS for CJS // Here we using MJS, so NodeNext
-            - moduleResolution = NodeNext // Also while importing u need to have .js extn. for MJS & .cjs for CJS
-        - NPM Packages (Global/Local) : Prerequiste -> Node/npm
-          - @typescript, @types/node etc. (Other/extra : @ts-node)
 
 ## File-folder (project) structure : separation of concern
  - **CRUD-X (Root Folder)**
