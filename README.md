@@ -64,8 +64,27 @@ Extra (Just FYI) : monorepo, microservice/frontend, web & service [workers](http
     - Preq. - Git & Node (npm)
     - [Git-bash](https://stackoverflow.com/a/41199625) : NPM global pkgs **manual backup - npmGpkg** File (see CRUD-X Repo)
     - Ext. : Setting Sync on via Github A/C (update outdated npm global & local pkg manually | VScode ext. autoupdate)
-    - Font Download Link : [Cascadia Code](https://github.com/microsoft/cascadia-code) | [Fira Code](https://github.com/tonsky/FiraCode)
+  - **Theme Download Links:**
+    - Product Icon Theme - [Carbon](https://marketplace.visualstudio.com/items?itemName=antfu.icons-carbon)
+    - File Icon Theme - [Material](https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme)
+    - Color Theme (General)
+      - Ligature Fonts - [Cascadia Code](https://github.com/microsoft/cascadia-code) | [Fira Code](https://github.com/tonsky/FiraCode)
+        - Note : Fira code includes Fira Mono | Editor Font size is 16 & Terminal is 15
+        - Editor.FontFamily : 'Cascadia Code', 'Fira Code', Consolas, 'Courier New', monospace
+      - Shell Theme (Terminal)
+        - Nerd Fonts (Not Powerline Fonts)
+          - [Cascadia/Caskaydia NF](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/CascadiaCode)
+            - [Installation](https://github.com/microsoft/terminal/issues/12587#issuecomment-1054646238)
+            - Terminal Font Family : 'CaskaydiaCove NF', 'CaskaydiaCove NF Mono', 'Cascadia Code', 'Fira Code', Consolas
+        - Cross- Shell prompt - Starship (For bash & powershell only, not cmd) (Default configs)
+          - [Link 1](https://starship.rs/guide/#%F0%9F%9A%80-installation)
+          - [Link 2](https://stackoverflow.com/a/8997378)
+        - [Toggle Theme](https://marketplace.visualstudio.com/items?itemName=danielgjackson.auto-dark-mode-windows) -> `Ctrl+Alt+Shift+T`
+        - Settings.json	Workbench : Search "Preferred Color Theme"
+          - Dark : [One Dark Pro](https://marketplace.visualstudio.com/items?itemName=zhuangtongfa.Material-theme)
+          - Light : [Brackets Light Pro](https://marketplace.visualstudio.com/items?itemName=fehey.brackets-light-pro)
   - **Online Code Snippet/Sandbox :** carbon.now.sh, Codepen.io
+  - ![VS Code Setup](https://drive.google.com/uc?export=view&id=1xN0GcT-vgVM8kKnZZIdQDVghB-2VXX45)
 
 **Browser :** Mozilla | Chrome (Extension - React devtools, Redux devtools) (Sync Setting on - **PENDING**)
 
@@ -84,7 +103,8 @@ Extra (Just FYI) : monorepo, microservice/frontend, web & service [workers](http
   - Railway.app (Backend/webservice) | DB (MongoDB Atlas)
     - Commands : build (Default) & start (npm run prod)
 
-## Linter | Formatter etc. (VSCode Setup - MERN stack)
+## Linter | Formatter etc. (VSCode Setup - MERN stack) 
+NOTE : This Configuration/setups are for advanced level, skip this if u r beginner/intermediate, just install eslint & prettier vscode ext.
 NOTE : js/jsx & ts/tsx is not diff. it's just use to denote that js/ts is for normal & jsx/tsx is for component. But .cjs & .mjs are diff.
 NOTE : For browser default is CJS in html <script> tag, but if ur using MJS then u need to mention "type=module" in <script> tag. As we are using react here, we dont need to worry as react will build html for us.
 NOTE : Alternative Names CJS => Source Type - Script | MJS => Source Type - Module
