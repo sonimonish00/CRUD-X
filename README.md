@@ -64,6 +64,7 @@ Extra (Just FYI) : monorepo, microservice/frontend, web & service [workers](http
     - Preq. - Git & Node (npm)
     - [Git-bash](https://stackoverflow.com/a/41199625) : NPM global pkgs **manual backup - npmGpkg** File (see CRUD-X Repo)
     - Ext. : Setting Sync on via Github A/C (update outdated npm global & local pkg manually | VScode ext. autoupdate)
+    - Code Download Link : [Cascadia Code](https://github.com/microsoft/cascadia-code) | [Fira Code](https://github.com/tonsky/FiraCode)
   - **Online Code Snippet/Sandbox :** carbon.now.sh, Codepen.io
 
 **Browser :** Mozilla | Chrome (Extension - React devtools, Redux devtools) (Sync Setting on - **PENDING**)
