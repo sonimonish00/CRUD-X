@@ -1,6 +1,4 @@
-// CommonJS/AMD Module(CJS) - require & exports.foo(for single) OR module.exports(for multiple)
-// const mongoose = require("mongoose");
-// ES6 Module(ESM) - import & export default(for single) OR export(for multiple)
+// JS (ES6 Module sys.) : .js===.mjs => import/export
 import { mongoose, Schema } from "mongoose";
 import { MongoClient } from "mongodb";
 
