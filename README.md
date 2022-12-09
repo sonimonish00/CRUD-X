@@ -153,7 +153,7 @@ NOTE : Alternative Names CJS => Source Type - Script | MJS => Source Type - Modu
           - user : user-related components
           - componentFolderN : and so on....
         - Pages
-        - Config (To overwrite global configs - .eslintrc.js, .prettierrc, .editorconfig, webpack.config.js - CRA/webpack already has eslint so gen. we dont include it)
+        - Config (To overwrite global config - .eslintrc.js, .prettierrc, .editorconfig - CRA/webpack already has eslint so gen. we dont include it)
         - i18n
         - navigation : Router (Navigation) -> react-router-dom
         - redux : actions, reducers, store.js [Redux Toolkit -> Redux & Thunk Dev tools]
@@ -163,10 +163,10 @@ NOTE : Alternative Names CJS => Source Type - Script | MJS => Source Type - Modu
         - utils - Helper methods, validations etc. 
         - __tests__ : Jest Framework (Unit testing)
         - index.js ===> Main entry point for react
-      - node_modules
-      - .gitignore
-      - Package.json (frontend)
-      - README.MD
+      - node_modules (frontend)
+      - .gitignore (frontend)
+      - Package.json (frontend) - including package-lock.json
+      - README.MD (frontend)
    - **Server** [Separation based on functionality]
       - config (overwrite global configs : .eslintrc.js, .prettierrc, .editorconfig, webpack.config.js etc.)
       - controllers
@@ -180,15 +180,14 @@ NOTE : Alternative Names CJS => Source Type - Script | MJS => Source Type - Modu
       - server.js ===> Main entry point for nodejs server
       - node_modules (backend)
       - .gitignore (backend)
-      - Package.json (backend)
-      - Readme.MD (backend)
-      - node_modules
-      - .gitignore
-      - Package.json (backend)
-   - Package.json (root) - shared b/w both FE/BE
-   - License
-   - .gitignore
-   - Readme.MD
+      - Package.json (backend) - including package-lock.json
+      - README.MD (backend)
+   - node_modules (root)
+   - Package.json (root) : shared b/w both FE & BE - including package-lock.json
+   - License (root)
+   - npmGpkg (root)
+   - .gitignore (root)
+   - README.MD (root)
 
 ## Environment Variables
 
