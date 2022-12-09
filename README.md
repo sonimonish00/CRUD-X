@@ -77,6 +77,7 @@ Extra (Just FYI) : monorepo, microservice/frontend, web & service [workers](http
             - [Installation](https://github.com/microsoft/terminal/issues/12587#issuecomment-1054646238)
             - Terminal Font Family : 'CaskaydiaCove NF', 'CaskaydiaCove NF Mono', 'Cascadia Code', 'Fira Code', Consolas
         - Cross- Shell prompt - Starship (For bash & powershell only, not cmd) (Default configs)
+          - [Powershell 7](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.3)
           - [Link 1](https://starship.rs/guide/#%F0%9F%9A%80-installation)
           - [Link 2](https://stackoverflow.com/a/8997378)
         - [Toggle Theme](https://marketplace.visualstudio.com/items?itemName=danielgjackson.auto-dark-mode-windows) -> `Ctrl+Alt+Shift+T`
