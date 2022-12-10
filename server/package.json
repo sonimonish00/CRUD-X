@@ -16,12 +16,13 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "eslint": "^8.28.0",
+    "eslint": "^8.29.0",
     "nodemon": "^2.0.20"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "mongoose": "^6.7.4"
+    "mongoose": "^6.8.0"
   }
 }

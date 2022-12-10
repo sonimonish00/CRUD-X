@@ -1,30 +1,27 @@
-// JS (ES6 Module sys.) : .js===.mjs => import/export
-import { mongoose, Schema } from "mongoose";
-import { MongoClient } from "mongodb";
+// Separating of Concern : App vs Server (ES6 Module sys)
+// 1. Entry point - `Server.js` => HTTP server, DB Conn., N/W and file configs etc.
+// 2. App code - `App/index.js` => MVC (Tech. Role based) => Future : Comp. based
+// NOTE : naming convention in both MVC & comp. is like `user.routes.js` etc.
 
+import { app } from "./app/index.js";
 import dotenv from "dotenv";
-import { connectDB } from "./database/DBConn.js";
-import express from "express";
+// import { mongoose, Schema } from "mongoose";
+// import { connectDB } from "./database/db.config";
 
 dotenv.config({ path: "env/.env" });
 const port = process.env.PORT || 5000;
-const app = express();
 
-app.get("/", (req, res) => {
-  if (process.env.NODE_ENV === "production") {
-    res.send("Welcome to CRUD-X : Production Environment");
-  } else if (process.env.NODE_ENV === "development") {
-    res.send("Welcome to CRUD-X : Development Environment");
-  } else {
-    res.send("Welcome to CRUD-X : Environment Undefined");
+// Temporary testing express Prodn env -> Future : mongoose (mongodb atlas) conn.
+app.listen(port, () => {
+  try {
+    console.log(
+      `Backend : Node(express) server started listening on port : ${port}`
+    );
+  } catch (error) {
+    console.log(error);
   }
 });
 
-app.listen(port, () => {
-  console.log(
-    `Backend : Node(express) server started listening on port : ${port}`
-  );
-});
 // MongoDB Connection Pattern 1 : Using events & w/o callbacks (Recommended)
 // connectDB();
 // mongoose.connection

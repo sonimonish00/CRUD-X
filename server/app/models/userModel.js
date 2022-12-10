@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import { Schema, model } from "mongoose";
 
 // Models are defined through the Schema interface.
 // const Schema = mongoose.Schema;
@@ -22,7 +22,7 @@ const mongoose = require("mongoose");
 
 // const MyModel = mongoose.model('Ticket', mySchema); // Then MyModel will use the tickets collection,
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
   firstN: {
     type: String,
     required: true,
@@ -34,7 +34,7 @@ const userSchema = new mongoose.Schema({
 });
 
 // 'User' Table will be created in Ex1CRUD DB, which will be returned as object to mutate on.
-const User = mongoose.model("User", userSchema);
+const User = model("User", userSchema);
 
 let personStaticArr = [
   { firstN: "Monish", lastN: "Soni" },
@@ -49,4 +49,4 @@ User.collection.insertMany(personStaticArr,(err)=>{
   }
 })
 
-module.exports = User;
+export default User;
