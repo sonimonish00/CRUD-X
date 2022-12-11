@@ -167,7 +167,7 @@ NOTE : Alternative Names CJS => Source Type - Script | MJS => Source Type - Modu
       - .gitignore (frontend)
       - Package.json (frontend) - including package-lock.json
       - README.MD (frontend)
-   - **Server** [Separation based on functionality - MVC or Technical Role based => FUTURE PENDING : [Component based](https://github.com/goldbergyoni/nodebestpractices#-11-structure-your-solution-by-components)]
+   - **Server** [Separation based on functionality - [MVC](https://www.youtube.com/watch?v=bQuBlR0T5cc) or Technical Role based => FUTURE PENDING : [Component based](https://github.com/goldbergyoni/nodebestpractices#-11-structure-your-solution-by-components)]
       - app 
         - controllers -> user.controllers.js (route-handler callback fns.)
         - middlewares -> checkAuth.middleware.js (In between functions : logging, authentication etc.)
@@ -175,7 +175,8 @@ NOTE : Alternative Names CJS => Source Type - Script | MJS => Source Type - Modu
         - routes -> user.routes.js (RESTful API routes - CRUD)
         - tests -> Unit & integration test, api test/super test etc. 
         - util (folder)
-        - services (folder) - Email, passport, payment intergration etc. #3rd party
+        - services (folder) - 3rd party email, payment gateway etc. 
+          - NOTE : It cud also act as middleman b/w controller & database(model). ie. controller will call service which will manipulate DB & return data back to controller [Link 1](https://youtu.be/bQuBlR0T5cc?t=720), [Link 2](https://github.com/machadop1407/MVC-API-Example-Express-NodeJS)
         - index.js -> Application code (MVC part) 
       - [config](https://github.com/goldbergyoni/nodebestpractices#-15-use-environment-aware-secure-and-hierarchical-config) (overwrite global configs FUTURE PENDING : .eslintrc.js, .prettierrc, .editorconfig, webpack.config.js etc.)
         - db.config.js (For MongoDB Atlas connection - Could also contain N/W, File configs etc.)
