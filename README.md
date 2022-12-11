@@ -10,7 +10,7 @@ A basic CRUD web application using [X]ERN stack.
 
 ## Tech Stack (FE + BE/DB) : [X]ERN 
 
-**Architectural :** Agile | Monolith | MVC (Future PENDING - Component based & TDD)
+**Architectural :** Agile | Monolith | MVC (Future PENDING - [Component based](https://github.com/goldbergyoni/nodebestpractices#-11-structure-your-solution-by-components) & TDD)
 
 **Frontend - client | static-site | web-asset | ui:** Reactjs
 
