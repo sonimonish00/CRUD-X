@@ -13,8 +13,8 @@ app.get("/", (req, res) => {
 });
 
 // Usage - Dummy Route testing - call route w/o callback to controller
-// import { router as userRouter} from "./routes/user.routes.js";
+// import { userRoute} from "./routes/user.routes.js";
 // Middleware
-// app.use("/all", userRouter); => path will be like localhost/all/used & /all/notused
+// app.use("/all", userRoute); => path will be like localhost/all/used & /all/notused
 
 export { app };

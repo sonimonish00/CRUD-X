@@ -10,4 +10,4 @@ router.get("/used", (req, res) => {
 // import {user_controller} from "../controllers/user.controllers.js"
 // router.get("/notused", user_controller.customFn);
 
-export { router };
+export { router as userRoute };
