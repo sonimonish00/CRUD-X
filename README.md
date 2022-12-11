@@ -174,7 +174,8 @@ NOTE : Alternative Names CJS => Source Type - Script | MJS => Source Type - Modu
         - models (ORM/MongoDB) -> user.models.js
         - routes -> user.routes.js (RESTful API routes - CRUD)
         - tests -> Unit & integration test, api test/super test etc. 
-        - util
+        - util (folder)
+        - services (folder) - Email, passport, payment intergration etc. #3rd party
         - index.js -> Application code (MVC part) 
       - [config](https://github.com/goldbergyoni/nodebestpractices#-15-use-environment-aware-secure-and-hierarchical-config) (overwrite global configs FUTURE PENDING : .eslintrc.js, .prettierrc, .editorconfig, webpack.config.js etc.)
         - db.config.js (For MongoDB Atlas connection - Could also contain N/W, File configs etc.)
