@@ -1,4 +1,31 @@
-import { Schema, model } from "mongoose";
+let USER_FAKE_DATA = [
+  {
+    id: 1,
+    name: "User 1",
+    email: "email@email.com",
+    password: "password",
+    role: "admin",
+    status: "active",
+  },
+  {
+    id: 2,
+    name: "User 2",
+    email: "email@email.com",
+    password: "password",
+    role: "user",
+    status: "active",
+  },
+  {
+    id: 3,
+    name: "User 3",
+    email: "askdsjlshd@gmail.com",
+    password: "password",
+    role: "user",
+    status: "active",
+  },
+];
+export { USER_FAKE_DATA };
+// import { Schema, model } from "mongoose";
 
 // Models are defined through the Schema interface.
 // const Schema = mongoose.Schema;
@@ -22,31 +49,31 @@ import { Schema, model } from "mongoose";
 
 // const MyModel = mongoose.model('Ticket', mySchema); // Then MyModel will use the tickets collection,
 
-const userSchema = new Schema({
-  firstN: {
-    type: String,
-    required: true,
-  },
-  lastN: {
-    type: String,
-    required: true,
-  },
-});
+// const userSchema = new Schema({
+//   firstN: {
+//     type: String,
+//     required: true,
+//   },
+//   lastN: {
+//     type: String,
+//     required: true,
+//   },
+// });
 
 // 'User' Table will be created in Ex1CRUD DB, which will be returned as object to mutate on.
-const User = model("User", userSchema);
+// const User = model("User", userSchema);
 
-let personStaticArr = [
-  { firstN: "Monish", lastN: "Soni" },
-];
+// let personStaticArr = [
+//   { firstN: "Monish", lastN: "Soni" },
+// ];
 
-User.collection.insertMany(personStaticArr,(err)=>{
-  if(err){
-    console.log(err.message)
-  }
-  else{
-    console.log("10 Users Saved into Database !!!");
-  }
-})
+// User.collection.insertMany(personStaticArr,(err)=>{
+//   if(err){
+//     console.log(err.message)
+//   }
+//   else{
+//     console.log("10 Users Saved into Database !!!");
+//   }
+// })
 
-export default User;
+// export default User;
