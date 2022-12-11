@@ -172,7 +172,7 @@ NOTE : Alternative Names CJS => Source Type - Script | MJS => Source Type - Modu
         - controllers -> user.controllers.js (route-handler callback fns.)
         - middlewares -> checkAuth.middleware.js (In between functions : logging, authentication etc.)
         - models (ORM/MongoDB) -> user.models.js
-        - routes -> user.routes.js [RESTful API endpoints - CRUD](https://stackoverflow.com/questions/14554943/what-are-the-trade-offs-between-different-methods-of-constructing-api-urls-subd)
+        - routes -> user.routes.js [RESTful API endpoints - CRUD](https://stackoverflow.com/questions/14554943/what-are-the-trade-offs-between-different-methods-of-constructing-api-urls-subd) | [Link 1](https://ontola.io/blog/api-design/)
         - tests -> Unit & integration test, api test/super test etc. 
         - util (folder)
         - services (folder) - 3rd party email, payment gateway etc. 
