@@ -104,7 +104,7 @@ Extra (Just FYI) : monorepo, microservice/frontend, web & service [workers](http
   - Railway.app (Backend/webservice) | DB (MongoDB Atlas)
     - Commands : build (Default) & start (npm run prod)
 
-## Linter | Formatter etc. (VSCode Setup - MERN stack) 
+## Linter | Formatter etc. [Clean Code Style/Best Practises](https://github.com/goldbergyoni/nodebestpractices#3-code-style-practices)
 NOTE : This Configuration/setups are for advanced level, skip this if u r beginner/intermediate, just install eslint & prettier vscode ext.
 NOTE : js/jsx & ts/tsx is not diff. it's just use to denote that js/ts is for normal & jsx/tsx is for component. But .cjs & .mjs are diff.
 NOTE : For browser default is CJS in html <script> tag, but if ur using MJS then u need to mention "type=module" in <script> tag. As we are using react here, we dont need to worry as react will build html for us.
@@ -143,7 +143,7 @@ NOTE : Alternative Names CJS => Source Type - Script | MJS => Source Type - Modu
 
 ## File-folder (project) structure : separation of concern
  - **CRUD-X (Root Folder)**
-   - **Client** [Feature/funct./comp. driven] (Other - group by file type, pages with global folder/colocation of related comp. etc.)
+   - **Client** [Feature/funct./comp. based] (Other - MVC, group by file type, pages with global folder/colocation of related comp. etc.)
       - public
       - src
         - Assets : images, static file etc. 
@@ -167,20 +167,22 @@ NOTE : Alternative Names CJS => Source Type - Script | MJS => Source Type - Modu
       - .gitignore (frontend)
       - Package.json (frontend) - including package-lock.json
       - README.MD (frontend)
-   - **Server** [Separation based on functionality]
-      - config (overwrite global configs : .eslintrc.js, .prettierrc, .editorconfig, webpack.config.js etc.)
-      - controllers
-      - database
-      - env
-      - middlewares
-      - models (ORM)
-      - routes
-      - tests
-      - util
-      - server.js ===> Main entry point for nodejs server
+   - **Server** [Separation based on functionality - MVC or Technical Role based => FUTURE PENDING : [Component based](https://github.com/goldbergyoni/nodebestpractices#-11-structure-your-solution-by-components)]
+      - app 
+        - controllers -> user.controllers.js (route-handler callback fns.)
+        - middlewares -> checkAuth.middleware.js (In between functions : logging, authentication etc.)
+        - models (ORM/MongoDB) -> user.models.js
+        - routes -> user.routes.js (RESTful API routes - CRUD)
+        - tests -> Unit & integration test, api test/super test etc. 
+        - util
+        - index.js -> Application code (MVC part) 
+      - [config](https://github.com/goldbergyoni/nodebestpractices#-15-use-environment-aware-secure-and-hierarchical-config) (overwrite global configs FUTURE PENDING : .eslintrc.js, .prettierrc, .editorconfig, webpack.config.js etc.)
+        - db.config.js (For MongoDB Atlas connection - Could also contain N/W, File configs etc.)
+      - env -> .env, .env.development etc.
+      - server.js ===> Main entry point for nodejs server - contains http server, mongoose/mongodb conn, n/w, file calls etc. 
       - node_modules (backend)
       - .gitignore (backend)
-      - Package.json (backend) - including package-lock.json
+      - Package.json (backend) - including package-lock.json, scripts (dev/prod)
       - README.MD (backend)
    - node_modules (root)
    - Package.json (root) : shared b/w both FE & BE - including package-lock.json
