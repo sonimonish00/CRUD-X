@@ -6,7 +6,7 @@
 import { app } from "./app/index.js";
 import dotenv from "dotenv";
 // import { mongoose, Schema } from "mongoose";
-// import { connectDB } from "./database/db.config";
+// import { connectDB } from "./config/db.config.js";
 
 dotenv.config({ path: "env/.env" });
 const port = process.env.PORT || 5000;
