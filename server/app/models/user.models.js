@@ -1,79 +1,34 @@
-let USER_FAKE_DATA = [
-  {
-    id: 1,
-    name: "User 1",
-    email: "email@email.com",
-    password: "password",
-    role: "admin",
-    status: "active",
+// DB Name (MongoDB Atlas) : CRUDX
+// Model (Table/Collection) : `User`
+
+import { Schema, model } from "mongoose";
+const userSchema = new Schema({
+  firstName: {
+    type: String,
   },
-  {
-    id: 2,
-    name: "User 2",
-    email: "email@email.com",
-    password: "password",
-    role: "user",
-    status: "active",
+  lastName: {
+    type: String,
   },
-  {
-    id: 3,
-    name: "User 3",
-    email: "askdsjlshd@gmail.com",
-    password: "password",
-    role: "user",
-    status: "active",
-  },
-];
-export { USER_FAKE_DATA };
-// import { Schema, model } from "mongoose";
+});
+const UserModel = model("Users", userSchema);
+export { UserModel };
 
-// Models are defined through the Schema interface.
-// const Schema = mongoose.Schema;
-// const ObjectId = Schema.ObjectId;
-// const MyModel = mongoose.model('ModelName', mySchema);
-
-// const BlogPost = new Schema({
-//   author: ObjectId,
-//   title: String,
-//   body: String,
-//   date: Date
-// });
-
-// const Comment = new Schema({
-//     name: { type: String, default: 'hahaha' },
-//     age: { type: Number, min: 18, index: true },
-//     bio: { type: String, match: /[a-z]/ },
-//     date: { type: Date, default: Date.now },
-//     buff: Buffer
-//   });
-
-// const MyModel = mongoose.model('Ticket', mySchema); // Then MyModel will use the tickets collection,
-
-// const userSchema = new Schema({
-//   firstN: {
-//     type: String,
-//     required: true,
+// let USER_FAKE_DATA = [
+//   {
+//     id: 1,
+//     name: "User 1",
+//     email: "email@email.com",
+//     password: "password",
+//     role: "admin",
+//     status: "active",
 //   },
-//   lastN: {
-//     type: String,
-//     required: true,
+//   {
+//     id: 2,
+//     name: "User 2",
+//     email: "email@email.com",
+//     password: "password",
+//     role: "user",
+//     status: "active",
 //   },
-// });
-
-// 'User' Table will be created in Ex1CRUD DB, which will be returned as object to mutate on.
-// const User = model("User", userSchema);
-
-// let personStaticArr = [
-//   { firstN: "Monish", lastN: "Soni" },
 // ];
-
-// User.collection.insertMany(personStaticArr,(err)=>{
-//   if(err){
-//     console.log(err.message)
-//   }
-//   else{
-//     console.log("10 Users Saved into Database !!!");
-//   }
-// })
-
-// export default User;
+// export { USER_FAKE_DATA };

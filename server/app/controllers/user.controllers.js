@@ -1,8 +1,12 @@
 import { queryListOfUsers } from "../services/user.services.js";
 
 const getAllUsers = (req, res) => {
-  const userList = queryListOfUsers();
-  return res.status(200).json(userList);
+  try {
+    const userList = queryListOfUsers();
+    return res.status(200).json(userList);
+  } catch (error) {
+    return res.status(400).send(error);
+  }
 };
 
 export { getAllUsers };
