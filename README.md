@@ -193,6 +193,12 @@ NOTE : Alternative Names CJS => Source Type - Script | MJS => Source Type - Modu
    - .gitignore (root)
    - README.MD (root)
 
+## Fullstack Flow | REST | CRUD | HTTP
+  - [Google Docs Link](https://docs.google.com/document/d/1L_Rc8JEn-YYX5Oq_dEa7iTkBQY_ycjH6OaPm7GV4O4I/edit?usp=share_link)
+  - ![Fullstack Flow Diagram](https://drive.google.com/uc?export=view&id=1yAM2pzILbeG_eDM3o2B11TDfJY5iymaT)
+  - ![SQL vs NoSQL](https://drive.google.com/uc?export=view&id=1HjkSrD-G9Y1gZAYdpVKO3T9QYYVX4wyv)
+  - ![REST CRUD HTTP DB](https://drive.google.com/uc?export=view&id=12FQpg3XgNIlLZmvSPAHKw65x_36S7mTv)
+
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file
