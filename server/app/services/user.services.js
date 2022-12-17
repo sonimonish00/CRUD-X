@@ -1,7 +1,10 @@
-import { USER_FAKE_DATA } from "../models/user.models.js";
-
+import { UserModel } from "../models/user.models.js";
 const queryListOfUsers = () => {
-  return USER_FAKE_DATA;
+  const user = new UserModel({
+    firstName: "Monish Soni ",
+    marks: 200,
+  });
+  return user.firstName + user.marks;
 };
 
 export { queryListOfUsers };

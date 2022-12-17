@@ -5,6 +5,7 @@ const getAllUsers = (req, res) => {
     const userList = queryListOfUsers();
     return res.status(200).json(userList);
   } catch (error) {
+    console.log(error);
     return res.status(400).send(error);
   }
 };

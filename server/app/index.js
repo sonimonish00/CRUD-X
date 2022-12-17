@@ -10,19 +10,8 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("Welcome to homepage (Dashboard)");
 });
+
 // Routes -> REST API Endpoints (CRUD) : User Role
 app.use("/", userRoutes); // http://localhost:2000/users
 
 export { app };
-
-// Extra ==> Testing for dev/prod env
-/* app.get("/", (req, res) => {
-  if (process.env.NODE_ENV === "production") {
-    res.send("Welcome to CRUD-X : Production Environment");
-  } else if (process.env.NODE_ENV === "development") {
-    res.send("Welcome to CRUD-X : Development Environment");
-  } else {
-    res.send("Welcome to CRUD-X : Environment Undefined");
-  }
-});
-*/

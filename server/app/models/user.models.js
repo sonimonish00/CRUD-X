@@ -1,13 +1,15 @@
 // DB Name (MongoDB Atlas) : CRUDX
-// Model (Table/Collection) : `User`
+// Model (Table/Collection) : `Users`
 
 import { Schema, model } from "mongoose";
 const userSchema = new Schema({
   firstName: {
     type: String,
+    default: "Monish",
   },
-  lastName: {
-    type: String,
+  marks: {
+    type: Number,
+    default: 100,
   },
 });
 const UserModel = model("Users", userSchema);

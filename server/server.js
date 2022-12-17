@@ -5,33 +5,33 @@
 
 import { app } from "./app/index.js";
 import dotenv from "dotenv";
-// import { mongoose, Schema } from "mongoose";
-// import { connectDB } from "./config/db.config.js";
-
 dotenv.config({ path: "env/.env" });
+import { mongoose } from "mongoose";
+import { connectDB } from "./config/db.config.js";
+
 const port = process.env.PORT || 5000;
 
-// Temporary testing express Prodn env -> Future : mongoose (mongodb atlas) conn.
-app.listen(port, () => {
-  try {
-    console.log(
-      `Backend : Node(express) server started listening on port : ${port}`
-    );
-  } catch (error) {
-    console.log(error);
-  }
-});
-
 // MongoDB Connection Pattern 1 : Using events & w/o callbacks (Recommended)
-// connectDB();
-// mongoose.connection
-//   .on('connected',()=> console.log('Connected to MongoDB'))
-//   .on('error',(error)=> console.log('MongoDB Error : ',error))
-//   .on('disconnected',()=> console.log('Disconnected from MongoDB'))
-//   .once('open', () => {
-//     app.listen(port, () => {console.log(`Backend : Node(express) server started listening on port : ${port}`)})
-//   })
-// process.on('SIGINT', async()=>{await mongoose.connection.close(); process.exit(0)})
+connectDB();
+mongoose.connection
+  .on("connected", () => console.log("Connected to MongoDB"))
+  .on("error", (error) => console.log("MongoDB Error : ", error))
+  .on("disconnected", () => console.log("Disconnected from MongoDB"))
+  .once("open", () => {
+    app.listen(port, () => {
+      try {
+        console.log(
+          `Backend : Node(express) server started listening on port : ${port}`
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    });
+  });
+process.on("SIGINT", async () => {
+  await mongoose.connection.close();
+  process.exit(0);
+});
 
 // MongoDB Connection Pattern 2 : Using callbacks & w/o events.
 // connectDB(()=>{
