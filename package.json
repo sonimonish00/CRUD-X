@@ -22,5 +22,8 @@
   "homepage": "https://github.com/sonimonish00/CRUD-X#readme",
   "devDependencies": {
     "concurrently": "^7.6.0"
+  },
+  "dependencies": {
+    "path": "^0.12.7"
   }
 }
