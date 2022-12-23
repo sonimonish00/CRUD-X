@@ -29,13 +29,21 @@ const createNewUser = async (req, res) => {
   }
 };
 
+// https://stackoverflow.com/questions/9660587/do-something-if-nothing-found-with-find-mongoose
 const queryListOfUsers = async (req, res) => {
   try {
     // Creating document/row (instance of `User` model)
-    const user = await User.find({});
-    return user;
-  } catch (err) {
-    console.error("Error : ", err.message);
+    // retrieve the list of users from the database. Alt -> User.find({})
+    const users = await User.find();
+
+    // If object is empty ie. if no users were found, return `null`
+    if (!users || !users.length) return null;
+
+    // else if there is at least one rec ie. all good to go
+    return users;
+  } catch (error) {
+    // if there was an error, throw it to be caught by the controller function
+    throw error;
   }
 };
 // const queryUserByID = (userID) =>{... read logic}

@@ -8,7 +8,7 @@ const connectDB = async () => {
     const mongoDB_URL = process.env.MONGODB_ATLAS_URL || undefined;
     const dbOptions = { useNewUrlParser: true, useUnifiedTopology: true };
     mongoose.set("strictQuery", false);
-    await mongoose.connect(mongoDB_URL, dbOptions);
+    mongoose.connect(mongoDB_URL, dbOptions); //No need of `await`, mongoose handles conn. buffering internally.
   } catch (error) {
     console.error("Couldn't connect to MongoDB => ", error);
     process.exit(1);
