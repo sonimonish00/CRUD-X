@@ -6,6 +6,7 @@
 
 // Import members (ES6) : fn. -> `model` | Class (CF) -> `Schema`
 import { model, mongoose, Schema } from "mongoose";
+import { Joi } from "@hapi/joi";
 
 // Pluralizing so that colllection names don't get modified
 mongoose.pluralize(null);
@@ -41,7 +42,21 @@ UserSchema.virtual("fullname").get(function () {
   return fullname;
 });
 
+// Create a @hapi/joi validation schema for the user
+const userValidationSchema = Joi.object({
+  first_name: Joi.string(),
+  last_name: Joi.string(),
+  email_id: Joi.string().email(),
+  password: Joi.string(),
+  mobile: Joi.number(),
+  location: Joi.string(),
+  date_of_birth: Joi.date(),
+  role: Joi.string()
+    .valid(["Admin", "Manager", "Salesperson", "Customer"])
+    .default("Customer"),
+});
+
 // Compile model from Schema
 const User = model("User", UserSchema);
 // Export member (ES6) : CF -> `User`
-export { User };
+export { User, userValidationSchema };

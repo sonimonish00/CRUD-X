@@ -19,6 +19,5 @@ app.get("/", (req, res) => {
 // Naming convention : user small/plural nouns (not verbs)
 // API Versioning : https://github.com/RootSoft/API-Naming-Convention#versioning
 app.use("/users", userRoutes); // http://localhost:2000/users
-// https://scoutapm.com/blog/express-error-handling
-// https://simonplend.com/how-to-create-an-error-handler-for-your-express-api/
+
 export { app };

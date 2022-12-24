@@ -28,9 +28,24 @@ mongoose.connection
       }
     });
   });
+
+// Add an event listener for the 'SIGINT' event
 process.on("SIGINT", async () => {
+  // Close the MongoDB connection
   await mongoose.connection.close();
+  // Exit the process with a zero exit code
   process.exit(0);
+});
+
+// Use the process.on('unhandledRejection') event listener to handle unhandled promise rejections
+process.on("unhandledRejection", (reason, promise) => {
+  console.error(reason); // log the error
+});
+
+// Use the process.on('uncaughtException') event listener to handle uncaught exceptions
+process.on("uncaughtException", (error) => {
+  console.error(error); // log the error
+  process.exit(1); // exit the process with a non-zero exit code
 });
 
 // MongoDB Connection Pattern 2 : Using callbacks & w/o events.
