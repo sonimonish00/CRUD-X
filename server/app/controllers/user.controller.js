@@ -1,3 +1,11 @@
+/**
+ * @author Monish Soni
+ * @copyright Monish
+ * @summary `User` controller module for CRUD Ops
+ * @version 1.0.0
+ * @todo: CRUD tasks
+ */
+
 import { createNewUser, queryListOfUsers } from "../services/user.service.js";
 
 // CREATE (POST) : Creates a new user.
@@ -11,51 +19,44 @@ const addUser = async (req, res) => {
 };
 
 /**
- * READ (GET) : Get all users list.
+ * READ (GET) - Fetch all users list.
  *
- * @function fetchUserList
- * @param {Object} req - The incoming HTTP request object
- * @param {Object} res - The outgoing HTTP response object
- * @returns {Object} - The HTTP response object with the list of users or an error message
- * @description - `fetchUserList` (controller fn) calls `queryListOfUsers` (model/service fn) to retrieve a list of users from the DB & send it as HTTP response (JSON format)
- * @access Public
+ * @async
+ * @function getAllUsers
+ * @see queryListOfUsers
+ * @param {Object} req - The incoming HTTP request object.
+ * @param {Object} res - The outgoing HTTP response object.
+ * @returns {Object} - HTTP response object with users list or error message.
+ * @description Retrieves & return all users from DB.
  */
-const fetchUserList = async (req, res) => {
+const getAllUsers = async (req, res) => {
   try {
-    // calls `model/service fn` to retrieve list of users from DB
-    const users = await queryListOfUsers(req, res);
-    // if users aren't found, send client error `404 Resource not found` in response
-    // This allows the client to understand that the request was successful, but that no matching data was found in the database.
-    if (users === null || !users) {
-      return res.status(404).json({ error: "Empty DB => No users found!!" });
-    }
-    // send the list of users as the response (JSON) => ie. All good
+    // Retrieve all users by calling `model/service fn`
+    const users = await queryListOfUsers();
+
+    // Data Validation (EC) : req. success, but empty resource
+    if (!users?.length)
+      return res.status(404).json({ error: "No users found!!" });
+
+    // Success (200) : send all users list
     return res.status(200).json(users);
   } catch (error) {
-    // if there was DB conn error, send `500 internal server` err response with msg
-    if (error.name === "MongoError" || error.name === "DBError") {
-      return res.status(500).json({ error: error.message || error.toString() });
-    }
-    // if there was different error, send `400 bad request` response with error msg.
-    return res.status(400).json({ error: error.message || error.toString() });
+    // If any error, handle it through central fn.
+    return handleError(error, res);
   }
 };
 
-// Alternative Way of GET : using .then() & .catch()
-// const fetchUserList1 = (req, res) =>
-//   queryListOfUsers(req, res)
-//     .then((users) => res.status(200).json(users))
-//     .catch((error) => res.status(400).send(error));
+// Error Handling (400 & 500)
+const handleError = (error, res) => {
+  // Error check (EC) -> NW/DB (500)
+  if (error.name === "MongoError") {
+    return res.status(500).json({ error: error.message });
+  }
+  // EC (All Others) -> (400)
+  return res.status(400).json({ error: error.message });
+};
 
-// Alternative Way of GET : using .catch() only
-// const fetchUserList2 = async (req, res) => {
-//   const users = await queryListOfUsers().catch((error) => {
-//     return res.status(400).send(error);
-//   });
-//   return res.status(200).json(users);
-// };
-
-export { addUser, fetchUserList };
+export { addUser, getAllUsers };
 
 // const getUser = async (req, res) => {
 //   const userID = req.params.id;
@@ -76,16 +77,7 @@ export { addUser, fetchUserList };
 //   }
 // };
 // OR
-/**
- * @function fetchUser
- * @param {Object} req - The incoming HTTP request object
- * @param {Object} res - The outgoing HTTP response object
- * @returns {Object} - The HTTP response object with a user or an error message
- *
- * @description A function to retrieve a user from the database and send it as the HTTP response (JSON)
- * @access Public
- */
-// const fetchUser = async (req, res) => {
+// const getUser = async (req, res) => {
 //   try {
 //     // retrieve the user from the database using the user ID from the request
 //     const user = await User.findById(req.params.id);

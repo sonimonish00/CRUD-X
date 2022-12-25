@@ -4,7 +4,7 @@ A basic CRUD web application using [X]ERN stack.
 
 **NOTE** : Due to Time-Constraint, currently i'm only implementing MERN Stack - CRUD App for User Model only (MongoDB Atlas/Mongoose) with AuthN/AuthR to login/signup in `Production` Env. only. Will try to refactor this user model code into as much as production grade (industry standard) level after implementing basics.
 
-**Future TODO ** :In future will expand it into functional ecommerce app having multi-db,env,auth, react/angular etc. 2 models pending - product [PID, brand, category, Qty,price] & order[OID,PID,UID,TotalAmount,OrderDate].
+**Future TODO** :In future will expand it into functional ecommerce app having multi-db,env,auth, react/angular etc. 2 models pending - product [PID, brand, category, Qty,price] & order[OID,PID,UID,TotalAmount,OrderDate].
 
 ## Badges
 

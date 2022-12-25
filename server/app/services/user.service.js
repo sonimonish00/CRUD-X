@@ -1,7 +1,8 @@
 // NOTE : Service === Helper => Benefit of creating controller -> service -> DB is that CRUD fn. logic cud be reused anywhere in the application.eg. getUserByID cud just call this Fn. from user.service.js. Kind of HELPER method. Helper is for General Methods like calculateDate.js etc. and Service is for DB Specific methods like getUSerByID, updateUserbyID etc.
 // NOTE : Only downside is for Mult-DB Arch. separate service files needed to be created.
 
-import { User, userValidationSchema } from "../models/user.model.js";
+// import { User, userValidationSchema } from "../models/user.model.js";
+import { User } from "../models/user.model.js";
 
 const createNewUser = async (req, res) => {
   try {
@@ -29,31 +30,24 @@ const createNewUser = async (req, res) => {
   }
 };
 
-// https://stackoverflow.com/questions/9660587/do-something-if-nothing-found-with-find-mongoose
-const queryListOfUsers = async (req, res) => {
+/**
+ * Queries database for list of users.
+ *
+ * @async
+ * @function queryListOfUsers
+ * @alias queryListOfUsers
+ * @returns {Promise<Array>} Promise that resolves to an array of users.
+ * @throws {Error} If any error while querying the database.
+ */
+const queryListOfUsers = async () => {
   try {
-    // Validate the request body using the userValidationSchema
-    // const result = userValidationSchema.validate(req.body);
-
-    // If the validation fails, return a 400 Bad Request response
-    // if (result.error) {
-    //   return res.status(400).send(result.error.details[0].message);
-    // }
-
-    // Creating document/row (instance of `User` model)
-    // retrieve the list of users from the database. Alt -> User.find({})
-    const users = await User.find();
-
-    // If object is empty ie. if no users were found, return `null`
-    if (!users || !users.length) return null;
-
-    // else if there is at least one rec ie. all good to go
-    return users;
+    return await User.find({});
   } catch (error) {
-    // if there was an error, throw it to be caught by the controller function
+    // Error thrown to be handled by calling fn. (controller)
     throw error;
   }
 };
+
 // const queryUserByID = (userID) =>{... read logic}
 // const updateUserByID = (userID) =>{... update logic}
 // const deleteUserByID = (userID) =>{... del logic}
