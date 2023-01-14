@@ -24,6 +24,7 @@
     "concurrently": "^7.6.0"
   },
   "dependencies": {
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "pm2": "^5.2.2"
   }
 }

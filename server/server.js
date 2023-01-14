@@ -37,16 +37,45 @@ process.on("SIGINT", async () => {
   process.exit(0);
 });
 
-// Use the process.on('unhandledRejection') event listener to handle unhandled promise rejections
+// Programmer Err. (Handler : EventEmitter) : globally handles `promise rejections`
 process.on("unhandledRejection", (reason, promise) => {
-  console.error(reason); // log the error
+  // https://www.honeybadger.io/blog/errors-nodejs/
+  // Honeybadger.notify({
+  //   message: "Unhandled promise rejection",
+  //   params: {
+  //     promise,
+  //     reason,
+  //   },
+  // });
+  console.error(reason);
+  process.exit(1);
+
+  // setTimeout(() => { // If graceful shutdown is not achieved after 1 sec, shutdown process completely
+  //   process.abort(); // exit immediately and generate a core dump file
+  // }, 1000).unref()
 });
 
-// Use the process.on('uncaughtException') event listener to handle uncaught exceptions
+// Programmer Err. (Handler : EventEmitter) : globally handles `uncaught exceptions`
 process.on("uncaughtException", (error) => {
-  console.error(error); // log the error
-  process.exit(1); // exit the process with a non-zero exit code
+  // Honeybadger.notify(error); // log the error in a permanent storage
+
+  console.error(error);
+  if (!isOperationalErr(error)) {
+    process.exit(1); // exit the process with a non-zero exit code - graceful shutdown
+  }
+
+  // setTimeout(() => { // If graceful shutdown is not achieved after 1 sec, shutdown process completely
+  //   process.abort(); // exit immediately and generate a core dump file
+  // }, 1000).unref()
 });
+
+// Helper Function - If error is not operational i.e programmer err then exit gracefully
+function isOperationalErr(error) {
+  if (error instanceof BaseError) {
+    return error.isOperational;
+  }
+  return false;
+}
 
 // MongoDB Connection Pattern 2 : Using callbacks & w/o events.
 // connectDB(()=>{
