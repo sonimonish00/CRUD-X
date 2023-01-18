@@ -34,55 +34,40 @@ const addUser = async (req, res) => {
  * @access public
  */
 const getAllUsers = async (req, res, next) => {
-  // async always returns a promise so either use .then()/.catch() OR await to resolve promise
-  // ALT : to avoid try/catch u cud make ur own catchAsync() wrapper fn. in separate file in `utils`
-  // ALT : to avoid try/catch u cud use -> https://www.npmjs.com/package/@awaitjs/express
-  // ALT : to avoid try/catch u cud use -> https://www.npmjs.com/package/express-async-handler
-  // ALT : Easiest way to avoid try/cath -> https://www.npmjs.com/package/express-async-errors
-  // ALT (HTTP Status Code) : U cud use -> https://www.npmjs.com/package/http-errors
-  // Eg. const createError = require('http-errors'); => u cud pass to middleware via next(createError(400)) also.
-  // app.put( "/testing", asyncHandler(async (req, res) => {
-  //     const { email } = req.body; const user = await User.findOne({ email });
-  //     if (!user) throw createError(400, `User '${email}' not found`);
-  //   }));
+  // [TODO] : Instead of try/catch make a wrapper fn in `utils/tryCatchAsync.helper.js` & import and use it.
   try {
     const users = await queryListOfUsers(); // Retrieve all users by calling `model/service fn`
 
     // Operational Err. (Client) : URL Validation (Broken/Dead link) -> successful req., but empty resource
-    // TODO : Will do next(throw new API404Error) here
+    // [TODO] : handle centrally in express middleware -> return next(new API404Error("No users found!!")) => using `throw` we throw custom errors which will be catched by `catch` block as custom error object i.e we check (if condition) for ops error and throw custom error
     if (isArrayEmpty(users))
       return res.status(404).json({ error: "No users found!!" });
 
-    // ONLY THIS BELOW LOC will be intact
-    return res.status(200).json(users); // Success (200) : send all users list
+    // Success (200) : send all users list
+    return res.status(200).json(users);
   } catch (error) {
+    // ALL BELOW CODE SHOULD BE DELGATED TO error handler MIddleware via next(err) do the if-check there not here
+    // ******************************************************************************************************
     // Operational Error : 400 (Client bad req.) & 500 (Default internal server)
-    // 400 : A status code of 400 indicates that the server did not understand the request due to bad syntax. server cannot or will not process the request due to something that is perceived to be a client error (for example, malformed request syntax, invalid request message framing, or deceptive request routing).
-    // 400 Data Validtn. -> Insufficient/Invalid/Missing data input or Bad Syntax or incorrect Method (GET/POST)
-    // Eg. - [{blah:"Roman"}] where blah field doesnt exist
-    // Eg. - [{reqRes:"Roman"}] where reqRes field exists but "Roman" is invalid value for this field
-    // Eg. - Invalid password, Insufficient input (eg when either username or pswd is missing)
-    // A 500 status code (which developers see more often that they want) indicates that the server encountered something it didn't expect and was unable to complete the request.
-
-    // Demo code - After importing from customErrors.js
+    // Demo code - After importing from customErrors.js => return next(new customErrors)
     if (error instanceof SyntaxError) {
       console.log("Invalid data: " + error.message); // Invalid data: No field: name - 400
     } else if (error instanceof Api404Error) {
       console.log("==> Custom Error Successfully working");
       console.log("API 404 Error: " + error.message);
       console.log("API 404 Error: " + error.source);
-      // u can pass to middleware via next(error) but its of no use instead give response like something below
       res.status(error.statusCode).json({
         status: error.statusCode,
         message: error.message,
         stack: error.stack,
       });
+      // RECOMMENDED (re-throw it to errorMiddleware) : next(new Api404Error("404 Err - Res. Not found"));
     } else {
       next(error); // All rest unknown errors shall be passed to middleware to log res(500) there
-      // BETTER TO USE return next(error);
+      // BETTER TO USE (RECOMMENDED) : return next(error);
+      // FYI : u could pass next() just as it is without error obj as arg. to handle default in middleware
     }
-
-    // return res.status(500).json({ error: error.message });
+    // ******************************************************************************************************
   }
 };
 

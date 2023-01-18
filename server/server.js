@@ -2,12 +2,15 @@
 // 1. Entry point - `Server.js` => HTTP server, DB Conn., N/W and file configs etc.
 // 2. App code - `App/index.js` => MVC (Tech. Role based) => Future : Comp. based
 // NOTE : naming convention in both MVC & comp. is like `user.routes.js` etc.
+// [TODO] : Refactor like https://github.com/hagopj13/node-express-boilerplate
+// [TODO] : Also see this https://github.com/hagopj13/node-express-boilerplate/blob/master/src/index.js
 
 import { app } from "./app/index.js";
 import dotenv from "dotenv";
 dotenv.config({ path: "env/.env" });
 import { mongoose } from "mongoose";
 import { connectDB } from "./config/db.config.js";
+import { ErrorHandler1 } from "./app/middlewares/erroHandler.middleware.js";
 
 const port = process.env.PORT || 5000;
 
@@ -37,45 +40,8 @@ process.on("SIGINT", async () => {
   process.exit(0);
 });
 
-// Programmer Err. (Handler : EventEmitter) : globally handles `promise rejections`
-process.on("unhandledRejection", (reason, promise) => {
-  // https://www.honeybadger.io/blog/errors-nodejs/
-  // Honeybadger.notify({
-  //   message: "Unhandled promise rejection",
-  //   params: {
-  //     promise,
-  //     reason,
-  //   },
-  // });
-  console.error(reason);
-  process.exit(1);
-
-  // setTimeout(() => { // If graceful shutdown is not achieved after 1 sec, shutdown process completely
-  //   process.abort(); // exit immediately and generate a core dump file
-  // }, 1000).unref()
-});
-
-// Programmer Err. (Handler : EventEmitter) : globally handles `uncaught exceptions`
-process.on("uncaughtException", (error) => {
-  // Honeybadger.notify(error); // log the error in a permanent storage
-
-  console.error(error);
-  if (!isOperationalErr(error)) {
-    process.exit(1); // exit the process with a non-zero exit code - graceful shutdown
-  }
-
-  // setTimeout(() => { // If graceful shutdown is not achieved after 1 sec, shutdown process completely
-  //   process.abort(); // exit immediately and generate a core dump file
-  // }, 1000).unref()
-});
-
-// Helper Function - If error is not operational i.e programmer err then exit gracefully
-function isOperationalErr(error) {
-  if (error instanceof BaseError) {
-    return error.isOperational;
-  }
-  return false;
-}
+// Handling unhandledRejction & unCaughtException (Programmer Error)
+ErrorHandler1.initializeUnhandledException();
 
 // MongoDB Connection Pattern 2 : Using callbacks & w/o events.
 // connectDB(()=>{

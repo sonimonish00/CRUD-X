@@ -62,3 +62,8 @@ const User = model("User", UserSchema);
 // Export member (ES6) : CF -> `User`
 // export { User, userValidationSchema };
 export { User };
+
+/*
+  Ref. Links : For internal/custom/3rd party Validation & Mongoose other things
+    - https://medium.com/@SigniorGratiano/mongoose-and-express-68994fcfdeff
+*/

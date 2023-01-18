@@ -17,6 +17,7 @@ const httpStatusCodes = {
   INTERNAL_SERVER: 500,
 };
 
+// REFER THIS : https://gist.github.com/kluu1/e2a37b40c59d255456327a4e8ec33738#file-errors-js
 class BaseError extends Error {
   // constructor -> special method for creating and initializing an object created from a class.
   constructor(message, statusCode, isOperational) {
@@ -35,6 +36,19 @@ class BaseError extends Error {
   }
 }
 
+// 400 Bad Request Error
+class BadRequest400Error extends BaseError {
+  constructor(
+    message = "Bad request : invalid url, malformed request syntax, invalid request message framing",
+    statusCode = httpStatusCodes.BAD_REQUEST,
+    isOperational = true
+  ) {
+    super(message, statusCode, isOperational);
+  }
+}
+
+// 404 Not Found Error
+// Also refer - https://github.com/hagopj13/node-express-boilerplate/blob/master/src/utils/ApiError.js
 class Api404Error extends BaseError {
   constructor(
     message = "Default Dali huyi Error",
@@ -44,8 +58,41 @@ class Api404Error extends BaseError {
     super(message, statusCode, isOperational);
   }
 }
-export { Api404Error };
+
+// PENDING - 403ForbiddenError, 500InternalServerError
+export { BaseError, BadRequest400Error, Api404Error };
+
 // sematext.com code ENDS ================
+
+/* MOHAMAD FAISAL CODE
+https://javascript.plainenglish.io/error-handling-in-node-js-like-a-pro-ed210baa0600
+https://github.com/Mohammad-Faisal/nodejs-expressjs-error-handling
+https://github.com/Mohammad-Faisal/professional-express-sequelize-docker-boilerplate
+https://github.com/tlaanemaa/http-error-classes
+
+import { StatusCodes } from 'http-status-codes'; //NPM Package
+
+export class ApiError extends Error {
+    constructor(statusCode, message, rawErrors) {
+        super(message);
+        this.rawErrors = [];
+        this.statusCode = statusCode;
+        if (rawErrors)
+            this.rawErrors = rawErrors;
+        Error.captureStackTrace(this, this.constructor);
+    }
+}
+export class NotFoundError extends ApiError {
+    constructor(path) {
+        super(StatusCodes.NOT_FOUND, `The requested path ${path} not found!`);
+    }
+}
+export class BadRequestError extends ApiError {
+    constructor(message, errors) {
+        super(StatusCodes.BAD_REQUEST, message, errors);
+    }
+}
+*/
 
 /*
 // javascript.info code STARTS ================
