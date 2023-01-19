@@ -7,8 +7,9 @@
  */
 
 import { createNewUser, queryListOfUsers } from "../services/user.service.js";
-import { Api404Error } from "../util/errors/customErrors.js";
+import { Api404Error } from "../utils/customErrors.js";
 
+// [TODO] : Refactor https://github.com/hagopj13/node-express-boilerplate/blob/master/src/controllers/user.controller.js
 // CREATE (POST) : Creates a new user.
 const addUser = async (req, res) => {
   try {

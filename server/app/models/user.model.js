@@ -1,3 +1,4 @@
+// https://github.com/hagopj13/node-express-boilerplate/blob/master/src/models/user.model.js
 // Database (MongoDB Atlas) : `crudxDB`
 // Model (Collctn./Table) : `User`
 // Name (Schema - Capital Singlr.) : UserSchema, ShoppingCartSchema etc.

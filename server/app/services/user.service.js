@@ -1,6 +1,7 @@
+// https://github.com/hagopj13/node-express-boilerplate/blob/master/src/services/user.service.js
 // import { User, userValidationSchema } from "../models/user.model.js";
 import { User } from "../models/user.model.js";
-import { Api404Error } from "../util/errors/customErrors.js";
+import { Api404Error } from "../utils/customErrors.js";
 
 const createNewUser = async (req, res) => {
   // const data = {

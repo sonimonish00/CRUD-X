@@ -30,3 +30,7 @@ const connectDB = async () => {
 // };
 
 export { connectDB };
+
+/*
+  Refer Link : https://github.com/hagopj13/node-express-boilerplate/blob/master/src/config/config.js
+*/

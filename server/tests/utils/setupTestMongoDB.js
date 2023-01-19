@@ -3,9 +3,10 @@
  * @Author: Monish
  * @Date: 20-Dec-2022 12:01 PM
  */
-// Reference : https://github.com/mdn/express-locallibrary-tutorial/blob/main/populatedb.js
-// Other : https://gist.github.com/internoma/99e50a3022c24dd9a37097c2d0423e54#file-populatedb-js
-
+// Different Names : Setup Test DB, Seed DB, Populate DB etc. [Used in testing - unit/integration]
+// [TODO] : in future if scales, multiple DB needed to be used to make multiple folder and files respectively
+// Refer link : https://github.com/mdn/express-locallibrary-tutorial/blob/main/populatedb.js
+// Other link : https://gist.github.com/internoma/99e50a3022c24dd9a37097c2d0423e54#file-populatedb-js
 console.log(
   "This script populates test dataset `users` to MongoDB. Use => `node populateMongoDB` "
 );
@@ -14,8 +15,8 @@ import dotenv from "dotenv";
 dotenv.config({ path: "../env/.env" });
 import async from "async";
 import { mongoose } from "mongoose";
-import { User } from "../app/models/user.model.js";
-import { connectDB } from "./db.config.js";
+import { User } from "../../app/models/user.model.js";
+import { connectDB } from "../../app/config/db.config.js";
 
 // MongoDB Conn.: Using events & w/o callbacks (Recommended)
 await connectDB();

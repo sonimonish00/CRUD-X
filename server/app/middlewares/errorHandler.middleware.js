@@ -1,5 +1,7 @@
 // Middleware function to centrally handle error
-import { BaseError } from "../util/errors/customErrors.js";
+// [TODO] : import APM Logging -> ./config/logger (winston) & ./config/morgan
+
+import { BaseError } from "../utils/customErrors.js";
 
 // Usage (index.js) -> app.use(errorHandler)
 // import customErrors.js and do if-checks here.
@@ -22,7 +24,7 @@ import { BaseError } from "../util/errors/customErrors.js";
     }
   }
 */
-
+// Delete this errorHandler Code if class ErrorHandler1 Works
 const errorHandler = (error, req, res, next) => {
   console.log("==> All unkown Error Comes here at middleware from controller");
   console.log("--> " + err.source);
@@ -39,7 +41,7 @@ const errorHandler = (error, req, res, next) => {
 // see : https://github.com/hagopj13/node-express-boilerplate/blob/master/src/app.js
 // also : https://gist.github.com/kluu1/40b52b60a34676f00092685a43dfbecd#file-handleerrors-js
 class ErrorHandler1 {
-  // Usage -> app.use(ErrorHandler.handle()) in index.js (App)
+  // For operational errors (Index.js -> app) [ Usage : app.use(ErrorHandler.handle()) ]
   static handle = () => {
     return async (err, req, res, next) => {
       /*
@@ -72,7 +74,7 @@ class ErrorHandler1 {
     };
   };
 
-  // Usage -> ErrorHandler1.initializeUnhandledException() in server.js
+  // For Programmer errors (Server.js) [Usage : ErrorHandler1.initializeUnhandledException()]
   static initializeUnhandledException = () => {
     // Programmer Err. (Handler : EventEmitter) : globally handles `promise rejections`
     process.on("unhandledRejection", (reason, promise) => {

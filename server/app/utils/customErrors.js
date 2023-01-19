@@ -10,12 +10,8 @@
 // UserFacingError : Any error produced as a result of a user interacting with the application.
 
 // sematext.com code https://sematext.com/blog/node-js-error-handling STARTS ================
-const httpStatusCodes = {
-  OK: 200,
-  BAD_REQUEST: 400,
-  NOT_FOUND: 404,
-  INTERNAL_SERVER: 500,
-};
+
+import { httpStatusCodes } from "./httpStatusCodes.js";
 
 // REFER THIS : https://gist.github.com/kluu1/e2a37b40c59d255456327a4e8ec33738#file-errors-js
 class BaseError extends Error {
