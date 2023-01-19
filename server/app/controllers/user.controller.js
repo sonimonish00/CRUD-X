@@ -41,34 +41,18 @@ const getAllUsers = async (req, res, next) => {
 
     // Operational Err. (Client) : URL Validation (Broken/Dead link) -> successful req., but empty resource
     // [TODO] : handle centrally in express middleware -> return next(new API404Error("No users found!!")) => using `throw` we throw custom errors which will be catched by `catch` block as custom error object i.e we check (if condition) for ops error and throw custom error
-    if (isArrayEmpty(users))
-      return res.status(404).json({ error: "No users found!!" });
+    if (isArrayEmpty(users)) {
+      const err = new Api404Error("No User Found !!!!");
+      err.source = "user.contoller.js => getAllUser()";
+      err.data = err;
+      return next(err);
+    }
 
     // Success (200) : send all users list
     return res.status(200).json(users);
   } catch (error) {
-    // ALL BELOW CODE SHOULD BE DELGATED TO error handler MIddleware via next(err) do the if-check there not here
-    // ******************************************************************************************************
-    // Operational Error : 400 (Client bad req.) & 500 (Default internal server)
-    // Demo code - After importing from customErrors.js => return next(new customErrors)
-    if (error instanceof SyntaxError) {
-      console.log("Invalid data: " + error.message); // Invalid data: No field: name - 400
-    } else if (error instanceof Api404Error) {
-      console.log("==> Custom Error Successfully working");
-      console.log("API 404 Error: " + error.message);
-      console.log("API 404 Error: " + error.source);
-      res.status(error.statusCode).json({
-        status: error.statusCode,
-        message: error.message,
-        stack: error.stack,
-      });
-      // RECOMMENDED (re-throw it to errorMiddleware) : next(new Api404Error("404 Err - Res. Not found"));
-    } else {
-      next(error); // All rest unknown errors shall be passed to middleware to log res(500) there
-      // BETTER TO USE (RECOMMENDED) : return next(error);
-      // FYI : u could pass next() just as it is without error obj as arg. to handle default in middleware
-    }
-    // ******************************************************************************************************
+    // This next(err) too will be automated when we will replace try/catch with tryCatchAsync Wrapper fn.
+    next(error);
   }
 };
 

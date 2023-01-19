@@ -3,6 +3,7 @@
 
 // import multer from "multer "; // For multipart/form-data
 import express from "express";
+import cors from "cors";
 import { userRoutes } from "./routes/v1/user.route.js";
 import {
   errorHandler,

@@ -25,32 +25,33 @@ import { BaseError } from "../utils/customErrors.js";
   }
 */
 // Delete this errorHandler Code if class ErrorHandler1 Works
-const errorHandler = (error, req, res, next) => {
-  console.log("==> All unkown Error Comes here at middleware from controller");
-  console.log("--> " + err.source);
-  console.log("--> " + err.statusCode);
-  return res.status(err.statusCode || 500).json({
-    statusCode: err.statusCode,
-    message: err.message,
-    stack: err.stack,
-  });
-};
+
+// const errorHandler = (error, req, res, next) => {
+//   console.log("==> All unkown Error Comes here at middleware from controller");
+//   console.log("--> " + err.source);
+//   console.log("--> " + err.statusCode);
+//   return res.status(err.statusCode || 500).json({
+//     statusCode: err.statusCode,
+//     message: err.message,
+//     stack: err.stack,
+//   });
+// };
 
 // Could be divded into 2 parts errorConverter -> errorHandler
 // see : https://github.com/hagopj13/node-express-boilerplate/blob/master/src/middlewares/error.js
 // see : https://github.com/hagopj13/node-express-boilerplate/blob/master/src/app.js
 // also : https://gist.github.com/kluu1/40b52b60a34676f00092685a43dfbecd#file-handleerrors-js
 class ErrorHandler1 {
-  // For operational errors (Index.js -> app) [ Usage : app.use(ErrorHandler.handle()) ]
+  // For Operational errors : 400 (Client bad req.) & 500 (Default internal server)
+  // Usage : index.js -> app.use(ErrorHandler.handle())
   static handle = () => {
     return async (err, req, res, next) => {
       /*
       if (error instanceof SyntaxError) {
         console.log("Invalid data: " + error.message);
-      } else if (error instanceof Api404Error) {
+      } else if (error instanceof BadRequest400Error) {
         console.log("==> Custom Error Successfully working");
-        console.log("API 404 Error: " + error.message);
-        console.log("API 404 Error: " + error.source);
+        console.log("BadRequest400Error Error: " + error.source);
         res.status(error.statusCode).json({
           status: error.statusCode,
           message: error.message,
