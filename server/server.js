@@ -14,7 +14,7 @@ import dotenv from "dotenv";
 dotenv.config({ path: "env/.env" });
 import { mongoose } from "mongoose";
 import { connectDB } from "./app/config/db.config.js";
-import { ErrorHandler1 } from "./app/middlewares/errorHandler.middleware.js";
+import { ErrorHandler } from "./app/middlewares/errorHandler.middleware.js";
 
 const port = process.env.PORT || 5000;
 
@@ -44,7 +44,7 @@ process.on("SIGINT", async () => {
 });
 
 // Handling unhandledRejction & unCaughtException (Programmer Error)
-ErrorHandler1.initializeUnhandledException();
+ErrorHandler.initializeUnhandledException();
 
 // MongoDB Connection Pattern 2 : Using callbacks & w/o events.
 // connectDB(()=>{

@@ -1,14 +1,18 @@
-// Middleware function to centrally handle error
-// [TODO] : import APM Logging -> ./config/logger (winston) & ./config/morgan
+// Middleware (Express) : central error handling [Customized]
 
-import { BaseError } from "../utils/customErrors.js";
+import {
+  BaseError,
+  BadRequest400Error,
+  Api404Error,
+} from "../utils/customErrors.js";
 
-// Usage (index.js) -> app.use(errorHandler)
-// import customErrors.js and do if-checks here.
-// Also Check if error is operational ? If it is operational, Handle error(logging,mailing,APM) else restart (PM2)
-
+// Could be divded into 2 parts errorConverter -> errorHandler
+// see : https://github.com/hagopj13/node-express-boilerplate/blob/master/src/middlewares/error.js
+// see : https://github.com/hagopj13/node-express-boilerplate/blob/master/src/app.js
+// also : https://gist.github.com/kluu1/40b52b60a34676f00092685a43dfbecd#file-handleerrors-js
+// [TODO] : Check if error is ops or not. If it is ops, Handle error(logging,mailing,APM) else restart (PM2)
 /*
-  Perfect res.status.JSON Structure : JSON Schema (Libraries : joi, validator, ajv, jsonschema etc.). you can create a schema file that defines the structure of the JSON response and use a library such as ajv to validate the response against the schema.
+  JSON Schema (Libraries : joi, validator, ajv, jsonschema etc.). you can create a schema file that defines the structure of the JSON response and use a library such as ajv to validate the response against the schema.
     - https://github.com/goldbergyoni/nodebestpractices/blob/master/sections/security/validation.md
   {
     "status" : 'success/failORError', //err.status
@@ -24,28 +28,12 @@ import { BaseError } from "../utils/customErrors.js";
     }
   }
 */
-// Delete this errorHandler Code if class ErrorHandler1 Works
-
-// const errorHandler = (error, req, res, next) => {
-//   console.log("==> All unkown Error Comes here at middleware from controller");
-//   console.log("--> " + err.source);
-//   console.log("--> " + err.statusCode);
-//   return res.status(err.statusCode || 500).json({
-//     statusCode: err.statusCode,
-//     message: err.message,
-//     stack: err.stack,
-//   });
-// };
-
-// Could be divded into 2 parts errorConverter -> errorHandler
-// see : https://github.com/hagopj13/node-express-boilerplate/blob/master/src/middlewares/error.js
-// see : https://github.com/hagopj13/node-express-boilerplate/blob/master/src/app.js
-// also : https://gist.github.com/kluu1/40b52b60a34676f00092685a43dfbecd#file-handleerrors-js
-class ErrorHandler1 {
-  // For Operational errors : 400 (Client bad req.) & 500 (Default internal server)
-  // Usage : index.js -> app.use(ErrorHandler.handle())
+class ErrorHandler {
+  // Operational errors (index.js -> Express app)
   static handle = () => {
     return async (err, req, res, next) => {
+      //  Stage 1. Pre-processing error : Sending error to APM, email service, check error type, Req. validation (Joi) etc.
+      // [TODO] : import APM Logging -> ./config/logger (winston) & ./config/morgan
       /*
       if (error instanceof SyntaxError) {
         console.log("Invalid data: " + error.message);
@@ -61,9 +49,10 @@ class ErrorHandler1 {
         return res.status(500).send("Internal server default error")
       }
       */
-      console.log(
-        " --> All unkown Error Comes here at middleware from controller "
-      );
+
+      // Stage 2. Processing error : sending appropiate response format & customization of error
+      if (!err.data) err.data = "Koi data nai mila agey se";
+      console.log("All Error Comes here at middleware finally ");
       console.log("--> " + err.source);
       console.log("--> " + err.data);
       console.log("--> " + err.statusCode);
@@ -73,12 +62,15 @@ class ErrorHandler1 {
         stack: err.stack,
       });
     };
+
+    // Stage 3. Post-processing error : Optional, any cleanups etc that needs to be done. Delete if not required
   };
 
-  // For Programmer errors (Server.js) [Usage : ErrorHandler1.initializeUnhandledException()]
+  // Programmer errors (Server.js -> Express server)
   static initializeUnhandledException = () => {
-    // Programmer Err. (Handler : EventEmitter) : globally handles `promise rejections`
+    // globally handles `unhandled promise rejections`
     process.on("unhandledRejection", (reason, promise) => {
+      console.log("==> Comes here at unhandled promise rejection");
       // https://www.honeybadger.io/blog/errors-nodejs/
       // Honeybadger.notify({
       //   message: "Unhandled promise rejection",
@@ -90,35 +82,42 @@ class ErrorHandler1 {
       console.error(reason);
       process.exit(1);
 
-      // setTimeout(() => { // If graceful shutdown is not achieved after 1 sec, shutdown process completely
-      //   process.abort(); // exit immediately and generate a core dump file
-      // }, 1000).unref()
+      /*
+      setTimeout(() => {
+        // If graceful shutdown is not achieved after 1 sec, shutdown process completely
+        process.abort(); // exit immediately and generate a core dump file
+      }, 1000).unref();
+      */
     });
 
-    // Programmer Err. (Handler : EventEmitter) : globally handles `uncaught exceptions`
+    // globally handles `uncaught exceptions`
+    // [TODO] : Needs modification https://github.com/hagopj13/node-express-boilerplate/blob/master/src/index.js
     process.on("uncaughtException", (error) => {
       // Honeybadger.notify(error); // log the error in a permanent storage
-
       console.error(error);
+
       if (!isOperationalErr(error)) {
         process.exit(1); // exit the process with a non-zero exit code - graceful shutdown
       }
-
-      // setTimeout(() => { // If graceful shutdown is not achieved after 1 sec, shutdown process completely
-      //   process.abort(); // exit immediately and generate a core dump file
-      // }, 1000).unref()
+      /*
+      setTimeout(() => {
+        // If graceful shutdown is not achieved after 1 sec, shutdown process completely
+        process.abort(); // exit immediately and generate a core dump file
+      }, 1000).unref();
+      */
     });
-
-    // Helper Function - If error is not operational i.e programmer err then exit gracefully
-    function isOperationalErr(error) {
-      if (error instanceof BaseError) {
-        return error.isOperational;
-      }
-      return false;
-    }
   };
 }
-export { errorHandler, ErrorHandler1 };
+
+// Helper fn -> If error is not operational i.e programmer err then exit gracefully
+function isOperationalErr(error) {
+  if (error instanceof BaseError) {
+    return error.isOperational;
+  }
+  return false;
+}
+
+export { ErrorHandler };
 
 /*
   =======================================================================

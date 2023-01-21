@@ -3,23 +3,21 @@
  * @copyright Monish
  * @summary `User` controller module for CRUD Ops
  * @version 1.0.0
- * @todo: CRUD tasks
+ * @todo: CRUD tasks GET/POST/PUT/DELETE
  */
 
 import { createNewUser, queryListOfUsers } from "../services/user.service.js";
 import { Api404Error } from "../utils/customErrors.js";
+import { tryCatchAsync } from "../utils/tryCatchAsync.helper.js";
 
 // [TODO] : Refactor https://github.com/hagopj13/node-express-boilerplate/blob/master/src/controllers/user.controller.js
 // CREATE (POST) : Creates a new user.
-const addUser = async (req, res) => {
-  try {
-    const result = await createNewUser(req, res);
-    console.log(result);
-    return res.status(201).send("New User Created!!");
-  } catch (error) {
-    return res.status(500).send(error);
-  }
-};
+// [TODO] : Status codes -> 201, 400, 404, 500
+const addUser = tryCatchAsync(async (req, res) => {
+  const result = await createNewUser(req, res);
+  // [TODO] : convert below response to JSON
+  return res.status(201).send("New User Created!!");
+});
 
 /**
  * READ (GET) - Fetch all users list.
@@ -34,27 +32,19 @@ const addUser = async (req, res) => {
  * @description Retrieves & return all users from DB.
  * @access public
  */
-const getAllUsers = async (req, res, next) => {
-  // [TODO] : Instead of try/catch make a wrapper fn in `utils/tryCatchAsync.helper.js` & import and use it.
-  try {
-    const users = await queryListOfUsers(); // Retrieve all users by calling `model/service fn`
+const getAllUsers = tryCatchAsync(async (req, res, next) => {
+  // Retrieve all users by calling `model/service fn`
+  const users = await queryListOfUsers();
 
-    // Operational Err. (Client) : URL Validation (Broken/Dead link) -> successful req., but empty resource
-    // [TODO] : handle centrally in express middleware -> return next(new API404Error("No users found!!")) => using `throw` we throw custom errors which will be catched by `catch` block as custom error object i.e we check (if condition) for ops error and throw custom error
-    if (isArrayEmpty(users)) {
-      const err = new Api404Error("No User Found !!!!");
-      err.source = "user.contoller.js => getAllUser()";
-      err.data = err;
-      return next(err);
-    }
-
-    // Success (200) : send all users list
-    return res.status(200).json(users);
-  } catch (error) {
-    // This next(err) too will be automated when we will replace try/catch with tryCatchAsync Wrapper fn.
-    next(error);
+  // Operational Err : req. success, but empty resource -> 404 Not Found
+  if (isArrayEmpty(users)) {
+    const err = new Api404Error("No User Found !!!!");
+    err.source = "user.contoller.js => getAllUser()";
+    err.data = err;
+    throw err;
   }
-};
+  return res.status(200).json(users); // Success (200) : send all users list
+});
 
 // Helper Fn. (Utils) : Array emptiness check i.e no users
 function isArrayEmpty(users) {

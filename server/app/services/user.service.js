@@ -21,12 +21,7 @@ const createNewUser = async (req, res) => {
     first_name: firstName,
     last_name: lastName,
   });
-  try {
-    return await user.save();
-  } catch (error) {
-    console.error("Error : ", error.message);
-    throw error;
-  }
+  return await user.save();
 };
 
 /**
@@ -39,16 +34,10 @@ const createNewUser = async (req, res) => {
  * @throws {Error} If any error while querying the database.
  */
 const queryListOfUsers = async () => {
-  // async always returns a promise so either use .then()/.catch() OR await to resolve promise
-  try {
-    return await User.find({});
-    // throw new Error("Testing for Middleware success");
-    // throw new Api404Error("Meri khudki custom error ko test kar rha hu !!");
-  } catch (error) {
-    // Re-throw to calling fn. (i.e. controller) by customizing built-in error (Optional)
-    error.source = "user.service.js => queryListOfUsers()";
-    throw error;
-  }
+  return await User.find({});
+  // const err = new Api404Error("Testing 404 Error here");
+  // err.source = "user.service.js => queryListOfUsers()";
+  // throw err;
 };
 
 export { createNewUser, queryListOfUsers };

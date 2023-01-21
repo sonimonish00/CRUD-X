@@ -1,35 +1,28 @@
-// Util : Helper/Wrapper Fn to replace try/catch block in async/await fn. i.e a Async Wrapper Function
+// Util : async wrapper/helper fn to replace try-catch block
 
-/* Usage :
-    tryCatchAsync(async (req, res) => {
-        const { email } = req.body;
-        const user = await User.findOne({ email });
-        if (!user) throw createError(400, `User '${email}' not found`); // see Http-errors npm below
-    })
-*/
-const tryCatchAsync = async () => {};
+// Using try-catch approach with async/await [Recommended]
+const tryCatchAsync = (controllerHandlerCallback) => async (req, res, next) => {
+  try {
+    await controllerHandlerCallback(req, res);
+  } catch (error) {
+    return next(error);
+  }
+};
 
 export { tryCatchAsync };
 
-/* Way 1
-    const tryCatchAsync = (handler) => (req, res, next) => {
-        Promise.resolve(handler(req, res, next)).then(
-        (response) => res.status(response.statusCode).send({
-            data: response.data,
-        }))
-            .catch((err) => next(err));
-    };
+// Alternative : Using Promise
+/*
+const tryCatchPromise = (controllerHandlerCallback) => (req, res, next) => {
+  Promise.resolve(controllerHandlerCallback(req, res, next))
+    .then((response) =>
+      res.status(response.statusCode).send({
+        data: response.data,
+      })
+    )
+    .catch((err) => next(err));
+};
 */
-
-/* Way 2
-    const tryCatchAsync = (fn) => (req, res, next) => {
-    Promise.resolve(fn(req, res, next)).catch((err) => next(err));
-    };
-*/
-
-/* Way 3 - See the BEST Video 1st in list
-
- */
 
 /*
   Reference Links : 
