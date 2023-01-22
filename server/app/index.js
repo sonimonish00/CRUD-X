@@ -6,7 +6,9 @@ import express from "express";
 import cors from "cors";
 import { userRoutes } from "./routes/v1/user.route.js";
 import { ErrorHandler } from "./middlewares/errorHandler.middleware.js";
-import { BadRequest400Error, Api404Error } from "./utils/customErrors.js";
+import { ApiError } from "./utils/customErrors.js";
+import { httpStatusCodes } from "./utils/httpStatusCodes.js";
+
 const app = express();
 
 // Middlewares : Built-in + Custom
@@ -29,17 +31,10 @@ app.use("/v1/users", userRoutes); //Always version in ur API & Req/Res Header
 // (2nd Last) MIDDLEWARE : send back 404 err for any unknown api request
 // Alternative : app.get('*') -> not recommended though
 app.use((req, res, next) => {
-  const err = new Api404Error(
-    "Esa koi Route hi Exist Nai krta - URL me gadbad hein bhai !!"
-  );
-  err.source =
-    "index.js -> second last middleware `Api404Error` indicating url doesn't exist";
-  err.data = err;
-  next(err);
+  next(new ApiError(httpStatusCodes.NOT_FOUND, "URL Doesn't exist !!"));
 });
 
 // (Last) MIDDLEWARE  : Last express middleware to handle custom errors centrally
-// app.use(errorHandler); -> Delete this if all works fine
 app.use(ErrorHandler.handle());
 
 export { app };

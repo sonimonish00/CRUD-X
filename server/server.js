@@ -36,11 +36,23 @@ mongoose.connection
     });
   });
 
+// [TODO] : https://blog.heroku.com/best-practices-nodejs-errors
+// https://stackoverflow.com/questions/14031763/doing-a-cleanup-action-just-before-node-js-exits
+// https://www.gosquared.com/blog/node-js-error-handling-callbacks-vs-promises
+// https://github.com/goldbergyoni/nodebestpractices/blob/master/sections/errorhandling/catchunhandledpromiserejection.md
 // Add an event listener for the 'SIGINT' event
 process.on("SIGINT", async () => {
   // Close MongoDB connection & exit process with zero exit code
+  console.log(`Process ${process.pid} has been interrupted`);
   await mongoose.connection.close();
   process.exit(0);
+
+  /*
+  // If server hasn't finished in 1000ms, shut down process
+  setTimeout(() => {
+    process.exit(0);
+  }, 1000).unref(); // Prevents the timeout from registering on event loop
+  */
 });
 
 // Handling unhandledRejction & unCaughtException (Programmer Error)

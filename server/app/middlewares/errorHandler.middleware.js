@@ -1,46 +1,26 @@
 // Middleware (Express) : central error handling [Customized]
 
-import {
-  BaseError,
-  BadRequest400Error,
-  Api404Error,
-} from "../utils/customErrors.js";
+import { BaseError } from "../utils/customErrors.js";
 
 // Could be divded into 2 parts errorConverter -> errorHandler
 // see : https://github.com/hagopj13/node-express-boilerplate/blob/master/src/middlewares/error.js
 // see : https://github.com/hagopj13/node-express-boilerplate/blob/master/src/app.js
 // also : https://gist.github.com/kluu1/40b52b60a34676f00092685a43dfbecd#file-handleerrors-js
+// https://github.com/goldbergyoni/nodebestpractices/blob/master/sections/errorhandling/centralizedhandling.md
 // [TODO] : Check if error is ops or not. If it is ops, Handle error(logging,mailing,APM) else restart (PM2)
-/*
-  JSON Schema (Libraries : joi, validator, ajv, jsonschema etc.). you can create a schema file that defines the structure of the JSON response and use a library such as ajv to validate the response against the schema.
-    - https://github.com/goldbergyoni/nodebestpractices/blob/master/sections/security/validation.md
-  {
-    "status" : 'success/failORError', //err.status
-    "source" : err.source // OR err.target OR  "source": { "pointer": "/data/attributes/firstName" },
-    "statusCode" : 200, //err.statusCode 
-    "message" : "My custom err msg or the one imported when i raised err", //err.message if not defined custom
-    "data" : err.data, // for success {user : users}, for fail `null` [user.controller.js gAU fn]
-    "meta" : {
-      "type" : err.name, //Name of error ie. err.name
-      "stack" : err.stack, //stack trace
-      "title":  "User not Found",
-      "detail": "The Database is empty"
-    }
-  }
-*/
 class ErrorHandler {
-  // Operational errors (index.js -> Express app)
+  // Operational errors (index.js -> Express app) [4xx, 5xx]
   static handle = () => {
     return async (err, req, res, next) => {
-      //  Stage 1. Pre-processing error : Sending error to APM, email service, check error type, Req. validation (Joi) etc.
+      //  Stage 1. Pre-processing error : Sending error to APM loggin, email service, check error type, Req. validation (Joi) etc.
       // [TODO] : import APM Logging -> ./config/logger (winston) & ./config/morgan
       /*
-      if (error instanceof SyntaxError) {
-        console.log("Invalid data: " + error.message);
+      if (error instanceof ValidationError) {
+        console.log("Validation Error (JOI): " + error.message);
       } else if (error instanceof BadRequest400Error) {
         console.log("==> Custom Error Successfully working");
         console.log("BadRequest400Error Error: " + error.source);
-        res.status(error.statusCode).json({
+        return res.status(error.statusCode).json({
           status: error.statusCode,
           message: error.message,
           stack: error.stack,
@@ -51,19 +31,33 @@ class ErrorHandler {
       */
 
       // Stage 2. Processing error : sending appropiate response format & customization of error
-      if (!err.data) err.data = "Koi data nai mila agey se";
-      console.log("All Error Comes here at middleware finally ");
-      console.log("--> " + err.source);
-      console.log("--> " + err.data);
-      console.log("--> " + err.statusCode);
-      res.status(err.statusCode || 500).json({
-        statusCode: err.statusCode,
+      if (!err.statusCode) err.statusCode = 500;
+      console.log("==> Central Error Handling Middleware <==");
+      console.log(err);
+      const responseJSONSchema = {
+        code: err.statusCode,
         message: err.message,
         stack: err.stack,
-      });
+      };
+      res.status(err.statusCode || 500).json(responseJSONSchema);
+      /*
+        JSON Schema (Libraries : joi, validator, ajv, jsonschema etc.). you can create a schema file that defines the structure of the JSON response and use a library such as ajv to validate the response against the schema.
+          - https://github.com/goldbergyoni/nodebestpractices/blob/master/sections/security/validation.md
+        {
+          "status" : 'success/failORError', //err.status
+          "source" : err.source // OR err.target OR  "source": { "pointer": "/data/attributes/firstName" },
+          "statusCode" : 200, //err.statusCode 
+          "message" : "My custom err msg or the one imported when i raised err", //err.message if not defined custom
+          "data" : err.data, // for success {user : users}, for fail `null` [user.controller.js gAU fn]
+          "meta" : {
+            "type" : err.name, //Name of error ie. err.name
+            "stack" : err.stack, //stack trace
+            "title":  "User not Found",
+            "detail": "The Database is empty"
+          }
+        }
+      */
     };
-
-    // Stage 3. Post-processing error : Optional, any cleanups etc that needs to be done. Delete if not required
   };
 
   // Programmer errors (Server.js -> Express server)
@@ -82,12 +76,11 @@ class ErrorHandler {
       console.error(reason);
       process.exit(1);
 
-      /*
+      // [TODO] : Vscode say below code is not reachable, delete if u think so
+      // If graceful shutdown is not achieved after 1 sec, shutdown process completely
       setTimeout(() => {
-        // If graceful shutdown is not achieved after 1 sec, shutdown process completely
         process.abort(); // exit immediately and generate a core dump file
       }, 1000).unref();
-      */
     });
 
     // globally handles `uncaught exceptions`
@@ -99,12 +92,11 @@ class ErrorHandler {
       if (!isOperationalErr(error)) {
         process.exit(1); // exit the process with a non-zero exit code - graceful shutdown
       }
-      /*
+      // https://www.honeybadger.io/blog/errors-nodejs/
+      // If graceful shutdown is not achieved after 1 sec, shutdown process completely
       setTimeout(() => {
-        // If graceful shutdown is not achieved after 1 sec, shutdown process completely
         process.abort(); // exit immediately and generate a core dump file
       }, 1000).unref();
-      */
     });
   };
 }
@@ -222,3 +214,5 @@ const errorHandler = (error, request, response, next) => {
   response.status(statusCode).json({ message });
 };
 */
+
+// https://www.codepedia.org/ama/cleaner-code-in-expressjs-rest-api-with-custom-error-handling

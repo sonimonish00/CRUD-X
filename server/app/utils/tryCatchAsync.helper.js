@@ -1,7 +1,7 @@
-// Util : async wrapper/helper fn to replace try-catch block
+// Util : async wrapper/handler/helper fn to replace try-catch block
 
 // Using try-catch approach with async/await [Recommended]
-const tryCatchAsync = (controllerHandlerCallback) => async (req, res, next) => {
+const asyncWrapTC = (controllerHandlerCallback) => async (req, res, next) => {
   try {
     await controllerHandlerCallback(req, res);
   } catch (error) {
@@ -9,15 +9,15 @@ const tryCatchAsync = (controllerHandlerCallback) => async (req, res, next) => {
   }
 };
 
-export { tryCatchAsync };
+export { asyncWrapTC };
 
 // Alternative : Using Promise
 /*
-const tryCatchPromise = (controllerHandlerCallback) => (req, res, next) => {
+const asyncPromiseWrap = (controllerHandlerCallback) => (req, res, next) => {
   Promise.resolve(controllerHandlerCallback(req, res, next))
-    .then((response) =>
-      res.status(response.statusCode).send({
-        data: response.data,
+    .then((res) =>
+      res.status(res.statusCode).send({
+        data: res.data,
       })
     )
     .catch((err) => next(err));

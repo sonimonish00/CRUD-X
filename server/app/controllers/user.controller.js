@@ -6,25 +6,31 @@
  * @todo: CRUD tasks GET/POST/PUT/DELETE
  */
 
-import { createNewUser, queryListOfUsers } from "../services/user.service.js";
-import { Api404Error } from "../utils/customErrors.js";
-import { tryCatchAsync } from "../utils/tryCatchAsync.helper.js";
+import { addUser, queryUsers } from "../services/user.service.js";
+import { ApiError } from "../utils/customErrors.js";
+import { asyncWrapTC } from "../utils/tryCatchAsync.helper.js";
+import { httpStatusCodes } from "../utils/httpStatusCodes.js";
 
-// [TODO] : Refactor https://github.com/hagopj13/node-express-boilerplate/blob/master/src/controllers/user.controller.js
+// [TODO] : https://github.com/hagopj13/node-express-boilerplate/blob/master/src/controllers/user.controller.js
+//    POST (Create) : 201 created [Erros - 400]
+//    GET (Read All) : 200 success/ok [Errors - 404]
+//    GET (Read byID) : 200 success/ok [Errors - 404]
+//    PUT (Update) : 200,201,204 (Recommended 204) [Errors - 404,400]
+//    DELETE (delete) : 200,204 (Recommended 204) [Errors - 404]
+
 // CREATE (POST) : Creates a new user.
-// [TODO] : Status codes -> 201, 400, 404, 500
-const addUser = tryCatchAsync(async (req, res) => {
-  const result = await createNewUser(req, res);
+const createUser = asyncWrapTC(async (req, res) => {
+  const result = await addUser(req, res);
   // [TODO] : convert below response to JSON
-  return res.status(201).send("New User Created!!");
+  return res.status(httpStatusCodes.CREATED).send("New User Created!!");
 });
 
 /**
  * READ (GET) - Fetch all users list.
  *
  * @async
- * @function getAllUsers
- * @see queryListOfUsers
+ * @function getUsers
+ * @see queryUsers
  * @route GET /users
  * @param {Object} req - The incoming HTTP request object.
  * @param {Object} res - The outgoing HTTP response object.
@@ -32,16 +38,12 @@ const addUser = tryCatchAsync(async (req, res) => {
  * @description Retrieves & return all users from DB.
  * @access public
  */
-const getAllUsers = tryCatchAsync(async (req, res, next) => {
-  // Retrieve all users by calling `model/service fn`
-  const users = await queryListOfUsers();
+const getUsers = asyncWrapTC(async (req, res, next) => {
+  const users = await queryUsers(); // Retrieve all users by calling `model/service fn`
 
-  // Operational Err : req. success, but empty resource -> 404 Not Found
+  // Ops Err : req. success, but empty resource -> 404 Not Found
   if (isArrayEmpty(users)) {
-    const err = new Api404Error("No User Found !!!!");
-    err.source = "user.contoller.js => getAllUser()";
-    err.data = err;
-    throw err;
+    throw new ApiError(httpStatusCodes.NOT_FOUND, "No User Found !!");
   }
   return res.status(200).json(users); // Success (200) : send all users list
 });
@@ -51,11 +53,11 @@ function isArrayEmpty(users) {
   return !users?.length;
 }
 
-export { addUser, getAllUsers };
+export { createUser, getUsers };
 
-// const getUserByID = async (req, res) => {
+// const getUser = async (req, res) => {
 //   const userID = req.params.id;
-//   const user = queryUserByID(userID);
+//   const user = getUserById(userID);
 //   if(!user) error
 // };
 // OR
