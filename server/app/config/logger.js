@@ -1,20 +1,54 @@
-// APM Logging & Monitoring Middleware : Winston (Log shipper-Framework)
+// APM Logging & Monitoring Library : Winston (Log shipper - sematext,elasticsearch,cloudwatch,Logstash etc.)
+// Winston - log application-level events and information
+
 // https://github.com/goldbergyoni/nodebestpractices/blob/master/sections/errorhandling/apmproducts.md
 // https://github.com/hagopj13/node-express-boilerplate/blob/master/src/config/logger.js
 // https://github.com/goldbergyoni/nodebestpractices/blob/master/sections/errorhandling/usematurelogger.md
-//https://errorception.com or https://www.muscula.com
-
+// https://errorception.com
+// https://www.muscula.com
 // https://sematext.com/blog/node-js-error-handling/#6-use-a-centralized-location-for-logs-and-error-alerting
-// Node.js Logging Frameworks (Winston is preffered)
-// Winston - A log shipper (Shippers - sematext,elasticsearch,cloudwatch,Vector,Fluentbit, Logagent, Logstash)
-// Morgan - for Logging HTTP Req i.e HTTPLogger - A logging lib., as it helps u format & structure ur logs
-// Pino
+// https://betterstack.com/community/guides/logging/how-to-install-setup-and-use-winston-and-morgan-to-log-node-js-applications/
+// https://betterstack.com/community/guides/logging/
 
-// https://sematext.com/blog/best-log-management-tools/
-// Sematext Logsense (winston extension : winston-logsene)
-// Honeybadge
-// Logz.io
-// LogDNA
-// Elasticsearch
-// Datadog
-// Splunk
+import winston from "winston";
+import path from "path";
+import { fileURLToPath } from "url";
+// Setting up __dirname for ES Module - will point to current folder `config`
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+import config from "./config.js";
+const { env } = config;
+
+const enumerateErrorFormat = winston.format((info) => {
+  if (info instanceof Error) {
+    Object.assign(info, { message: info.stack });
+  }
+  return info;
+});
+
+// Transports : LogShipper (Sematext, Logstash,elasticsearch, splunk), APM (Datadog,honebadge,stackify), Email etc.
+const consoleTransport = new winston.transports.Console({
+  stderrLevels: ["error"],
+});
+
+// path will be `config/logs/error.log`
+const fileTransport = new winston.transports.File({
+  filename: __dirname + "/logs/error.log",
+});
+
+const loggerFormat = winston.format.combine(
+  enumerateErrorFormat(),
+  env === "development"
+    ? winston.format.colorize()
+    : winston.format.uncolorize(),
+  winston.format.splat(),
+  winston.format.printf(({ level, message }) => `${level}: ${message}`)
+);
+
+const logger = winston.createLogger({
+  level: env === "development" ? "debug" : "info",
+  format: loggerFormat,
+  transports: [consoleTransport, fileTransport],
+});
+
+export { logger };

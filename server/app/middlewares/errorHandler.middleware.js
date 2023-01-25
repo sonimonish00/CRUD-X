@@ -1,5 +1,6 @@
 // Middleware (Express) : central error handling [Customized]
 
+import { logger } from "../config/logger.js";
 import { BaseError } from "../utils/customErrors.js";
 
 // Could be divded into 2 parts errorConverter -> errorHandler
@@ -32,8 +33,8 @@ class ErrorHandler {
 
       // Stage 2. Processing error : sending appropiate response format & customization of error
       if (!err.statusCode) err.statusCode = 500;
-      console.log("==> Central Error Handling Middleware <==");
-      console.log(err);
+      logger.info("==> Central Error Handling Middleware <==");
+      logger.error(err);
       const responseJSONSchema = {
         code: err.statusCode,
         message: err.message,
@@ -64,7 +65,7 @@ class ErrorHandler {
   static initializeUnhandledException = () => {
     // globally handles `unhandled promise rejections`
     process.on("unhandledRejection", (reason, promise) => {
-      console.log("==> Comes here at unhandled promise rejection");
+      logger.info("==> Comes here at unhandled promise rejection");
       // https://www.honeybadger.io/blog/errors-nodejs/
       // Honeybadger.notify({
       //   message: "Unhandled promise rejection",
@@ -73,7 +74,9 @@ class ErrorHandler {
       //     reason,
       //   },
       // });
-      console.error(reason);
+      logger.error(reason);
+      // OR log the error to winston
+      // logger.error(`Unhandled Rejection at: ${promise} reason: ${reason}`);
       process.exit(1);
 
       // [TODO] : Vscode say below code is not reachable, delete if u think so
@@ -87,7 +90,9 @@ class ErrorHandler {
     // [TODO] : Needs modification https://github.com/hagopj13/node-express-boilerplate/blob/master/src/index.js
     process.on("uncaughtException", (error) => {
       // Honeybadger.notify(error); // log the error in a permanent storage
-      console.error(error);
+      logger.error(error);
+      // OR log the error to winston
+      // logger.error(`Uncaught Exception: ${error}`);
 
       if (!isOperationalErr(error)) {
         process.exit(1); // exit the process with a non-zero exit code - graceful shutdown

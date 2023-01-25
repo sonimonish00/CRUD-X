@@ -7,12 +7,16 @@
 // [TODO] : in future if scales, multiple DB needed to be used to make multiple folder and files respectively
 // Refer link : https://github.com/mdn/express-locallibrary-tutorial/blob/main/populatedb.js
 // Other link : https://gist.github.com/internoma/99e50a3022c24dd9a37097c2d0423e54#file-populatedb-js
-console.log(
+
+import { logger } from "./../../app/config/logger.js";
+
+logger.info(
   "This script populates test dataset `users` to MongoDB. Use => `node populateMongoDB` "
 );
 
-import dotenv from "dotenv";
-dotenv.config({ path: "../env/.env" });
+// import config from "./app/config/config.js";
+// const { port } = config;
+
 import async from "async";
 import { mongoose } from "mongoose";
 import { User } from "../../app/models/user.model.js";
@@ -21,11 +25,11 @@ import { connectDB } from "../../app/config/db.config.js";
 // MongoDB Conn.: Using events & w/o callbacks (Recommended)
 await connectDB();
 await mongoose.connection
-  .on("connected", () => console.log("Connected to MongoDB"))
-  .on("error", (error) => console.log("MongoDB Error : ", error))
-  .on("disconnected", () => console.log("Disconnected from MongoDB"))
+  .on("connected", () => logger.info("Connected to MongoDB"))
+  .on("error", (error) => logger.error(`MongoDB Error : ${error}`))
+  .on("disconnected", () => logger.info("Disconnected from MongoDB"))
   .once("open", () => {
-    console.log("Connection Established !!");
+    logger.info("Connection Established !!");
   });
 process.on("SIGINT", async () => {
   await mongoose.connection.close();
@@ -71,10 +75,10 @@ async.series(
   // Optional callback
   function (err, results) {
     if (err) {
-      console.log("FINAL ERR: " + err);
+      logger.error(`FINAL ERR: ${err}`);
     } else {
       //   console.log("Users List ==> " + results);
-      console.log("Users List ==> " + users);
+      logger.info(`Users List ==> ${users}`);
     }
     // All done, disconnect from database
     mongoose.connection.close();

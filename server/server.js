@@ -10,28 +10,29 @@
 // [TODO] : Also see this https://github.com/hagopj13/node-express-boilerplate/blob/master/src/index.js
 
 import { app } from "./app/index.js";
-import dotenv from "dotenv";
-dotenv.config({ path: "env/.env" });
 import { mongoose } from "mongoose";
 import { connectDB } from "./app/config/db.config.js";
 import { ErrorHandler } from "./app/middlewares/errorHandler.middleware.js";
+import { logger } from "./app/config/logger.js";
+import config from "./app/config/config.js";
 
-const port = process.env.PORT || 5000;
+const { port } = config;
+// const port = process.env.PORT;
 
 // MongoDB Connection Pattern 1 : Using events & w/o callbacks (Recommended)
 connectDB();
 mongoose.connection
-  .on("connected", () => console.log("Connected to MongoDB"))
-  .on("error", (error) => console.log("MongoDB Error : ", error))
-  .on("disconnected", () => console.log("Disconnected from MongoDB"))
+  .on("connected", () => logger.info("Connected to MongoDB"))
+  .on("error", (error) => logger.error(`MongoDB Error : ${error}`))
+  .on("disconnected", () => logger.info("Disconnected from MongoDB"))
   .once("open", () => {
     app.listen(port, () => {
       try {
-        console.log(
-          `Backend : Node(express) server started listening on port : ${port}`
+        logger.info(
+          `Backend => ExpressJS server started listening on port : ${port} (${process.env.NODE_ENV} Mode)`
         );
       } catch (error) {
-        console.log(error);
+        logger.error(error);
       }
     });
   });
@@ -43,7 +44,7 @@ mongoose.connection
 // Add an event listener for the 'SIGINT' event
 process.on("SIGINT", async () => {
   // Close MongoDB connection & exit process with zero exit code
-  console.log(`Process ${process.pid} has been interrupted`);
+  logger.warn(`Process ${process.pid} has been interrupted`);
   await mongoose.connection.close();
   process.exit(0);
 
@@ -57,8 +58,3 @@ process.on("SIGINT", async () => {
 
 // Handling unhandledRejction & unCaughtException (Programmer Error)
 ErrorHandler.initializeUnhandledException();
-
-// MongoDB Connection Pattern 2 : Using callbacks & w/o events.
-// connectDB(()=>{
-//     app.listen(port, () => {console.log(`Backend : Node(express) server started listening on port : ${port}`)})
-//   });
