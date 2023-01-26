@@ -7,6 +7,7 @@ import dotenv from "dotenv";
 // Configuring ES6 path for dotenv
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+// dotenv.config({ path: path.join(__dirname, "../../env/.env") });
 dotenv.config({ path: path.join(__dirname, "../../env/.env.development") });
 
 const envVarsSchema = Joi.object()

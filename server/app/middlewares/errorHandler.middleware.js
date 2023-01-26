@@ -1,63 +1,61 @@
 // Middleware (Express) : central error handling [Customized]
 
 import { logger } from "../config/logger.js";
-import { BaseError } from "../utils/customErrors.js";
+import { BaseError, ApiError } from "../utils/customErrors.js";
+import { httpStatusCodes } from "../utils/httpStatusCodes.js";
+import { mongoose } from "mongoose";
+import config from "../config/config.js";
 
-// Could be divded into 2 parts errorConverter -> errorHandler
-// see : https://github.com/hagopj13/node-express-boilerplate/blob/master/src/middlewares/error.js
-// see : https://github.com/hagopj13/node-express-boilerplate/blob/master/src/app.js
+// https://github.com/hagopj13/node-express-boilerplate/blob/master/src/middlewares/error.js
+// https://github.com/hagopj13/node-express-boilerplate/blob/master/src/app.js
 // also : https://gist.github.com/kluu1/40b52b60a34676f00092685a43dfbecd#file-handleerrors-js
 // https://github.com/goldbergyoni/nodebestpractices/blob/master/sections/errorhandling/centralizedhandling.md
 // [TODO] : Check if error is ops or not. If it is ops, Handle error(logging,mailing,APM) else restart (PM2)
+/* JSON Schema (Libraries : joi, validator, ajv, jsonschema etc.)
+   https://github.com/goldbergyoni/nodebestpractices/blob/master/sections/security/validation.md
+  {
+    "status" : 'success/failORError', //err.status
+    "source" : err.source // OR err.target OR  "source": { "pointer": "/data/attributes/firstName" },
+    "statusCode" : 200, //err.statusCode 
+    "message" : "My custom err msg or the one imported when i raised err", //err.message if not defined custom
+    "data" : err.data, // for success {user : users}, for fail `null` [user.controller.js gAU fn]
+    "meta" : {
+      "type" : err.name, //Name of error ie. err.name
+      "stack" : err.stack, //stack trace
+      "title":  "User not Found",
+      "detail": "The Database is empty"
+    }
+  }
+*/
 class ErrorHandler {
   // Operational errors (index.js -> Express app) [4xx, 5xx]
   static handle = () => {
     return async (err, req, res, next) => {
-      //  Stage 1. Pre-processing error : Sending error to APM loggin, email service, check error type, Req. validation (Joi) etc.
-      // [TODO] : import APM Logging -> ./config/logger (winston) & ./config/morgan
-      /*
-      if (error instanceof ValidationError) {
-        console.log("Validation Error (JOI): " + error.message);
-      } else if (error instanceof BadRequest400Error) {
-        console.log("==> Custom Error Successfully working");
-        console.log("BadRequest400Error Error: " + error.source);
-        return res.status(error.statusCode).json({
-          status: error.statusCode,
-          message: error.message,
-          stack: error.stack,
-        });
-      } else {
-        return res.status(500).send("Internal server default error")
+      // 1. Pre-processing : Converting errors to APIError (mongoose Err & 500 ISE are Programmer err hence flag is false)
+      let error = err;
+      if (!(error instanceof ApiError)) {
+        const statusCode =
+          error.statusCode || error instanceof mongoose.Error
+            ? httpStatusCodes.BAD_REQUEST
+            : httpStatusCodes.INTERNAL_SERVER;
+        const message =
+          error.message || "Mongoose or any other programmer error";
+        error = new ApiError(statusCode, message, false, err.stack);
       }
-      */
-
-      // Stage 2. Processing error : sending appropiate response format & customization of error
-      if (!err.statusCode) err.statusCode = 500;
-      logger.info("==> Central Error Handling Middleware <==");
-      logger.error(err);
+      // 2. Processing error : sending appropiate response format & customization of error
+      let { statusCode, message } = error;
+      if (config.env === "production" && !err.isOperational) {
+        statusCode = httpStatusCodes.INTERNAL_SERVER;
+        message = "Internal Server Error !!";
+      }
+      res.locals.errorMessage = error.message;
       const responseJSONSchema = {
-        code: err.statusCode,
-        message: err.message,
-        stack: err.stack,
+        code: statusCode,
+        message,
+        ...(config.env === "development" && { stack: error.stack }),
       };
-      res.status(err.statusCode || 500).json(responseJSONSchema);
-      /*
-        JSON Schema (Libraries : joi, validator, ajv, jsonschema etc.). you can create a schema file that defines the structure of the JSON response and use a library such as ajv to validate the response against the schema.
-          - https://github.com/goldbergyoni/nodebestpractices/blob/master/sections/security/validation.md
-        {
-          "status" : 'success/failORError', //err.status
-          "source" : err.source // OR err.target OR  "source": { "pointer": "/data/attributes/firstName" },
-          "statusCode" : 200, //err.statusCode 
-          "message" : "My custom err msg or the one imported when i raised err", //err.message if not defined custom
-          "data" : err.data, // for success {user : users}, for fail `null` [user.controller.js gAU fn]
-          "meta" : {
-            "type" : err.name, //Name of error ie. err.name
-            "stack" : err.stack, //stack trace
-            "title":  "User not Found",
-            "detail": "The Database is empty"
-          }
-        }
-      */
+      if (config.env === "development") logger.error(err);
+      res.status(statusCode).json(responseJSONSchema);
     };
   };
 
@@ -106,7 +104,7 @@ class ErrorHandler {
   };
 }
 
-// Helper fn -> If error is not operational i.e programmer err then exit gracefully
+// Helper fn -> If error is not operational i.e programmer err then return false
 function isOperationalErr(error) {
   if (error instanceof BaseError) {
     return error.isOperational;

@@ -8,10 +8,14 @@ import { userRoutes } from "./routes/v1/user.route.js";
 import { ErrorHandler } from "./middlewares/errorHandler.middleware.js";
 import { ApiError } from "./utils/customErrors.js";
 import { httpStatusCodes } from "./utils/httpStatusCodes.js";
+import morgan from "./config/morgan.js";
 
 const app = express();
 
 // Middlewares : Built-in + Custom
+// Morgan HTTP Logger
+app.use(morgan.successHandler);
+app.use(morgan.errorHandler);
 app.use(express.json()); // For Content-Type: application/json -> Builtin
 app.use(express.urlencoded({ extended: true })); // To parse urlencoded req. body app/x-www-form-urlencoded
 app.use(cors()); // For using CORS -> Builtin
@@ -19,7 +23,8 @@ app.options("*", cors()); // include before other routes - CORS preflight reques
 
 // Routes : Homepage URL -> http://localhost:2000/
 app.get("/", (req, res) => {
-  res.send("Welcome to homepage (Dashboard)");
+  // res.send("Welcome to homepage (Dashboard)");
+  throw new Error("PEHCHAN KAUN ?");
 });
 
 // Routes (API - V1) : Users -> http://localhost:2000/v1/users
