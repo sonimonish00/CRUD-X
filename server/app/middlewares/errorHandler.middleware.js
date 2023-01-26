@@ -60,162 +60,39 @@ class ErrorHandler {
   };
 
   // Programmer errors (Server.js -> Express server)
-  static initializeUnhandledException = () => {
-    // globally handles `unhandled promise rejections`
+  static initializeUnhandledException = (server) => {
     process.on("unhandledRejection", (reason, promise) => {
-      logger.info("==> Comes here at unhandled promise rejection");
-      // https://www.honeybadger.io/blog/errors-nodejs/
-      // Honeybadger.notify({
-      //   message: "Unhandled promise rejection",
-      //   params: {
-      //     promise,
-      //     reason,
-      //   },
-      // });
-      logger.error(reason);
-      // OR log the error to winston
-      // logger.error(`Unhandled Rejection at: ${promise} reason: ${reason}`);
-      process.exit(1);
-
-      // [TODO] : Vscode say below code is not reachable, delete if u think so
-      // If graceful shutdown is not achieved after 1 sec, shutdown process completely
-      setTimeout(() => {
-        process.abort(); // exit immediately and generate a core dump file
-      }, 1000).unref();
+      logger.error(`Unhandled Rejection at: ${promise} reason: ${reason}`);
+      exitHandler(server);
     });
 
-    // globally handles `uncaught exceptions`
-    // [TODO] : Needs modification https://github.com/hagopj13/node-express-boilerplate/blob/master/src/index.js
     process.on("uncaughtException", (error) => {
-      // Honeybadger.notify(error); // log the error in a permanent storage
-      logger.error(error);
-      // OR log the error to winston
-      // logger.error(`Uncaught Exception: ${error}`);
-
+      logger.error(`Uncaught Exception: ${error}`);
       if (!isOperationalErr(error)) {
-        process.exit(1); // exit the process with a non-zero exit code - graceful shutdown
+        exitHandler(server);
       }
-      // https://www.honeybadger.io/blog/errors-nodejs/
-      // If graceful shutdown is not achieved after 1 sec, shutdown process completely
+      // If graceful shutdown is not achieved after 1 sec, shutdown process completely, exit immediately and generate a core dump file
       setTimeout(() => {
-        process.abort(); // exit immediately and generate a core dump file
+        process.abort();
       }, 1000).unref();
     });
   };
 }
 
-// Helper fn -> If error is not operational i.e programmer err then return false
+// Helper fn -> If error is not ops i.e programmer err then return `false`
 function isOperationalErr(error) {
-  if (error instanceof BaseError) {
-    return error.isOperational;
-  }
-  return false;
+  return error instanceof BaseError ? error.isOperational : false;
 }
+// Helper fn -> Checks if server is closed or not then exit
+const exitHandler = (server) => {
+  if (server) {
+    server.close(() => {
+      logger.info("Server closed");
+      process.exit(1);
+    });
+  } else {
+    process.exit(1);
+  }
+};
 
 export { ErrorHandler };
-
-/*
-  =======================================================================
-                        errorHandler.middleware.js
-  =======================================================================
-  const errorLogger = (err, req, res, next) => {
-    console.error('\x1b[31m', err) // adding some color to our logs or u cud use any fancy logging library
-    next(err) // calling/forward to next middleware
-  }
-  const errorResponder = (err, req, res, next) => {
-    res.status(err.statusCode || 500).json({
-        statusCode: err.statusCode,
-        message: err.message,
-        stack: err.stack,
-      });
-  }
-  const invalidPathHandler = (req, res, next) => {
-    return res.status(301).redirect('/error');
-    OR
-    return res.status(400).json({err :"Bad req : URL doesn't exist !!"})
-  }
-  export = {errorLogger, errorResponder, invalidPathHandler, failSafeHandler}
-  =======================================================================
-                        index.js
-  =======================================================================
-  router.get('/error', (req, res) => {
-    res.send("The URL you are trying to reach does not exist.")
-  })
-  
-  app.get("*", (req, res, next) => next(new Api404Error("OOPS NO URL ROUTE FOUND"));
-              OR
-  app.use((req,res,next)=>{next(new Api404Error("OOPS NO URL ROUTE FOUND")}) ==> RECOMMENDED
-  app.use(errorLogger);
-  app.use(errorResponder);
-  app.use(invalidPathHandler); // remove this if * is doin its work
-*/
-
-/* Alternative : Custom AsyncHelper Middleware Fn
-  function asyncHelper(fn) {
-    return function (req, res, next) {
-      fn(req, res, next).catch(next);
-    };
-  }
-  app.get('*', asyncHelper(async (req, res) => { // Express Error Handling async/await
-    await new Promise(resolve => setTimeout(() => resolve(), 40));
-    throw new Error('Error found');
-  }));
-  app.get("*", (req, res, next) => {
-    setImmediate(() => {
-      next(new Error("Something went wrong")); // Error goes via `next()` method
-    });
-  });
-*/
-
-//errorHandler.js -> not created yet
-/*
-  errorHandler.handleError(err).then((isOperationalError) => {
-    if (!isOperationalError) next(err);
-  });
-*/
-// OR
-/*
-const errorHandler = (error, request, response, next) => {
-  if (error.statusCode === 401 && error.message === "Unauthorized") {
-    // defining the HTTP status code
-    const statusCode = 401;
-    // standard HTTP 401 error message
-    const message = "Unauthorized";
-    // link to hosted version of the "how-to-handle-authentication" HTML page you can find in the /docs folder
-    const authority = `${request.protocol}://${request.hostname}:${process.env.PORT}`;
-    const documentationLink = `${authority}/docs/how-to-handle-authentication.html`;
-
-    // implementing a custom error response on 401 errors matching the GitHub error response format
-    response.status(statusCode).json({
-      message: message,
-      documentationLink: documentationLink,
-    });
-    return;
-  }
-
-  if (
-    error.statusCode === 401 &&
-    error.code === "invalid_token" &&
-    error.message === "Permission denied"
-  ) {
-    // defining the HTTP status code
-    const statusCode = 403;
-    // standard HTTP 403 error message
-    const message = "Forbidden";
-    // link to hosted version of the "how-to-handle-authorization" HTML page you can find in the /docs folder
-    const authority = `${request.protocol}://${request.hostname}:${process.env.PORT}`;
-    const documentationLink = `${authority}/docs/how-to-handle-authorization.html`;
-    // implementing a custom error response on 403 errors matching the GitHub error response format
-    response.status(statusCode).json({
-      message: message,
-      documentationLink: documentationLink,
-    });
-    return;
-  }
-  const statusCode = error.statusCode || error.code || 500;
-  const message = error.message || "internal error";
-  response.status(statusCode).json({ message });
-};
-*/
-
-// https://www.codepedia.org/ama/cleaner-code-in-expressjs-rest-api-with-custom-error-handling

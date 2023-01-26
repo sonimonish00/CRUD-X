@@ -13,18 +13,23 @@ import morgan from "./config/morgan.js";
 const app = express();
 
 // Middlewares : Built-in + Custom
+
 // Morgan HTTP Logger
 app.use(morgan.successHandler);
 app.use(morgan.errorHandler);
+
 app.use(express.json()); // For Content-Type: application/json -> Builtin
 app.use(express.urlencoded({ extended: true })); // To parse urlencoded req. body app/x-www-form-urlencoded
+
 app.use(cors()); // For using CORS -> Builtin
 app.options("*", cors()); // include before other routes - CORS preflight request -> Builtin
 
-// Routes : Homepage URL -> http://localhost:2000/
+// Routes : Homepage URL -> http://localhost:2000/ & Favicon Handling
 app.get("/", (req, res) => {
-  // res.send("Welcome to homepage (Dashboard)");
-  throw new Error("PEHCHAN KAUN ?");
+  res.send("Welcome to homepage (Dashboard)");
+});
+app.get("/favicon.ico", (req, res) => {
+  res.status(204);
 });
 
 // Routes (API - V1) : Users -> http://localhost:2000/v1/users
@@ -33,7 +38,7 @@ app.get("/", (req, res) => {
 // [TODO] : Optimize to app.use("/v1", userRoutes) => see "./routes/v1/index.js"
 app.use("/v1/users", userRoutes); //Always version in ur API & Req/Res Header
 
-// (2nd Last) MIDDLEWARE : send back 404 err for any unknown api request
+// MIDDLEWARE : For all other unknow routes
 // Alternative : app.get('*') -> not recommended though
 app.use((req, res, next) => {
   next(new ApiError(httpStatusCodes.NOT_FOUND, "URL Doesn't exist !!"));

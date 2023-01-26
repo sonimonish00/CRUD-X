@@ -17,16 +17,16 @@ import { logger } from "./app/config/logger.js";
 import config from "./app/config/config.js";
 
 const { port } = config;
-// const port = process.env.PORT;
+let server;
 
-// MongoDB Connection Pattern 1 : Using events & w/o callbacks (Recommended)
+// MongoDB Connection : Using events & w/o callbacks (Recommended)
 connectDB();
 mongoose.connection
   .on("connected", () => logger.info("Connected to MongoDB"))
   .on("error", (error) => logger.error(`MongoDB Error : ${error}`))
   .on("disconnected", () => logger.info("Disconnected from MongoDB"))
   .once("open", () => {
-    app.listen(port, () => {
+    server = app.listen(port, () => {
       try {
         logger.info(
           `Backend => ExpressJS server started listening on port : ${port} (${process.env.NODE_ENV} Mode)`
@@ -35,6 +35,9 @@ mongoose.connection
         logger.error(error);
       }
     });
+
+    // Handling unhandledRejction & unCaughtException (Programmer Error)
+    ErrorHandler.initializeUnhandledException(server);
   });
 
 // [TODO] : https://blog.heroku.com/best-practices-nodejs-errors
@@ -47,14 +50,4 @@ process.on("SIGINT", async () => {
   logger.warn(`Process ${process.pid} has been interrupted`);
   await mongoose.connection.close();
   process.exit(0);
-
-  /*
-  // If server hasn't finished in 1000ms, shut down process
-  setTimeout(() => {
-    process.exit(0);
-  }, 1000).unref(); // Prevents the timeout from registering on event loop
-  */
 });
-
-// Handling unhandledRejction & unCaughtException (Programmer Error)
-ErrorHandler.initializeUnhandledException();
