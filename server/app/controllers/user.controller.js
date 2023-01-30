@@ -20,8 +20,8 @@ import { httpStatusCodes } from "../utils/httpStatusCodes.js";
 
 // CREATE (POST) : Creates a new user.
 const createUser = asyncWrapTC(async (req, res) => {
+  // [TODO] : convert below response to JSON & remove result variable if not of use anymore.
   const result = await addUser(req, res);
-  // [TODO] : convert below response to JSON
   return res.status(httpStatusCodes.CREATED).send("New User Created!!");
 });
 

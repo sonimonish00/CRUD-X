@@ -20,8 +20,8 @@ const { port } = config;
 let server;
 
 // MongoDB Connection : Using events & w/o callbacks (Recommended)
-connectDB();
-mongoose.connection
+await connectDB();
+await mongoose.connection
   .on("connected", () => logger.info("Connected to MongoDB"))
   .on("error", (error) => logger.error(`MongoDB Error : ${error}`))
   .on("disconnected", () => logger.info("Disconnected from MongoDB"))

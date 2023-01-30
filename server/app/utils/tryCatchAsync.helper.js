@@ -3,7 +3,7 @@
 // Using try-catch approach with async/await [Recommended]
 const asyncWrapTC = (controllerHandlerCallback) => async (req, res, next) => {
   try {
-    await controllerHandlerCallback(req, res);
+    return await controllerHandlerCallback(req, res);
   } catch (error) {
     return next(error);
   }
