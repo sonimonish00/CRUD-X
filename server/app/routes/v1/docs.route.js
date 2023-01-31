@@ -15,10 +15,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const docsRoute = express.Router();
-console.log(__dirname + "../../../routes/v1/auth.route.js");
 const specs = swaggerJsdoc({
   swaggerDefinition,
-  //   apis: ["src/docs/*.yml", "src/routes/v1/*.js"],
   apis: [
     `${__dirname}../../../docs/*.yml`,
     `${__dirname}../../../routes/v1/*.js`,
