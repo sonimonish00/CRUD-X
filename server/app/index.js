@@ -4,7 +4,8 @@
 // import multer from "multer "; // For multipart/form-data
 import express from "express";
 import cors from "cors";
-import { userRoutes } from "./routes/v1/user.route.js";
+// import { userRoutes } from "./routes/v1/user.route.js";
+import routes from "./routes/v1/index.js";
 import { ErrorHandler } from "./middlewares/errorHandler.middleware.js";
 import { ApiError } from "./utils/customErrors.js";
 import { httpStatusCodes } from "./utils/httpStatusCodes.js";
@@ -33,13 +34,13 @@ app.get("/favicon.ico", (req, res) => {
 });
 
 // Routes (API - V1) : Users -> http://localhost:2000/v1/users
+// Always version in ur API & Req/Res Header
 // [TODO] : Other Routes for Admin, Manager, Salesman Role.
 // [TODO] : Apply `express-rate-limit` middleware to each route specially `auth` route
-// [TODO] : Optimize to app.use("/v1", userRoutes) => see "./routes/v1/index.js"
-app.use("/v1/users", userRoutes); //Always version in ur API & Req/Res Header
+// app.use("/v1/users", userRoutes);
+app.use("/v1", routes);
 
 // MIDDLEWARE : For all other unknow routes
-// Alternative : app.get('*') -> not recommended though
 app.use((req, res, next) => {
   next(new ApiError(httpStatusCodes.NOT_FOUND, "URL Doesn't exist !!"));
 });

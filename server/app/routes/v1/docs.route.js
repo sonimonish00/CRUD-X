@@ -1,7 +1,36 @@
 // https://github.com/hagopj13/node-express-boilerplate/blob/master/src/routes/v1/docs.route.js
 
 // => Convert to ES6 import/export
-// const express = require("express");
 // const swaggerJsdoc = require("swagger-jsdoc");
 // const swaggerUi = require("swagger-ui-express");
 // const swaggerDefinition = require("../../docs/swaggerDef");
+import express from "express";
+import swaggerJsdoc from "swagger-jsdoc";
+import swaggerUi from "swagger-ui-express";
+import swaggerDefinition from "../../docs/swaggerDef.js";
+
+import path from "path";
+import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const docsRoute = express.Router();
+console.log(__dirname + "../../../routes/v1/auth.route.js");
+const specs = swaggerJsdoc({
+  swaggerDefinition,
+  //   apis: ["src/docs/*.yml", "src/routes/v1/*.js"],
+  apis: [
+    `${__dirname}../../../docs/*.yml`,
+    `${__dirname}../../../routes/v1/*.js`,
+  ],
+});
+
+docsRoute.use("/", swaggerUi.serve);
+docsRoute.get(
+  "/",
+  swaggerUi.setup(specs, {
+    explorer: true,
+  })
+);
+
+export default docsRoute;

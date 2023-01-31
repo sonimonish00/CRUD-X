@@ -31,4 +31,76 @@ userRoutes.get("/", getUsers);
 
 // [TODO] : Swagger Defintions for this route file
 
-export { userRoutes };
+export default userRoutes;
+
+/**
+ * @swagger
+ * tags:
+ *   name: Users
+ *   description: User management and retrieval
+ */
+
+/**
+ * @swagger
+ * /users:
+ *   post:
+ *     summary: Create a user
+ *     description: Right now anyone can create a User.
+ *     tags: [Users]
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - First Name
+ *               - Last Name
+ *             properties:
+ *               firstName:
+ *                 type: string
+ *               lastName:
+ *                 type: string
+ *                 description: your last name
+ *             example:
+ *               firstName: fake first name
+ *               lastName: fake last name
+ *     responses:
+ *       "201":
+ *         description: Created
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/User'
+ *       "400":
+ *         $ref: '#/components/responses/BadRequest'
+ *
+ *   get:
+ *     summary: Get all users
+ *     description: Anyone could get list of all users from DB
+ *     tags: [Users]
+ *     parameters:
+ *       - in: query
+ *         firstName: firstName
+ *         schema:
+ *           type: string
+ *         description: User's first name
+ *       - in: query
+ *         lastName: lastName
+ *         schema:
+ *           type: string
+ *         description: User's last name
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 results:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/User'
+ *       "404":
+ *         $ref: '#/components/responses/NotFound'
+ */

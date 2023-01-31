@@ -1,1 +1,45 @@
 # https://github.com/hagopj13/node-express-boilerplate/blob/master/src/docs/components.yml
+# Keys are from req.body not the model/db hence firstName used instead of first_name
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+      example:
+        id: 5ebac534954b54139806c112
+        firstName: fake first name
+        lastName: fake last name
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: number
+        message:
+          type: string
+
+  responses:
+    BadRequest:
+      description: Bad Syntax or Validation error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            code: 400
+            message: Some issue with request ie bad or malformed syntax
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            code: 404
+            message: Resource Not found i.e user, url, page etc.
