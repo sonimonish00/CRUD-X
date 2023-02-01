@@ -10,6 +10,8 @@ A basic CRUD web application using [X]ERN stack.
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 
+[![Coverage Status](https://coveralls.io/repos/github/sonimonish00/CRUD-X/badge.svg?branch=main)](https://coveralls.io/github/sonimonish00/CRUD-X?branch=main)
+
 ## Tech Stack (FE + BE/DB) : [X]ERN
 
 **Architectural :** Agile | Monolith | MVC (Future PENDING - [Component based](https://github.com/goldbergyoni/nodebestpractices#-11-structure-your-solution-by-components) + Mailchimp/Payment service integration + Test Cases/TDD/API Docs-Swagger + Dockerize)
