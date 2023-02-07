@@ -3,7 +3,6 @@ import config from "./config.js";
 import { logger } from "./logger.js";
 
 const { mongoDBURL } = config;
-
 // MongoDB Connection Setup (Not as per best practice but still good to go)
 const connectDB = async () => {
   try {

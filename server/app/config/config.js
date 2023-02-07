@@ -9,10 +9,13 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 // dotenv.config({ path: path.join(__dirname, "../../env/.env") });
 dotenv.config({ path: path.join(__dirname, "../../env/.env.development") });
+// dotenv.config({ path: path.join(__dirname, "../../env/.env.test") });
 
 const envVarsSchema = Joi.object()
   .keys({
-    NODE_ENV: Joi.string().valid("production", "development").required(),
+    NODE_ENV: Joi.string()
+      .valid("production", "development", "test")
+      .required(),
     PORT: Joi.number().default(5000),
     MONGODB_ATLAS_URL: Joi.string().required().description("MongoDB Atlas URL"),
   })
@@ -28,7 +31,8 @@ if (error) {
 export default {
   env: envVars.NODE_ENV,
   port: envVars.PORT,
-  mongoDBURL: envVars.MONGODB_ATLAS_URL,
+  mongoDBURL:
+    envVars.MONGODB_ATLAS_URL + (envVars.NODE_ENV === "test" ? "-test" : ""),
 };
 
 /*

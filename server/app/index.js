@@ -10,14 +10,17 @@ import { ErrorHandler } from "./middlewares/errorHandler.middleware.js";
 import { ApiError } from "./utils/customErrors.js";
 import { httpStatusCodes } from "./utils/httpStatusCodes.js";
 import morgan from "./config/morgan.js";
+import config from "./config/config.js";
 
 const app = express();
 
 // Middlewares : Built-in + Custom
 
 // Morgan HTTP Logger
-app.use(morgan.successHandler);
-app.use(morgan.errorHandler);
+if (config.env !== "test") {
+  app.use(morgan.successHandler);
+  app.use(morgan.errorHandler);
+}
 
 app.use(express.json()); // For Content-Type: application/json -> Builtin
 app.use(express.urlencoded({ extended: true })); // To parse urlencoded req. body app/x-www-form-urlencoded
