@@ -10,18 +10,19 @@ const addUser = async (req, res) => {
   //   first_name: req.body.firstName,
   //   last_name: req.body.lastName,
   // };
-  const { firstName, lastName } = req.body;
+  const { firstName, lastName, password } = req.body;
 
   // Custom Data Validation at service layer
-  if (!firstName || !lastName) {
+  if (!firstName || !lastName || !password) {
     throw new ApiError(
       httpStatusCodes.BAD_REQUEST,
-      "Both first and last name are required !!"
+      "first name, last name, password are required !!"
     );
   }
   const user = new User({
     first_name: firstName,
     last_name: lastName,
+    password: password,
   });
   return await user.save();
 };
