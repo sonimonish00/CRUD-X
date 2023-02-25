@@ -29,6 +29,7 @@ app.use(cors()); // For using CORS -> Builtin
 app.options("*", cors()); // include before other routes - CORS preflight request -> Builtin
 
 // Routes : Homepage URL -> http://localhost:2000/ & Favicon Handling
+// [IMP] : Below is unprotected route, you could include middleware to protect it, see extra code below.
 app.get("/", (req, res) => {
   res.send("Welcome to homepage (Dashboard)");
 });
@@ -36,11 +37,10 @@ app.get("/favicon.ico", (req, res) => {
   res.status(204);
 });
 
-// Routes (API - V1) : Users -> http://localhost:2000/v1/users
+// Routes (API - V1) : Users -> http://localhost:2000/v1/
 // Always version in ur API & Req/Res Header
 // [TODO] : Other Routes for Admin, Manager, Salesman Role.
-// [TODO] : Apply `express-rate-limit` middleware to each route specially `auth` route
-// app.use("/v1/users", userRoutes);
+// [TODO] : Apply API Limit via `express-rate-limit` middleware to `auth` route
 app.use("/v1", routes);
 
 // MIDDLEWARE : For all other unknow routes
@@ -56,4 +56,19 @@ export { app };
 /* 
 Ref. Links
   - API Versioning : https://github.com/RootSoft/API-Naming-Convention#versioning
+*/
+
+/* Extra Code 
+
+// Include this as middleware in any route to make it protected token password is `123`
+const testTokenAuthHeaderBearerMiddleware = (req, res, next) => {
+  console.log(req.headers);
+  const token = req.headers.authorization?.split(" ")[1];
+  return !token
+    ? res.status(403).json({ error: "Token is not present" })
+    : token !== "123"
+    ? res.status(400).json({ error: "Wrong Token" })
+    : next();
+};
+
 */

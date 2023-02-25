@@ -13,8 +13,10 @@ const userRoutes = express.Router();
 
 // CREATE : create user -> "/users" | Alternative : "/create"
 // Eg. : /tickets/<id>/messages -> create new msg in ticket #id
+// [TODO] : make this a protected route by inclduing auth('manageUsers') middleware so that only admin could create a new user
 userRoutes.post("/", validate(addUser), createUser);
 
+// [TODO] : make this also a protected route but both `user` & `admin` could get all users list
 // READ : get all users -> "/users/"
 userRoutes.get("/", getUsers);
 // geUsers short form gU : userRoutes.get(auth('gU), validate(userValidation.gU), userController.gU)
