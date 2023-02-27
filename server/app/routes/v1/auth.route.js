@@ -16,5 +16,46 @@ authRoute.post(
   validate(authValidation.register),
   authController.register
 );
+authRoute.post("/login", validate(authValidation.login), authController.login);
+authRoute.post(
+  "/logout",
+  validate(authValidation.logout),
+  authController.logout
+);
+authRoute.post(
+  "/refresh-tokens",
+  validate(authValidation.refreshTokens),
+  authController.refreshTokens
+);
+
+// [TODO] : Needs to modify when u actually implement Google OAuth
+authRoute.post(
+  "/loginGoogleOAuth2",
+  validate(authValidation.loginGoogleOAuth),
+  authController.loginGoogleOAuth
+);
+
+// <============ Not sure below one's will works or not. just included here ============>
+authRoute.post(
+  "/forgot-password",
+  validate(authValidation.forgotPassword),
+  authController.forgotPassword
+);
+authRoute.post(
+  "/reset-password",
+  validate(authValidation.resetPassword),
+  authController.resetPassword
+);
+authRoute.post(
+  "/send-verification-email",
+  auth(),
+  authController.sendVerificationEmail
+);
+authRoute.post(
+  "/verify-email",
+  validate(authValidation.verifyEmail),
+  authController.verifyEmail
+);
+// <============ ENDS HERE ============>
 
 export default authRoute;

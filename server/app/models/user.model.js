@@ -1,4 +1,3 @@
-// https://github.com/hagopj13/node-express-boilerplate/blob/master/src/models/user.model.js
 // Database (MongoDB Atlas) : `crudxDB`
 // Model (Collctn./Table) : `User`
 // Name (Schema - Capital Singlr.) : UserSchema, ShoppingCartSchema etc.
@@ -7,28 +6,95 @@
 
 // Import members (ES6) : fn. -> `model` | Class (CF) -> `Schema`
 import { model, mongoose, Schema } from "mongoose";
-// import pkg from "@hapi/joi";
-// const { Joi } = pkg;
+import bcrypt from "bcryptjs";
+import validator from "validator";
+import { roles } from "../config/roles.js";
+import { toJSON } from "./plugins/toJSON.plugin.js";
 
 // Pluralizing so that colllection names don't get modified
 mongoose.pluralize(null);
 
-// Define a schema without any validations as of now...
 // [PENDING] : Add more fields and validations
-const UserSchema = new Schema({
-  first_name: { type: String },
-  last_name: { type: String },
-  email_id: { type: String },
-  password: { type: String },
-  mobile: { type: Number },
-  location: { type: String },
-  date_of_birth: { type: Date },
-  role: {
-    type: String,
-    enum: ["Admin", "Manager", "Salesperson", "Customer"],
-    default: "Customer",
+const UserSchema = new Schema(
+  {
+    first_name: { type: String, required: true, trim: true },
+    last_name: { type: String, required: true, trim: true },
+    email_id: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+      lowercase: true,
+      validate(value) {
+        if (!validator.isEmail(value)) {
+          throw new Error("Invalid email");
+        }
+      },
+    },
+    password: {
+      type: String,
+      required: true,
+      trim: true,
+      minlength: 8,
+      validate(value) {
+        if (!value.match(/\d/) || !value.match(/[a-zA-Z]/)) {
+          throw new Error(
+            "Password must contain at least one letter and one number"
+          );
+        }
+      },
+      private: true, // used by the toJSON plugin
+    },
+    role: {
+      type: String,
+      enum: roles,
+      // enum: ["user", "admin", "manager", "salesperson"],
+      default: "user",
+    },
+    isEmailVerified: {
+      type: Boolean,
+      default: false,
+    },
+    // mobile: { type: Number },
+    // location: { type: String },
+    // date_of_birth: { type: Date },
+    // order: { type: Schema.Types.ObjectId, ref: "Order" },
   },
-  // order: { type: Schema.Types.ObjectId, ref: "Order" },
+  {
+    timestamps: true,
+  }
+);
+
+// add plugin that converts mongoose to json
+UserSchema.plugin(toJSON);
+
+/**
+ * Check if email is taken
+ * @param {string} email_id - The user's email
+ * @param {ObjectId} [excludeUserId] - The id of the user to be excluded
+ * @returns {Promise<boolean>}
+ */
+UserSchema.statics.isEmailTaken = async function (email_id, excludeUserId) {
+  const user = await this.findOne({ email_id, _id: { $ne: excludeUserId } });
+  return !!user;
+};
+
+/**
+ * Check if password matches the user's password
+ * @param {string} password
+ * @returns {Promise<boolean>}
+ */
+UserSchema.methods.isPasswordMatch = async function (password) {
+  const user = this;
+  return bcrypt.compare(password, user.password);
+};
+
+UserSchema.pre("save", async function (next) {
+  const user = this;
+  if (user.isModified("password")) {
+    user.password = await bcrypt.hash(user.password, 8);
+  }
+  next();
 });
 
 // Virtual Method : To get users fullname
@@ -44,27 +110,16 @@ UserSchema.virtual("fullname").get(function () {
   return fullname;
 });
 
-// Create a @hapi/joi validation schema for the user
-// const userValidationSchema = Joi.object({
-//   first_name: Joi.string(),
-//   last_name: Joi.string(),
-//   email_id: Joi.string().email(),
-//   password: Joi.string(),
-//   mobile: Joi.number(),
-//   location: Joi.string(),
-//   date_of_birth: Joi.date(),
-//   role: Joi.string()
-//     .valid(["Admin", "Manager", "Salesperson", "Customer"])
-//     .default("Customer"),
-// });
-
-// Compile model from Schema
+/**
+ * @typedef User
+ * @description Compile model from Schema
+ */
 const User = model("User", UserSchema);
-// Export member (ES6) : CF -> `User`
-// export { User, userValidationSchema };
+
 export { User };
 
 /*
-  Ref. Links : For internal/custom/3rd party Validation & Mongoose other things
-    - https://medium.com/@SigniorGratiano/mongoose-and-express-68994fcfdeff
+Ref. Links : For internal/custom/3rd party Validation & Mongoose other things
+  - https://github.com/hagopj13/node-express-boilerplate/blob/master/src/models/user.model.js
+  - https://medium.com/@SigniorGratiano/mongoose-and-express-68994fcfdeff
 */
