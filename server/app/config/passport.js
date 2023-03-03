@@ -1,8 +1,11 @@
 // https://github.com/hagopj13/node-express-boilerplate/blob/master/src/config/passport.js
 import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
+import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import config from "./config.js";
 import { tokenTypes } from "./tokens.js";
 import { User } from "../models/user.model.js";
+
+// <========================== JWT Strategy ==============================>
 
 // JWT Options : `Secret Key` (Random from env) & `JWT` Fro Req. Auth Header(Bearer)
 const jwtOptions = {
@@ -10,7 +13,7 @@ const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
 };
 
-// Verify JWT Token Type (AT,RT etc.) & Find user by id from DB coresponding to jwt & return that user
+// Verify JWT Token Type (AT,RT) & Find user by id from DB coresponding to jwt & return that user
 const jwtVerify = async (payload, done) => {
   try {
     if (payload.type !== tokenTypes.ACCESS) {
@@ -29,4 +32,28 @@ const jwtVerify = async (payload, done) => {
 // Strategy : Secret Key + JWT Bearer Token + Payload & Token-Type
 const jwtStrategy = new JwtStrategy(jwtOptions, jwtVerify);
 
-export { jwtStrategy };
+// <========================== GOOGLE OAUTH 2.0 Strategy ===============================>
+
+// Google Options - `CallbackURL` should match with `Authorized redirect URIs` registered in Google cloud console
+const googleOptions = {
+  clientID: config.googleOauth2.client_id,
+  clientSecret: config.googleOauth2.client_secret,
+  callbackURL: "http://localhost:3000/v1/auth/loginGoogleOAuth2",
+};
+
+// Google Callback Fn.
+const googleVerify = function (
+  accessToken,
+  refreshToken,
+  profile,
+  email,
+  done
+) {
+  // console.log("Trying to access gooogle Account", profile, email);
+  return done(null, email);
+};
+
+// Google OAuth 2.0 Strategy
+const googleOAuth2Strategy = new GoogleStrategy(googleOptions, googleVerify);
+
+export { jwtStrategy, googleOAuth2Strategy };

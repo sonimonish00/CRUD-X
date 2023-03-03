@@ -62,19 +62,6 @@ const refreshAuth = async (refreshToken) => {
   }
 };
 
-// [TODO] : Needs to modify when u actually implement Google OAuth
-/**
- * Login with Google OAuth 2.0 : Will Send AT+RT to access Google API'S
- * @param {string} clientID
- * @param {string} clientSecret
- * @returns {Promise<result>}
- */
-const loginUserWithGoogleOAuth = async (clientID, clientSecret) => {
-  //passport-google logic may be
-  let result = clientID + clientSecret;
-  return result;
-};
-
 // <============ Not sure below one's will works or not. just included here ============>
 /**
  * Reset password : Not sure will works or not. just included here
@@ -129,7 +116,6 @@ export {
   loginUserWithEmailAndPassword,
   logout,
   refreshAuth,
-  loginUserWithGoogleOAuth,
   resetPassword,
   verifyEmail,
 };

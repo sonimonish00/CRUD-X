@@ -32,16 +32,6 @@ const refreshTokens = asyncWrapTC(async (req, res) => {
   res.send({ ...tokens });
 });
 
-// [TODO] : Needs to modify when u actually implement Google OAuth
-const loginGoogleOAuth = asyncWrapTC(async (req, res) => {
-  const { clientID, clientSecret } = req.body;
-  const user = await authService.loginUserWithGoogleOAuth(
-    clientID,
-    clientSecret
-  );
-  res.send({ user });
-});
-
 // <------ Not sure below one's will works or not. just included here ---->
 const forgotPassword = asyncWrapTC(async (req, res) => {
   const resetPasswordToken = await tokenService.generateResetPasswordToken(
@@ -78,7 +68,6 @@ const authController = {
   login,
   logout,
   refreshTokens,
-  loginGoogleOAuth,
   forgotPassword,
   resetPassword,
   sendVerificationEmail,

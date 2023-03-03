@@ -8,6 +8,7 @@ import { validate } from "../../middlewares/validateJoi.middleware.js";
 import { authValidation } from "../../validations/auth.validation.js";
 import { authController } from "../../controllers/auth.controller.js";
 import { auth } from "../../middlewares/auth.middleware.js";
+import passport from "passport";
 
 const authRoute = express.Router();
 
@@ -28,11 +29,13 @@ authRoute.post(
   authController.refreshTokens
 );
 
-// [TODO] : Needs to modify when u actually implement Google OAuth
-authRoute.post(
+// For Below Route i'm not creating Controller or service, mixing all here at once, will do if refactored in future
+authRoute.get(
   "/loginGoogleOAuth2",
-  validate(authValidation.loginGoogleOAuth),
-  authController.loginGoogleOAuth
+  passport.authenticate("google", { failureRedirect: "/" }),
+  function (req, res) {
+    res.redirect("/home");
+  }
 );
 
 // <============ Not sure below one's will works or not. just included here ============>

@@ -40,4 +40,8 @@ const auth =
       .catch((err) => next(err));
   };
 
-export { auth };
+const googleOAuth2Middleware = passport.authenticate("google", {
+  scope: ["profile", "email"],
+});
+
+export { auth, googleOAuth2Middleware };

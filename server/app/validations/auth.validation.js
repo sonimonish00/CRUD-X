@@ -31,14 +31,6 @@ const refreshTokens = {
   }),
 };
 
-// [TODO] : Needs to modify when u actually implement Google OAuth
-const loginGoogleOAuth = {
-  body: Joi.object().keys({
-    clientID: Joi.string().required(),
-    clientSecret: Joi.string().required(),
-  }),
-};
-
 // <============ Not sure below one's will works or not. just included here ============>
 const forgotPassword = {
   body: Joi.object().keys({
@@ -67,7 +59,6 @@ const authValidation = {
   login,
   logout,
   refreshTokens,
-  loginGoogleOAuth,
   forgotPassword,
   resetPassword,
   verifyEmail,

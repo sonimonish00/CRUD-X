@@ -32,6 +32,8 @@ const envVarsSchema = Joi.object()
     JWT_VERIFY_EMAIL_EXPIRATION_MINUTES: Joi.number()
       .default(10)
       .description("minutes after which verify email token expires"),
+    GOOGLE_OAUTH_CLIENT_ID: Joi.string(),
+    GOOGLE_OAUTH_CLIENT_SECRET: Joi.string(),
   })
   .unknown();
 
@@ -54,6 +56,10 @@ export default {
     resetPasswordExpirationMinutes:
       envVars.JWT_RESET_PASSWORD_EXPIRATION_MINUTES,
     verifyEmailExpirationMinutes: envVars.JWT_VERIFY_EMAIL_EXPIRATION_MINUTES,
+  },
+  googleOauth2: {
+    client_id: envVars.GOOGLE_OAUTH_CLIENT_ID,
+    client_secret: envVars.GOOGLE_OAUTH_CLIENT_SECRET,
   },
 };
 
