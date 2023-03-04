@@ -93,13 +93,7 @@ app.get("/home", isGoogleOauthLoggedIn, (req, res) => {
 app.get("/logoutGoogleOAuth2", (req, res, next) => {
   req.session.destroy();
   res.clearCookie("connect.sid");
-  // res.header("Cache-Control", "private, no-cache, no-store, must-revalidate");
-  // res.header("Expires", "-1");
-  // res.header("Pragma", "no-cache");
-  res.set(
-    "Cache-Control",
-    "no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0"
-  );
+  res.header("Cache-Control", "private, no-cache, no-store, must-revalidate");
   res.status(httpStatusCodes.NO_CONTENT).redirect("/");
 });
 
