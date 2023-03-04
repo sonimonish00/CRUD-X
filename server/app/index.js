@@ -92,7 +92,8 @@ app.get("/home", isGoogleOauthLoggedIn, (req, res) => {
 // [IMP] : Separate out belowin Auth RCS [#Refactoring]
 app.get("/logoutGoogleOAuth2", (req, res, next) => {
   req.session.destroy();
-  res.status(httpStatusCodes.NO_CONTENT).send();
+  res.clearCookie("connect.sid");
+  res.status(httpStatusCodes.NO_CONTENT).redirect("/");
 });
 
 // Normal JWT Auth Homepage
