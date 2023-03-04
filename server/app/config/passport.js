@@ -36,7 +36,8 @@ const jwtStrategy = new JwtStrategy(jwtOptions, jwtVerify);
 const googleOptions = {
   clientID: config.googleOauth2.client_id,
   clientSecret: config.googleOauth2.client_secret,
-  callbackURL: "http://localhost:3000/v1/auth/loginGoogleOAuth2",
+  callbackURL:
+    "https://crud-x-production.up.railway.app/v1/auth/loginGoogleOAuth2",
 };
 
 // Google Callback Fn.
