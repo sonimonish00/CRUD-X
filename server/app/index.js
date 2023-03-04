@@ -43,7 +43,7 @@ app.use(express.json()); // For Content-Type: application/json -> Builtin
 app.use(express.urlencoded({ extended: true })); // For app/x-www-form-urlencoded (Form-action)
 
 // set security HTTP headers
-app.use(helmet());
+// app.use(helmet());
 // sanitize request data
 // app.use(xss());
 // app.use(mongoSanitize());
@@ -91,7 +91,7 @@ app.get("/home", isGoogleOauthLoggedIn, (req, res) => {
 });
 
 // [IMP] : Separate out belowin Auth RCS [#Refactoring]
-app.get("/logoutGoogleOAuth2", helmet.noCache(), (req, res, next) => {
+app.get("/logoutGoogleOAuth2", (req, res, next) => {
   req.session.destroy();
   res.clearCookie("connect.sid");
   res.status(httpStatusCodes.NO_CONTENT).redirect("/");
