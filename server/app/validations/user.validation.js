@@ -1,5 +1,3 @@
-// https://github.com/hagopj13/node-express-boilerplate/blob/master/src/validations/user.validation.js
-// [TODO] : Validation for rest of CRUD Ops - add, read, edit, delete
 import Joi from "@hapi/joi";
 import { password, objectId } from "./custom.validation.js";
 
@@ -55,3 +53,8 @@ const deleteUser = {
 // <============ ENDS HERE ============>
 
 export { addUser, queryUsers, getUser, updateUser, deleteUser };
+
+/* Reference Links, Code & Info [#User Module Related]
+  - https://github.com/hagopj13/node-express-boilerplate/blob/master/src/validations/user.validation.js
+  - [TODO] : Validation for rest of CRUD Ops - add, read, edit, delete (I've included the code above but not sure about it, hence its pending TODO)
+*/

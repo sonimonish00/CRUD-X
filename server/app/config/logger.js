@@ -1,14 +1,4 @@
-// APM Logging & Monitoring Library : Winston (Log shipper - sematext,elasticsearch,cloudwatch,Logstash etc.)
-// Winston - log application-level events and information
-
-// https://github.com/goldbergyoni/nodebestpractices/blob/master/sections/errorhandling/apmproducts.md
-// https://github.com/hagopj13/node-express-boilerplate/blob/master/src/config/logger.js
-// https://github.com/goldbergyoni/nodebestpractices/blob/master/sections/errorhandling/usematurelogger.md
-// https://errorception.com
-// https://www.muscula.com
-// https://sematext.com/blog/node-js-error-handling/#6-use-a-centralized-location-for-logs-and-error-alerting
-// https://betterstack.com/community/guides/logging/how-to-install-setup-and-use-winston-and-morgan-to-log-node-js-applications/
-// https://betterstack.com/community/guides/logging/
+// APM Logging & Monitoring Lib. : Winston (Log shipper - sematext,elasticsearch,cloudwatch,Logstash etc.) [logs application-level events and information]
 
 import winston from "winston";
 import path from "path";
@@ -31,8 +21,8 @@ const consoleTransport = new winston.transports.Console({
   stderrLevels: ["error"],
 });
 
-// path will be `config/logs/error.log`
 const fileTransport = new winston.transports.File({
+  // path : `config/logs/error.log`
   filename: __dirname + "/logs/error.log",
 });
 
@@ -52,3 +42,14 @@ const logger = winston.createLogger({
 });
 
 export { logger };
+
+/* Reference Link 
+  - https://github.com/goldbergyoni/nodebestpractices/blob/master/sections/errorhandling/apmproducts.md
+  - https://github.com/hagopj13/node-express-boilerplate/blob/master/src/config/logger.js
+  - https://github.com/goldbergyoni/nodebestpractices/blob/master/sections/errorhandling/usematurelogger.md
+  - https://errorception.com
+  - https://www.muscula.com
+  - https://sematext.com/blog/node-js-error-handling/#6-use-a-centralized-location-for-logs-and-error-alerting
+  - https://betterstack.com/community/guides/logging/how-to-install-setup-and-use-winston-and-morgan-to-log-node-js-applications/
+  - https://betterstack.com/community/guides/logging/
+*/

@@ -1,7 +1,3 @@
-// DB : `crudxDB`
-// Collection (Table) : `User`
-// Route related err : https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/routes#route_parameters
-
 import express from "express";
 import { auth } from "../../middlewares/auth.middleware.js";
 import { validate } from "../../middlewares/validateJoi.middleware.js";
@@ -10,9 +6,6 @@ import * as userController from "../../controllers/user.controller.js";
 
 const userRoutes = express.Router();
 
-// Routes naming convention : leverage HTTP verbs/methods.
-// CREATE : create user -> "/users" | Alternative : "/create" | Eg. : /tickets/<id>/messages -> create new msg in ticket #id
-// READ : get all users -> "/users/"
 // [AuthN/R] : Only `admin` has right to `manageUsers` ie. register & `user` has right to get all users.
 userRoutes
   .route("/")
@@ -23,19 +16,8 @@ userRoutes
   )
   .get(auth(), validate(userValidation.queryUsers), userController.getUsers);
 
-// READ : get particular user with `id` -> "/users/:id"
-// Eg. : /tickets/12/messages/5 -> get message #5 for ticket #12
-// userRoutes.get("/:userId", getUser);
-
-// UPDATE : update user. Alternative : "/:id/update"
-// userRoutes.put("/:userId", updateUser);
-
-// DELETE : delete user. Alternative : "/:id/delete"
-// userRoutes.delete("/:userId", deleteUser);
-
 export default userRoutes;
 
-// [TODO] : Swagger Defintions for this route file
 /**
  * @swagger
  * tags:
@@ -148,3 +130,19 @@ export default userRoutes;
  *       "404":
  *         $ref: '#/components/responses/NotFound'
  */
+
+/* Reference Links, Code & Info
+  - [TODO] : Swagger Defintions for this route file
+  - https://github.com/hagopj13/node-express-boilerplate/blob/master/src/routes/v1/user.route.js
+  - DB : `crudxDB` | Collection (Table) : `User`
+  Routes naming convention : leverage HTTP verbs/methods.
+    - CREATE : create user -> "/users" | Alternative : "/create" | Eg. : /tickets/<id>/messages -> create new msg in ticket #id
+    - READ : get all users -> "/users/"
+    - READ : get particular user with `id` -> "/users/:id"
+      Eg. : /tickets/12/messages/5 -> get message #5 for ticket #12
+      userRoutes.get("/:userId", getUser);
+    - UPDATE : update user. Alternative : "/:id/update"
+      userRoutes.put("/:userId", updateUser);
+    - DELETE : delete user. Alternative : "/:id/delete"
+      userRoutes.delete("/:userId", deleteUser);
+*/

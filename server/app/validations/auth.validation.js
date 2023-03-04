@@ -1,4 +1,3 @@
-// https://github.com/hagopj13/node-express-boilerplate/blob/master/src/validations/auth.validation.js
 import Joi from "@hapi/joi";
 import { password } from "./custom.validation.js";
 
@@ -65,3 +64,7 @@ const authValidation = {
 };
 
 export { authValidation };
+
+/* Reference Links, Code & Info [#Auth Module Related]
+  - https://github.com/hagopj13/node-express-boilerplate/blob/master/src/validations/auth.validation.js
+*/

@@ -1,9 +1,7 @@
-// https://github.com/hagopj13/node-express-boilerplate/blob/master/src/routes/v1/index.js
 import express from "express";
 import authRoute from "./auth.route.js";
 import userRoute from "./user.route.js";
 import docsRoute from "./docs.route.js";
-
 import config from "../../config/config.js";
 
 const router = express.Router();
@@ -38,3 +36,7 @@ if (config.env === "development") {
 }
 
 export default router;
+
+/* Reference Links, Code & Info
+  - https://github.com/hagopj13/node-express-boilerplate/blob/master/src/routes/v1/index.js
+*/

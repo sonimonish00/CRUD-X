@@ -1,9 +1,3 @@
-// https://github.com/hagopj13/node-express-boilerplate/blob/master/src/routes/v1/docs.route.js
-
-// => Convert to ES6 import/export
-// const swaggerJsdoc = require("swagger-jsdoc");
-// const swaggerUi = require("swagger-ui-express");
-// const swaggerDefinition = require("../../docs/swaggerDef");
 import express from "express";
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
@@ -32,3 +26,7 @@ docsRoute.get(
 );
 
 export default docsRoute;
+
+/* Reference Links, Code & Info
+  - https://github.com/hagopj13/node-express-boilerplate/blob/master/src/routes/v1/docs.route.js
+*/

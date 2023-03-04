@@ -1,4 +1,3 @@
-// https://github.com/hagopj13/node-express-boilerplate/blob/master/src/middlewares/auth.js
 import passport from "passport";
 import { httpStatusCodes } from "../utils/httpStatusCodes.js";
 import { ApiError } from "../utils/customErrors.js";
@@ -45,3 +44,7 @@ const googleOAuth2Middleware = passport.authenticate("google", {
 });
 
 export { auth, googleOAuth2Middleware };
+
+/* Reference Links, Code & Info
+  - https://github.com/hagopj13/node-express-boilerplate/blob/master/src/middlewares/auth.js
+*/

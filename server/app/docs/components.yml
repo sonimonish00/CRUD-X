@@ -1,4 +1,3 @@
-# https://github.com/hagopj13/node-express-boilerplate/blob/master/src/docs/components.yml
 # Keys are from req.body not the model/db hence firstName used instead of first_name
 components:
   schemas:
@@ -43,3 +42,4 @@ components:
           example:
             code: 404
             message: Resource Not found i.e user, url, page etc.
+# Ref. Link : https://github.com/hagopj13/node-express-boilerplate/blob/master/src/docs/components.yml

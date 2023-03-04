@@ -1,5 +1,4 @@
-// https://github.com/hagopj13/node-express-boilerplate/blob/master/src/validations/custom.validation.js
-
+// Module purpose : For custom validations of password & ObjectID of Mongo. #ModelDB-Related
 const objectId = (value, helpers) => {
   if (!value.match(/^[0-9a-fA-F]{24}$/)) {
     return helpers.message('"{{#label}}" must be a valid mongo id');
@@ -20,3 +19,7 @@ const password = (value, helpers) => {
 };
 
 export { objectId, password };
+
+/* Reference Links, Code & Info
+  - https://github.com/hagopj13/node-express-boilerplate/blob/master/src/validations/custom.validation.js 
+*/

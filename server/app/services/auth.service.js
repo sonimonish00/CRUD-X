@@ -1,4 +1,3 @@
-// https://github.com/hagopj13/node-express-boilerplate/blob/master/src/services/auth.service.js
 import { httpStatusCodes } from "../utils/httpStatusCodes.js";
 import * as userService from "../services/user.service.js";
 import * as tokenService from "../services/tokenAuth.service.js";
@@ -119,3 +118,7 @@ export {
   resetPassword,
   verifyEmail,
 };
+
+/* Reference Links, Code & Info
+  - https://github.com/hagopj13/node-express-boilerplate/blob/master/src/services/auth.service.js
+*/

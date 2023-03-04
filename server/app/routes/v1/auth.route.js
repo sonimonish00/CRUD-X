@@ -1,8 +1,3 @@
-// https://github.com/hagopj13/node-express-boilerplate/blob/master/src/routes/v1/auth.route.js
-
-// API Routes for Auth : router.post('/register', validate(authValidate.register), authController.register)
-// [TODO] : Swagger Defintions (API Docs)
-
 import express from "express";
 import { validate } from "../../middlewares/validateJoi.middleware.js";
 import { authValidation } from "../../validations/auth.validation.js";
@@ -29,7 +24,7 @@ authRoute.post(
   authController.refreshTokens
 );
 
-// For Below Route i'm not creating Controller or service, mixing all here at once, will do if refactored in future
+// [IMP] : For Google OAuth not creating Controller/service. #Future-Refactoring
 authRoute.get(
   "/loginGoogleOAuth2",
   passport.authenticate("google", { failureRedirect: "/" }),
@@ -62,3 +57,8 @@ authRoute.post(
 // <============ ENDS HERE ============>
 
 export default authRoute;
+
+/* Reference Links, Code & Info
+  [TODO] : Swagger Defintions (API Docs)
+  - https://github.com/hagopj13/node-express-boilerplate/blob/master/src/routes/v1/auth.route.js
+*/

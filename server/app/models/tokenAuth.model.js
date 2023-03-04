@@ -1,5 +1,3 @@
-// https://github.com/hagopj13/node-express-boilerplate/blob/master/src/models/token.model.js
-
 import { model, mongoose, Schema } from "mongoose";
 import { toJSON } from "./plugins/toJSON.plugin.js";
 import { tokenTypes } from "../config/tokens.js";
@@ -50,3 +48,7 @@ TokenSchema.plugin(toJSON);
 const Token = model("Token", TokenSchema);
 
 export { Token };
+
+/* Reference Links, Code & Info
+  - https://github.com/hagopj13/node-express-boilerplate/blob/master/src/models/token.model.js
+*/

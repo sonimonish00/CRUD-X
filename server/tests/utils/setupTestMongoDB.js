@@ -3,19 +3,12 @@
  * @Author: Monish
  * @Date: 20-Dec-2022 12:01 PM
  */
-// Different Names : Setup Test DB, Seed DB, Populate DB etc. [Used in testing - unit/integration]
-// [TODO] : in future if scales, multiple DB needed to be used to make multiple folder and files respectively
-// Refer link : https://github.com/mdn/express-locallibrary-tutorial/blob/main/populatedb.js
-// Other link : https://gist.github.com/internoma/99e50a3022c24dd9a37097c2d0423e54#file-populatedb-js
 
 import { logger } from "./../../app/config/logger.js";
 
 logger.info(
   "This script populates test dataset `users` to MongoDB. Use => `node populateMongoDB` "
 );
-
-// import config from "./app/config/config.js";
-// const { port } = config;
 
 import async from "async";
 import { mongoose } from "mongoose";
@@ -47,14 +40,12 @@ function userCreate(firstName, lastName, cb) {
       cb(err, null);
       return;
     }
-    // console.log("New User created !! : " + user);
     users.push(user);
     cb(null, user);
   });
 }
 
 // Declaring Fn. async series & entering test datasets
-// Refer : https://stackoverflow.com/questions/17853105/difference-between-async-series-and-async-parallel
 function createUsers(cb) {
   async.series(
     [
@@ -77,10 +68,17 @@ async.series(
     if (err) {
       logger.error(`FINAL ERR: ${err}`);
     } else {
-      //   console.log("Users List ==> " + results);
       logger.info(`Users List ==> ${users}`);
     }
     // All done, disconnect from database
     mongoose.connection.close();
   }
 );
+
+/* Reference Links, Code & Info
+  Different Names : Setup Test DB, Seed DB, Populate DB etc. [Used in testing - unit/integration]
+  [TODO] : in future if scales, multiple DB needed to be used to make multiple folder and files respectively
+  - https://github.com/mdn/express-locallibrary-tutorial/blob/main/populatedb.js
+  - https://gist.github.com/internoma/99e50a3022c24dd9a37097c2d0423e54#file-populatedb-js
+  - https://stackoverflow.com/questions/17853105/difference-between-async-series-and-async-parallel
+*/

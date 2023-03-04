@@ -1,5 +1,3 @@
-// https://github.com/hagopj13/node-express-boilerplate/blob/master/src/services/user.service.js
-
 import { httpStatusCodes } from "../utils/httpStatusCodes.js";
 import { User } from "../models/user.model.js";
 import { ApiError } from "../utils/customErrors.js";
@@ -105,7 +103,8 @@ export {
   deleteUserById,
 };
 
-/* Extra code :
+/* Reference Links, Code & Info
+  - https://github.com/hagopj13/node-express-boilerplate/blob/master/src/services/user.service.js
   1. const data = {
         snake_case (All other Lang) : req.body.camelCase (JS/C#/Java)
         first_name: req.body.firstName,
@@ -114,9 +113,6 @@ export {
 
   2. Custom Data Validation at service layer
     if (!firstName || !lastName || !emailID || !password) {
-      throw new ApiError(
-        httpStatusCodes.BAD_REQUEST,
-        "All fields are required : first name, last name, password & email ID !!"
-      );
+      throw new ApiError(httpStatusCodes.BAD_REQUEST, "All fields are required : first name, last name, password & email ID !!");
     }
 */

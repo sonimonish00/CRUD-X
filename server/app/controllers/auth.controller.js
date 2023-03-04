@@ -1,4 +1,3 @@
-// https://github.com/hagopj13/node-express-boilerplate/blob/master/src/controllers/auth.controller.js
 import { httpStatusCodes } from "../utils/httpStatusCodes.js";
 import { asyncWrapTC } from "../utils/tryCatchAsync.helper.js";
 import * as userService from "../services/user.service.js";
@@ -75,3 +74,7 @@ const authController = {
 };
 
 export { authController };
+
+/* Reference Links, Code & Info
+  - https://github.com/hagopj13/node-express-boilerplate/blob/master/src/controllers/auth.controller.js
+*/

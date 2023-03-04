@@ -1,2 +1,6 @@
-// common exports for all joi validations
-// https://github.com/hagopj13/node-express-boilerplate/blob/master/src/validations/index.js
+/*
+    Module purpose : common exports of all Joi validations here
+    [IMP] : Kept this module for future Improvement or refactoring of Code. More clean code and best practices.
+    Links
+        - https://github.com/hagopj13/node-express-boilerplate/blob/master/src/validations/index.js
+*/

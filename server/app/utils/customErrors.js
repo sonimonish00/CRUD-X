@@ -1,6 +1,5 @@
 // Custom Errors Module : extending built-in error classes
-
-// Base Error : foundation for all `Operational errors` like API Errors, Data validation, DB & NW Err etc.
+// Base Error : foundation for all `Ops err` like API Errors, Data validation, DB & NW Err etc.
 class BaseError extends Error {
   constructor(statusCode, message, isOperational = true, stack = "") {
     super(message);
@@ -21,17 +20,13 @@ class ApiError extends BaseError {}
 
 export { BaseError, ApiError };
 
-/* Extra code 
-  import { httpStatusCodes } from "./httpStatusCodes.js";
-
-  // Application Error could further extends subclasses, similarly for DB error, NW errors etc.
+/* Reference Links, Code & Info
+  import { httpStatusCodes } from "./httpStatusCodes.js";  
+  // App Err cud further extends subclasses, similarly for DB error, NW errors etc.
   class ApplicationError extends BaseError{
-    constructor(
-    statusCode = httpStatusCodes.BAD_REQUEST || customCode.erroCode,
+    constructor(statusCode = httpStatusCodes.BAD_REQUEST || customCode.erroCode,
     message = "Something happened in application layer",
     isOperational = true
-    ){
-      super(statusCode,message,isOperational)
-    }
+    ){ super(statusCode,message,isOperational) }
   }
 */

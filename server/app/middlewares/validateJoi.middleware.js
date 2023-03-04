@@ -1,4 +1,3 @@
-// https://github.com/hagopj13/node-express-boilerplate/blob/master/src/middlewares/validate.js
 import Joi from "@hapi/joi";
 import { ApiError } from "../utils/customErrors.js";
 import { httpStatusCodes } from "../utils/httpStatusCodes.js";
@@ -39,3 +38,6 @@ const validate = (schema) => (req, res, next) => {
 };
 
 export { validate };
+/* Reference Links, Code & Info
+  - https://github.com/hagopj13/node-express-boilerplate/blob/master/src/middlewares/validate.js
+*/

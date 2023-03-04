@@ -1,10 +1,3 @@
-// [TODO] : Swagger API Documentation
-// https://github.com/hagopj13/node-express-boilerplate/blob/master/src/docs/swaggerDef.js
-
-// also refer
-// https://www.npmjs.com/package/swagger-autogen
-// https://github.com/hagopj13/node-express-boilerplate/blob/master/src/routes/v1/user.route.js
-// https://github.com/hagopj13/node-express-boilerplate/blob/master/src/routes/v1/docs.route.js
 import pkgObj from "../../package.json" assert { type: "json" };
 import config from "../../app/config/config.js";
 
@@ -28,3 +21,10 @@ const swaggerDef = {
 };
 
 export default swaggerDef;
+
+/* Reference Links, Code & Info
+  - https://github.com/hagopj13/node-express-boilerplate/blob/master/src/docs/swaggerDef.js
+  - https://www.npmjs.com/package/swagger-autogen
+  - https://github.com/hagopj13/node-express-boilerplate/blob/master/src/routes/v1/user.route.js
+  - https://github.com/hagopj13/node-express-boilerplate/blob/master/src/routes/v1/docs.route.js
+*/

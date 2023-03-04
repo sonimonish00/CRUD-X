@@ -1,1 +1,4 @@
-// Order Table & Shopping Cart : Transaction between Product & user
+/*
+    Module purpose : Order Model for E-commerce (Transaction between Product & user)
+    [TODO] : Future Implementation.
+*/

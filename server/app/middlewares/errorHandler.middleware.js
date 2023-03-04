@@ -1,37 +1,15 @@
 // Middleware (Express) : central error handling [Customized]
-
 import { logger } from "../config/logger.js";
 import { BaseError, ApiError } from "../utils/customErrors.js";
 import { httpStatusCodes } from "../utils/httpStatusCodes.js";
 import { mongoose } from "mongoose";
 import config from "../config/config.js";
 
-// https://github.com/hagopj13/node-express-boilerplate/blob/master/src/middlewares/error.js
-// https://github.com/hagopj13/node-express-boilerplate/blob/master/src/app.js
-// also : https://gist.github.com/kluu1/40b52b60a34676f00092685a43dfbecd#file-handleerrors-js
-// https://github.com/goldbergyoni/nodebestpractices/blob/master/sections/errorhandling/centralizedhandling.md
-// [TODO] : Check if error is ops or not. If it is ops, Handle error(logging,mailing,APM) else restart (PM2)
-/* JSON Schema (Libraries : joi, validator, ajv, jsonschema etc.)
-   https://github.com/goldbergyoni/nodebestpractices/blob/master/sections/security/validation.md
-  {
-    "status" : 'success/failORError', //err.status
-    "source" : err.source // OR err.target OR  "source": { "pointer": "/data/attributes/firstName" },
-    "statusCode" : 200, //err.statusCode 
-    "message" : "My custom err msg or the one imported when i raised err", //err.message if not defined custom
-    "data" : err.data, // for success {user : users}, for fail `null` [user.controller.js gAU fn]
-    "meta" : {
-      "type" : err.name, //Name of error ie. err.name
-      "stack" : err.stack, //stack trace
-      "title":  "User not Found",
-      "detail": "The Database is empty"
-    }
-  }
-*/
 class ErrorHandler {
   // Operational errors (index.js -> Express app) [4xx, 5xx]
   static handle = () => {
     return async (err, req, res, next) => {
-      // 1. Pre-processing : Converting errors to APIError (mongoose Err & 500 ISE are Programmer err hence flag is false)
+      // 1. Pre-processing : Converts err to APIError (mongoose Err & 500 ISE are Programmer err hence flag is false)
       let error = err;
       if (!(error instanceof ApiError)) {
         const statusCode =
@@ -83,6 +61,7 @@ class ErrorHandler {
 function isOperationalErr(error) {
   return error instanceof BaseError ? error.isOperational : false;
 }
+
 // Helper fn -> Checks if server is closed or not then exit
 const exitHandler = (server) => {
   if (server) {
@@ -96,3 +75,27 @@ const exitHandler = (server) => {
 };
 
 export { ErrorHandler };
+
+/* Reference Links, Code & Info
+  - https://github.com/hagopj13/node-express-boilerplate/blob/master/src/middlewares/error.js
+  - https://github.com/hagopj13/node-express-boilerplate/blob/master/src/app.js
+  - https://gist.github.com/kluu1/40b52b60a34676f00092685a43dfbecd#file-handleerrors-js
+  - https://github.com/goldbergyoni/nodebestpractices/blob/master/sections/errorhandling/centralizedhandling.md
+*/
+
+/* [TODO] : JSON Schema (Libraries : joi, validator, ajv, jsonschema etc.)
+   - https://github.com/goldbergyoni/nodebestpractices/blob/master/sections/security/validation.md
+  {
+    "status" : 'success/failORError', //err.status
+    "source" : err.source // OR err.target OR  "source": { "pointer": "/data/attributes/firstName" },
+    "statusCode" : 200, //err.statusCode 
+    "message" : "My custom err msg or the one imported when i raised err", //err.message if not defined custom
+    "data" : err.data, // for success {user : users}, for fail `null` [user.controller.js gAU fn]
+    "meta" : {
+      "type" : err.name, //Name of error ie. err.name
+      "stack" : err.stack, //stack trace
+      "title":  "User not Found",
+      "detail": "The Database is empty"
+    }
+  }
+*/

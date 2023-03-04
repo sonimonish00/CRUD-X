@@ -1,5 +1,3 @@
-// https://github.com/hagopj13/node-express-boilerplate/blob/master/src/models/plugins/toJSON.plugin.js
-
 /**
  * A mongoose schema plugin which applies the following in the toJSON transform call:
  *  - removes __v, createdAt, updatedAt, and any path that has private: true
@@ -41,3 +39,7 @@ const toJSON = (schema) => {
 };
 
 export { toJSON };
+
+/* Reference Links, Code & Info
+   - https://github.com/hagopj13/node-express-boilerplate/blob/master/src/models/plugins/toJSON.plugin.js
+*/

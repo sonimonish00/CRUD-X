@@ -1,10 +1,3 @@
-// Database (MongoDB Atlas) : `crudxDB`
-// Model (Collctn./Table) : `User`
-// Name (Schema - Capital Singlr.) : UserSchema, ShoppingCartSchema etc.
-// Name (Model - Capital Singlr.) : User, ShoppingCart etc.
-// Name (File/Folder) : models/user.model.js, models/shoppingCart.model.js
-
-// Import members (ES6) : fn. -> `model` | Class (CF) -> `Schema`
 import { model, mongoose, Schema } from "mongoose";
 import bcrypt from "bcryptjs";
 import validator from "validator";
@@ -14,7 +7,6 @@ import { toJSON } from "./plugins/toJSON.plugin.js";
 // Pluralizing so that colllection names don't get modified
 mongoose.pluralize(null);
 
-// [PENDING] : Add more fields and validations
 const UserSchema = new Schema(
   {
     first_name: { type: String, required: true, trim: true },
@@ -55,10 +47,6 @@ const UserSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    // mobile: { type: Number },
-    // location: { type: String },
-    // date_of_birth: { type: Date },
-    // order: { type: Schema.Types.ObjectId, ref: "Order" },
   },
   {
     timestamps: true,
@@ -118,8 +106,20 @@ const User = model("User", UserSchema);
 
 export { User };
 
-/*
-Ref. Links : For internal/custom/3rd party Validation & Mongoose other things
+/* Reference Links, Code & Info : For internal/custom/3rd party Validation & Mongoose other things
   - https://github.com/hagopj13/node-express-boilerplate/blob/master/src/models/user.model.js
   - https://medium.com/@SigniorGratiano/mongoose-and-express-68994fcfdeff
+
+  Database (MongoDB Atlas) : `crudxDB`
+  Model (Collctn./Table) : `User`
+  Name (Schema - Capital Singlr.) : UserSchema, ShoppingCartSchema etc.
+  Name (Model - Capital Singlr.) : User, ShoppingCart etc.
+  Name (File/Folder) : models/user.model.js, models/shoppingCart.model.js
+
+  [TODO] : Add more fields and validations
+    mobile: { type: Number },
+    location: { type: String },
+    date_of_birth: { type: Date },
+    order: { type: Schema.Types.ObjectId, ref: "Order" },
+
 */
