@@ -12,28 +12,19 @@ A basic CRUD web application using [X]ERN stack, Where X = multiple DB but as of
   - **[API Collection : Postman](https://www.postman.com/sonimonish00/workspace/workspace-1-personal-projects-backend)**
   - **[Deployment : Railway.app](https://crud-x-production.up.railway.app)**
 
-## Tech Stack (FE + BE/DB) : [X]ERN
+## Tech stack : [X]ERN
 
-**Architectural :** Agile | Monolith | MVC (Future PENDING - [Component based](https://github.com/goldbergyoni/nodebestpractices#-11-structure-your-solution-by-components) + Mailchimp/Payment service integration + Test Cases/TDD/API Docs-Swagger + Dockerize)
+**Architectural :** Agile-Monolith-MVC (Future - [Component based](https://github.com/goldbergyoni/nodebestpractices#-11-structure-your-solution-by-components) + TDD)
 
 **Frontend - client | static-site | web-asset | ui:** Reactjs
 
 **Backend - Webserver/service/host/api | app-server:** Nodejs/express
 
-**DBaaS [X] :** mongodb atlas | elephantsql (postgre) | cockroachlab | astra (cassandra) | planetscale (mysql) | elasticloud
+**DBaaS [X] :** mongodb atlas (Future - elephantsql (postgre) | cockroachlab | astra (cassandra) | planetscale (mysql) | elasticloud)
 
-Extra (Just FYI) : monorepo, microservice/frontend, web & service [workers](https://web.dev/workers-overview)/worklets/cron-job/schedulers, HTTP web server - Ngnix, Apache
+## Installation | Deployment (local)
 
-## Major Features
-
-- Multi-AuthN/AuthR (Cookies Vs. JWT) [Authorization & OAuth2.0 Support]
-- Multi-Products CRUD
-- Multi-DB & Multi-Env (Dev/Prod)
-- Cross platform & responsive web design
-
-## Installation & Deployment (Local)
-
-**For Fullstack (MERN) :** npm **FSUpdatePkgs** - to update local pkg to latest ver **PENDING** [Link Here](https://stackoverflow.com/a/34295664)
+**For Fullstack (MERN) :** npm **FSUpdatePkgs** - to update local pkg to latest ver [See this](https://stackoverflow.com/a/34295664)
 
 ```bash
   cd CRUD-X
@@ -60,7 +51,53 @@ Extra (Just FYI) : monorepo, microservice/frontend, web & service [workers](http
   npm build (For production)
 ```
 
-## Dev. env. setup : IDE | vcs/scm | deployment | devops
+Set the environment variables:
+
+```bash
+cp .env.example .env
+
+# open .env and modify the environment variables (if needed) [Same for .env.development & .env.test]
+```
+
+## Table of Contents  ===> DO IT IN THE END WHEN ALL DONE ==========>>>>>>>
+
+- [Features](#features-major)
+- [Commands](#commands)
+- [Environment Variables](#environment-variables)
+- [Project Structure](#project-structure)
+- [API Documentation](#api-documentation)
+- [Error Handling](#error-handling)
+- [Validation](#validation)
+- [Authentication](#authentication)
+- [Authorization](#authorization)
+- [Logging](#logging)
+- [Custom Mongoose Plugins](#custom-mongoose-plugins)
+- [Linting](#linting)
+- [Contributing](#contributing)
+
+## Features (Major)
+
+- **NoSQL database**: [MongoDB](https://www.mongodb.com) object data modeling using [Mongoose](https://mongoosejs.com) [Future : Multi-DB]
+- **Authentication and authorization(RBAC)**: using [passport](http://www.passportjs.org) [JWT, Google OAuth 2.0]
+- **Validation**: request data validation using [Joi](https://github.com/hapijs/joi)
+- **Logging**: using [winston](https://github.com/winstonjs/winston) and [morgan](https://github.com/expressjs/morgan)
+- **Testing**: unit and integration tests using [Jest](https://jestjs.io) [Supertest]
+- **Error handling**: centralized error handling mechanism (express middleware)
+- **API docs**: with [swagger-jsdoc](https://github.com/Surnet/swagger-jsdoc) and [swagger-ui-express](https://github.com/scottie1984/swagger-ui-express)
+- **Process management**: advanced production process management using [PM2](https://pm2.keymetrics.io) [Not used in Prod]
+- **Dependency management**: with [npm](https://npmjs.com)
+- **Environment variables**: using [dotenv](https://github.com/motdotla/dotenv) [Multi-Env : Dev, Prod, Test]
+- **CORS**: Cross-Origin Resource-Sharing enabled using [cors](https://github.com/expressjs/cors)
+- **Linting**: with [ESLint](https://eslint.org) and [Prettier](https://prettier.io)
+- **Security**: set security HTTP headers using [helmet](https://helmetjs.github.io) [#Future-Implementation]
+- **Santizing**: sanitize request data against xss and query injection [#Future-Implementation]
+- **Compression**: gzip compression with [compression](https://github.com/expressjs/compression) [#Future-Implementation]
+- **CI**: continuous integration with [Travis CI](https://travis-ci.org) [#Future-Implementation]
+- **Code coverage**: using [coveralls](https://coveralls.io) [#Future-Implementation]
+- **Code quality**: with [Codacy](https://www.codacy.com) [#Future-Implementation]
+- **Docker support** [#Future-Implementation]
+
+## Developer environment setup : IDE | vcs/scm | deployment | devops
 
 **Local IDE :** VSCode
 
@@ -109,7 +146,7 @@ Extra (Just FYI) : monorepo, microservice/frontend, web & service [workers](http
 - Railway.app (Backend/webservice) | DB (MongoDB Atlas)
   - Commands : build (Default) & start (npm run prod)
 
-## Linter | Formatter etc. [Clean Code Style/Best Practises](https://github.com/goldbergyoni/nodebestpractices#3-code-style-practices)
+## Linting | Formating [Clean Code Style/Best Practises](https://github.com/goldbergyoni/nodebestpractices#3-code-style-practices)
 
 NOTE : This Configuration/setups are for advanced level, skip this if u r beginner/intermediate, just install eslint & prettier vscode ext.
 NOTE : js/jsx & ts/tsx is not diff. it's just use to denote that js/ts is for normal & jsx/tsx is for component. But .cjs & .mjs are diff.
@@ -148,60 +185,7 @@ NOTE : Alternative Names CJS => Source Type - Script | MJS => Source Type - Modu
     - Filename : .ts (Package.json => "type": "module" | `tsc` compiler : a.ts => a.js | node a.js)
     - Module system : ES6 (.mjs) => import/export (js=mjs=ts, so we use ts only)
 
-## File-folder (project) structure : separation of concern
-
-- **CRUD-X (Root Folder)**
-  - **Client** [Feature/funct./comp. based] (Other - MVC, group by file type, pages with global folder/colocation of related comp. etc.)
-    - public
-    - src
-      - Assets : images, static file etc.
-      - Components (Templates/Props)
-        - core : common and basic components, such as Home,Menu components which are common to all other comp.
-        - post : post-related components
-        - user : user-related components
-        - componentFolderN : and so on....
-      - Pages
-      - Config (To overwrite global config - .eslintrc.js, .prettierrc, .editorconfig - CRA/webpack already has eslint so gen. we dont include it)
-      - i18n
-      - navigation : Router (Navigation) -> react-router-dom
-      - redux : actions, reducers, store.js [Redux Toolkit -> Redux & Thunk Dev tools]
-      - Services - API
-        - auth : auth-related components and helper code, routes etc.
-      - styles
-      - utils - Helper methods, validations etc.
-      - **tests** : Jest Framework (Unit testing)
-      - index.js ===> Main entry point for react
-    - node_modules (frontend)
-    - .gitignore (frontend)
-    - Package.json (frontend) - including package-lock.json
-    - README.MD (frontend)
-  - **Server** [Separation based on functionality - [MVC](https://www.youtube.com/watch?v=bQuBlR0T5cc) or Technical Role based => FUTURE PENDING : [Component based](https://github.com/goldbergyoni/nodebestpractices#-11-structure-your-solution-by-components)]
-    - app
-      - controllers -> user.controllers.js (route-handler callback fns.)
-      - middlewares -> checkAuth.middleware.js (In between functions : logging, authentication etc.)
-      - models (ORM/MongoDB) -> user.models.js
-      - routes -> user.routes.js [RESTful API endpoints - CRUD](https://stackoverflow.com/questions/14554943/what-are-the-trade-offs-between-different-methods-of-constructing-api-urls-subd) | [Link 1](https://ontola.io/blog/api-design/)
-      - tests -> Unit & integration test, api test/super test etc.
-      - util (folder)
-      - services (folder) - 3rd party email, payment gateway etc.
-        - NOTE : It cud also act as middleman b/w controller & database(model). ie. controller will call service which will manipulate DB & return data back to controller [Link 1](https://youtu.be/bQuBlR0T5cc?t=720), [Link 2](https://github.com/machadop1407/MVC-API-Example-Express-NodeJS)
-      - index.js -> Application code (MVC part)
-    - [config](https://github.com/goldbergyoni/nodebestpractices#-15-use-environment-aware-secure-and-hierarchical-config) (overwrite global configs FUTURE PENDING : .eslintrc.js, .prettierrc, .editorconfig, webpack.config.js etc.)
-      - db.config.js (For MongoDB Atlas connection - Could also contain N/W, File configs etc.)
-    - env -> .env, .env.development etc.
-    - server.js ===> Main entry point for nodejs server - contains http server, mongoose/mongodb conn, n/w, file calls etc.
-    - node_modules (backend)
-    - .gitignore (backend)
-    - Package.json (backend) - including package-lock.json, scripts (dev/prod)
-    - README.MD (backend)
-  - node_modules (root)
-  - Package.json (root) : shared b/w both FE & BE - including package-lock.json
-  - License (root)
-  - npmGpkg (root)
-  - .gitignore (root)
-  - README.MD (root)
-
-## Fullstack Flow | REST | CRUD | HTTP
+## Fullstack flow : REST | CRUD | HTTP
 
 - [Google Docs Link](https://docs.google.com/document/d/1L_Rc8JEn-YYX5Oq_dEa7iTkBQY_ycjH6OaPm7GV4O4I/edit?usp=share_link)
 - ![Fullstack Flow Diagram](https://drive.google.com/uc?export=view&id=1yAM2pzILbeG_eDM3o2B11TDfJY5iymaT)
@@ -210,17 +194,292 @@ NOTE : Alternative Names CJS => Source Type - Script | MJS => Source Type - Modu
 
 ## Environment Variables
 
-To run this project, you will need to add the following environment variables to your .env file
+The environment variables can be found and modified in the `.env` file. They come with these default values:
 
-`NODE_ENV`
+```bash
 
-`PORT`
+NODE_ENV = development
+# Port number
+PORT = 3000
+# URL of the Mongo DB
+MONGODB_ATLAS_URL=mongodb://127.0.0.1:27017/node-boilerplate
 
-`MONGO_URL`
+# JWT
+# JWT secret key
+JWT_SECRET=thisisasamplesecret
+# Number of minutes after which an access token expires
+JWT_ACCESS_EXPIRATION_MINUTES=30
+# Number of days after which a refresh token expires
+JWT_REFRESH_EXPIRATION_DAYS=30
+# Number of minutes after which a reset password token expires [RPT] 
+JWT_RESET_PASSWORD_EXPIRATION_MINUTES=10
+# Number of minutes after which a verify email token expires [VET]
+JWT_VERIFY_EMAIL_EXPIRATION_MINUTES=10
 
-## Demo
+# SMTP configuration options for the email service
+# For testing, you can use a fake SMTP service like Ethereal: https://ethereal.email/create
+SMTP_HOST=email-server
+SMTP_PORT=587
+SMTP_USERNAME=email-server-username
+SMTP_PASSWORD=email-server-password
+EMAIL_FROM=support@yourapp.com
 
-![](https://media1.giphy.com/media/wAvzlIA6cRPeDyRjY9/giphy.gif?cid=790b7611de9cb72ce5aa85de257c1cec75ef4ba7982098bf&rid=giphy.gif&ct=g)
+#Google-OAuth
+GOOGLE_OAUTH_CLIENT_ID = 21321mklmklmlkmalsad.apps.googleusercontent.com
+GOOGLE_OAUTH_CLIENT_SECRET = KMKLK-dkfmlksdmfksd-ksdfmdslkdsfds
+```
+
+## Project Structure (separation of concern)
+
+```
+**CRUD-X (Root Folder)**/
+├── **Client** [Feature/funct./comp. based] (Other - MVC, group by file type, pages with global folder/colocation of related comp. etc.)/
+│   ├── public
+│   ├── src/
+│   │   ├── Assets : images, static file etc.
+│   │   ├── Components (Templates/Props)/
+│   │   │   ├── core : common and basic components, such as Home,Menu components which are common to all other comp.
+│   │   │   ├── post : post-related components
+│   │   │   ├── user : user-related components
+│   │   │   └── componentFolderN : and so on....
+│   │   ├── Pages
+│   │   ├── Config (To overwrite global config - .eslintrc.js, .prettierrc, .editorconfig - CRA/webpack already has eslint so gen. we dont include it)
+│   │   ├── i18n
+│   │   ├── navigation : Router (Navigation) -> react-router-dom
+│   │   ├── redux : actions, reducers, store.js [Redux Toolkit -> Redux & Thunk Dev tools]
+│   │   ├── Services - API/
+│   │   │   └── auth : auth-related components and helper code, routes etc.
+│   │   ├── styles
+│   │   ├── utils - Helper methods, validations etc.
+│   │   ├── **tests** : Jest Framework (Unit testing)
+│   │   └── index.js ===> Main entry point for react
+│   ├── node_modules (frontend)
+│   ├── .gitignore (frontend)
+│   ├── Package.json (frontend) - including package-lock.json
+│   └── README.MD (frontend)
+├── **Server** [Separation based on functionality - [MVC](https://www.youtube.com/watch?v=bQuBlR0T5cc) or Technical Role based => FUTURE PENDING : [Component based](https://github.com/goldbergyoni/nodebestpractices#-11-structure-your-solution-by-components)]/
+│   ├── app/
+│   │   ├── config 
+│   │   ├── controllers 
+│   │   ├── docs 
+│   │   ├── middlewares 
+│   │   ├── models (ORM/MongoDB)
+│   │   ├── routes -> [RESTful API endpoints - CRUD](https://stackoverflow.com/questions/14554943/what-are-the-trade-offs-between-different-methods-of-constructing-api-urls-subd) | [Link 1](https://ontola.io/blog/api-design/)
+│   │   ├── services
+│   │   ├── utils
+│   │   ├── validations
+│   │   ├── views
+│   │   └── index.js -> Application code (MVC part)
+│   ├── env -> .env, .env.development etc.
+│   ├── tests -> Unit, Integration, fixtures, utils etc.
+│   ├── server.js ===> Main entry point for nodejs server - contains http server, mongoose/mongodb conn, n/w, file calls etc.
+│   ├── node_modules (backend)
+│   ├── .env.example (backend)
+│   ├── .travis.yml (backend)
+│   ├── babel.config.js (backend)
+│   ├── jest.config.js (backend)  
+│   ├── .gitignore (backend)
+│   ├── Package.json (backend) - including package-lock.json, scripts (dev/prod)
+│   └── README.MD (backend)
+├── node_modules (root)
+├── Package.json (root) : shared b/w both FE & BE - including package-lock.json
+├── License (root)
+├── npmGpkg (root)
+├── .gitignore (root)
+└── README.MD (root)
+```
+
+## Error Handling
+
+The app has a centralized error handling mechanism.
+
+Controllers should try to catch the errors and forward them to the error handling middleware (by calling `next(error)`). For convenience, you can also wrap the controller inside the asyncWrapTC utility wrapper, which forwards the error.
+
+```javascript
+import { asyncWrapTC } from "../utils/tryCatchAsync.helper.js";
+
+// CREATE (POST) : Creates a new user.
+const createUser = asyncWrapTC(async (req, res) => {
+  await userService.addUser(req, res);
+  return res.status(httpStatusCodes.CREATED).send("New User Created!!");
+});
+```
+
+The error handling middleware sends an error response, which has the following format:
+
+```json
+{
+  "code": 404,
+  "message": "Not found"
+}
+```
+
+When running in development mode, the error response also contains the error stack.
+
+The app has a utility ApiError class to which you can attach a response code and a message, and then throw it from anywhere (asyncWrapTC will catch it).
+
+For example, if you are trying to get a user from the DB who is not found, and you want to send a 404 error, the code should look something like:
+
+```javascript
+const httpStatus = require('http-status');
+const ApiError = require('../utils/ApiError');
+const User = require('../models/User');
+
+const getUser = async (userId) => {
+  const user = await User.findById(userId);
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+  }
+};
+```
+  
+## Validation
+
+Request data is validated using [Joi](https://joi.dev/). Check the [documentation](https://joi.dev/api/) for more details on how to write Joi validation schemas.
+
+The validation schemas are defined in the `src/validations` directory and are used in the routes by providing them as parameters to the `validate` middleware.
+
+```javascript
+const express = require('express');
+const validate = require('../../middlewares/validate');
+const userValidation = require('../../validations/user.validation');
+const userController = require('../../controllers/user.controller');
+
+const router = express.Router();
+
+router.post('/users', validate(userValidation.createUser), userController.createUser);
+```
+
+
+## API Documentation
+
+To view the list of available APIs and their specifications, run the server and go to `http://localhost:3000/v1/docs` in your browser. This documentation page is automatically generated using the [swagger](https://swagger.io/) definitions written as comments in the route files.
+
+### API Endpoints (Routes)
+
+List of available routes:
+
+**AuthN routes (JWT)**:\
+`POST /v1/auth/register` - register\
+`POST /v1/auth/login` - login\
+`POST /v1/auth/logout` - logout\
+`POST /v1/auth/refresh-tokens` - refresh auth tokens\
+`POST /v1/auth/home-jwt` - JWT homepage after auth
+
+**AuthN routes (Google OAuth 2.0)**:\
+`GET /SignInWithGoogleOAuth2Button` - Sign In Button (index.html) (Should be added to Redirect uri in Google Cloud console creds)\
+`GET /v1/auth/loginGoogleOAuth2` - Callback URL (Should be added to Redirect uri in Google Cloud console creds)\
+`GET /logoutGoogleOAuth2` - Delete cookie and destroy session (backend only : bug -> back btn will still works)\
+`GET /home` - Protected route will be called after succesful login via Google OAuth2
+  
+**User routes**:\
+`POST /v1/users` - create a user\
+`GET /v1/users` - get all users
+
+**Other routes**:\
+`GET /` - Default Route will serve index.html via express.static\
+`GET /favicon.ico` - just to ignore favicon error in logs
+  
+## Authentication (AuthN : JWT & Google OAuth 2.0)
+
+To require authentication for certain routes, you can use the `auth` middleware.
+
+```javascript
+const express = require('express');
+const auth = require('../../middlewares/auth');
+const userController = require('../../controllers/user.controller');
+
+const router = express.Router();
+
+router.post('/users', auth(), userController.createUser);
+```
+
+These routes require a valid JWT access token in the Authorization request header using the Bearer schema. If the request does not contain a valid access token, an Unauthorized (401) error is thrown.
+
+**Generating Access Tokens**:
+
+An access token can be generated by making a successful call to the register (`POST /v1/auth/register`) or login (`POST /v1/auth/login`) endpoints. The response of these endpoints also contains refresh tokens (explained below).
+
+An access token is valid for 30 minutes. You can modify this expiration time by changing the `JWT_ACCESS_EXPIRATION_MINUTES` environment variable in the .env file.
+
+**Refreshing Access Tokens**:
+
+After the access token expires, a new access token can be generated, by making a call to the refresh token endpoint (`POST /v1/auth/refresh-tokens`) and sending along a valid refresh token in the request body. This call returns a new access token and a new refresh token.
+
+A refresh token is valid for 30 days. You can modify this expiration time by changing the `JWT_REFRESH_EXPIRATION_DAYS` environment variable in the .env file.
+
+## Authorization (AuthR : RBAC)
+
+The `auth` middleware can also be used to require certain rights/permissions to access a route.
+
+```javascript
+const express = require('express');
+const auth = require('../../middlewares/auth');
+const userController = require('../../controllers/user.controller');
+
+const router = express.Router();
+
+router.post('/users', auth('manageUsers'), userController.createUser);
+```
+
+In the example above, an authenticated user can access this route only if that user has the `manageUsers` permission.
+
+The permissions are role-based. You can view the permissions/rights of each role in the `src/config/roles.js` file.
+
+If the user making the request does not have the required permissions to access this route, a Forbidden (403) error is thrown.
+
+## Logging
+
+Import the logger from `src/config/logger.js`. It is using the [Winston](https://github.com/winstonjs/winston) logging library.
+
+Logging should be done according to the following severity levels (ascending order from most important to least important):
+
+```javascript
+const logger = require('<path to src>/config/logger');
+
+logger.error('message'); // level 0
+logger.warn('message'); // level 1
+logger.info('message'); // level 2
+logger.http('message'); // level 3
+logger.verbose('message'); // level 4
+logger.debug('message'); // level 5
+```
+
+In development mode, log messages of all severity levels will be printed to the console.
+
+In production mode, only `info`, `warn`, and `error` logs will be printed to the console.\
+It is up to the server (or process manager) to actually read them from the console and store them in log files.\
+This app uses pm2 in production mode, which is already configured to store the logs in log files.
+
+Note: API request information (request url, response code, timestamp, etc.) are also automatically logged (using [morgan](https://github.com/expressjs/morgan)).
+
+## Custom Mongoose Plugins
+
+The app also contains a custom mongoose plugins that you can attach to any mongoose model schema. You can find the plugins in `src/models/plugins`.
+
+```javascript
+const mongoose = require('mongoose');
+const { toJSON } = require('./plugins');
+
+const userSchema = mongoose.Schema(
+  {
+    /* schema definition here */
+  },
+  { timestamps: true }
+);
+
+userSchema.plugin(toJSON);
+
+const User = mongoose.model('User', userSchema);
+```
+
+### toJSON
+
+The toJSON plugin applies the following changes in the toJSON transform call:
+
+- removes \_\_v, createdAt, updatedAt, and any schema path that has private: true
+- replaces \_id with id
+
 
 ## Contributing
 
@@ -230,7 +489,7 @@ Contributions are always Welcome. Make a Pull Request (PR) or raise an issue. Wi
 
 #### Is this CRUD App for commercial use ?
 
-Nope.
+Nope. But if anyone wants to use it in their project as boilerplate etc. feel free to use.
 
 #### Is this your Personal project ?
 
@@ -244,14 +503,12 @@ If you have any feedback, please reach out to me at sonimonish00[at]gmail[dot]co
 
 🧠 I'm currently learning backend/full stack development.
 
-## 🔗 Links
-
-[![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://sonimonish00.github.io/)
-
-[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/monishsoni)
-
-[![twitter](https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/MonishSoni95)
-
 ## 🛠 Skills
 
 Python, Javascript (Node, React), HTML, CSS
+
+## 🔗 Contact Links
+
+[![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://sonimonish00.github.io/)
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/monishsoni)
+[![twitter](https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/MonishSoni95)
