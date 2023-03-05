@@ -1,20 +1,16 @@
-# CRUD-X
+# CRUD-X [XERN Stack]
 
-A basic CRUD web application using [X]ERN stack.
-
-**NOTE** : Due to Time-Constraint, currently i'm only implementing MERN Stack - CRUD App for User Model only (MongoDB Atlas/Mongoose) with AuthN/AuthR to login/signup in `Production` Env. only. Will try to refactor this user model code into as much as production grade (industry standard) level after implementing basics.
-
-**Future TODO** :In future will expand it into functional ecommerce app having multi-db,env,auth, react/angular etc. 2 models pending - product [PID, brand, category, Qty,price] & order[OID,PID,UID,TotalAmount,OrderDate]. Also [Validation](https://gist.github.com/sonimonish00/88dc68510c45a084ca97d7239504e875) & [Testing](https://gist.github.com/sonimonish00/cb7509962bc3448513d250ed9a2d4465)
-
-**Live Testing Link (Production Ready | Backend webservice | Node/Expressjs Server | REST API)**
-  - **[Postman API's](https://www.postman.com/sonimonish00/workspace/workspace-1-personal-projects-backend)**
-  - **[Railway-CRUDX](https://crud-x-production.up.railway.app)**
-
-## Badges
-
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/19573121-fa8f3446-bac8-4ed7-b25b-952c45912af2?action=collection%2Ffork&collection-url=entityId%3D19573121-fa8f3446-bac8-4ed7-b25b-952c45912af2%26entityType%3Dcollection%26workspaceId%3D85c3a0fe-9ab1-4704-82db-e7d9a493f158)
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 [![Coverage Status](https://coveralls.io/repos/github/sonimonish00/CRUD-X/badge.svg?branch=main)](https://coveralls.io/github/sonimonish00/CRUD-X?branch=main)
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/19573121-fa8f3446-bac8-4ed7-b25b-952c45912af2?action=collection%2Ffork&collection-url=entityId%3D19573121-fa8f3446-bac8-4ed7-b25b-952c45912af2%26entityType%3Dcollection%26workspaceId%3D85c3a0fe-9ab1-4704-82db-e7d9a493f158)
+
+A basic CRUD web application using [X]ERN stack, Where X = multiple DB but as of now MongoDB. So MERN.
+
+**NOTE** : Due to Time constraint, only implemented Backend API's in Node/Expressjs using MongoDB [User & Auth Model]. Will scale it to fully functional fullstack E-commerce app with multi-DB [XERN] with proper [Validation](https://gist.github.com/sonimonish00/88dc68510c45a084ca97d7239504e875) & [Testing](https://gist.github.com/sonimonish00/cb7509962bc3448513d250ed9a2d4465) features soon.
+
+**Live Testing Link (Production Ready | Backend webservice | Node/Expressjs Server | REST API)**
+  - **[API Collection : Postman](https://www.postman.com/sonimonish00/workspace/workspace-1-personal-projects-backend)**
+  - **[Deployment : Railway.app](https://crud-x-production.up.railway.app)**
 
 ## Tech Stack (FE + BE/DB) : [X]ERN
 
