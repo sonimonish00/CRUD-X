@@ -59,21 +59,27 @@ cp .env.example .env
 # open .env and modify the environment variables (if needed) [Same for .env.development & .env.test]
 ```
 
-## Table of Contents  ===> DO IT IN THE END WHEN ALL DONE ==========>>>>>>>
+## Table of Contents
 
 - [Features](#features-major)
-- [Commands](#commands)
+- [Developer environment setup](#developer-environment-setup--ide--vcsscm--deployment--devops)
+- [Linting & formating](#linting--formating-clean-code-stylebest-practises)
+- [Fullstack flow](#fullstack-flow--rest--crud--http)
 - [Environment Variables](#environment-variables)
-- [Project Structure](#project-structure)
-- [API Documentation](#api-documentation)
+- [Project Structure](#project-structure-separation-of-concern)
 - [Error Handling](#error-handling)
 - [Validation](#validation)
-- [Authentication](#authentication)
-- [Authorization](#authorization)
+- [API Documentation](#api-documentation)
+- [Authentication](#authentication-authn--jwt--google-oauth-20)
+- [Authorization](#authorization-authr--rbac)
 - [Logging](#logging)
 - [Custom Mongoose Plugins](#custom-mongoose-plugins)
-- [Linting](#linting)
 - [Contributing](#contributing)
+- [FAQ](#faq)
+- [Feedback & Support](#feedback--support)
+- [About Me](#-about-me--hi-im-monish-)
+- [Skills](#-skills)
+- [Contact Links](#-contact-links)
 
 ## Features (Major)
 
