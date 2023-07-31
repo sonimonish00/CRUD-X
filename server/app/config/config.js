@@ -12,13 +12,13 @@ dotenv.config({ path: path.join(__dirname, "../../env/.env") });
 // dotenv.config({ path: path.join(__dirname, "../../env/.env.test") });
 
 //[TODO] : Pending if u want to implement SMTP (Email) in future
-// Removing default 5000 port for prod/dev if the port from .env doesnt work as this conflict while deploying to vercel -> PORT: Joi.number().default(5000),
+// Remove default if doesnt work on deployment -> PORT: Joi.number().default(5000),
 const envVarsSchema = Joi.object()
   .keys({
     NODE_ENV: Joi.string()
       .valid("production", "development", "test")
       .required(),
-    PORT: Joi.number(),
+    PORT: Joi.number().default(5000),
     MONGODB_ATLAS_URL: Joi.string().required().description("MongoDB Atlas URL"),
     JWT_SECRET: Joi.string().required().description("JWT secret key"),
     JWT_ACCESS_EXPIRATION_MINUTES: Joi.number()
