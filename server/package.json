@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "CRUD-X Web app",
   "main": "server.js",
+  "engines": {
+    "node": ">=18.16.1"
+  },
   "type": "module",
   "scripts": {
     "dev": "nodemon server.js",
