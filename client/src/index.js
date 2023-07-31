@@ -5,8 +5,8 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
-// axios.defaults.baseURL = "http://192.168.0.190:3000/"; // Replace with your backend URL
-axios.defaults.baseURL = "http://localhost:3000/"; // Replace with your backend URL
+// axios.defaults.baseURL = "http://192.168.0.190:3000/"; // For Local Network (Multiple devices)
+axios.defaults.baseURL = "http://localhost:3000/"; // For Only the current host (i.e PC)
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
