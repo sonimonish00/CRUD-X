@@ -14,7 +14,8 @@ userRoutes
     validate(userValidation.addUser),
     userController.createUser
   )
-  .get(auth(), validate(userValidation.queryUsers), userController.getUsers);
+  // .get(auth(), validate(userValidation.queryUsers), userController.getUsers);
+  .get(validate(userValidation.queryUsers), userController.getUsers);
 
 export default userRoutes;
 

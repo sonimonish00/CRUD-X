@@ -6,6 +6,12 @@
   height: 40vmin;
   pointer-events: none;
 }
+.no-bullets {
+  list-style: none;
+}
+.left-align {
+  text-align: left;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
