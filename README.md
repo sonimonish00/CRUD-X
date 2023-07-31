@@ -6,12 +6,13 @@
 
 A basic CRUD web application using [X]ERN stack, Where X = multiple DB but as of now MongoDB. So MERN.
 
-**NOTE** : Due to Time constraint, only implemented Backend API's in Node/Expressjs using MongoDB [User & Auth Model]. Will scale it to fully functional fullstack E-commerce app with multi-DB [XERN] with proper [Validation](https://gist.github.com/sonimonish00/88dc68510c45a084ca97d7239504e875) & [Testing](https://gist.github.com/sonimonish00/cb7509962bc3448513d250ed9a2d4465) features soon.
+**NOTE** : Due to Time constraint, built only fullstack web app with basic feature. Will scale it to fully functional fullstack E-commerce app with multi-DB [XERN] with proper [Validation](https://gist.github.com/sonimonish00/88dc68510c45a084ca97d7239504e875) & [Testing](https://gist.github.com/sonimonish00/cb7509962bc3448513d250ed9a2d4465) features soon.
 
 **Live Testing Link (Production Ready | Backend webservice | Node/Expressjs Server | REST API)**
 
 - **[API Collection : Postman](https://www.postman.com/sonimonish00/workspace/workspace-1-personal-projects-backend)**
-- **[Deployment : Railway.app](https://crud-x-production.up.railway.app)**
+- **[Deployment (Frontend - Main): Render.com](https://crudx.onrender.com/)**
+- **[Deployment (Backend): Render.com](https://crudx-backend.onrender.com)**
 
 ## Tech stack : [X]ERN
 
@@ -145,13 +146,13 @@ cp .env.example .env
 
 **Deployment (PaaS) :**
 
-- Vercel (Frontend/Static-Site/React-CRA)
-  - Vercel could be used for backend deployment via (But will use it for frontend only) :
-    - Serverless Function (i.e. rewrite your backend to make it serverless)
-    - Vercel's NEXTJS Framework
-  - Commands : build (npm run build) & start (npm run start)
-- Railway.app (Backend/webservice) | DB (MongoDB Atlas)
-  - Commands : build (Default) & start (npm run prod)
+- Render.com (Frontend/Static-Site/React-CRA)
+  - Render.com is preferred as of now over vercel here bcz backend is implemented on it & its easy to deploy.
+  - Commands : build -> npm run build || publish directory -> build (No npm start command as its not hosted locally)
+- Render.com (Backend/webservice) | DB (MongoDB Atlas)
+  - Render.com is preferred as of now over railway.app/vercel/heroku bcz either they are not free or support serverless fn which is hard to deploy.
+  - Env Var. : Copy & paste production env file (except PORT as its assigned automatically) & change config env to prod.
+  - Commands : Build -> npm run prod || Install -> npm install
 
 ## Linting | Formating [Clean Code Style/Best Practises](https://github.com/goldbergyoni/nodebestpractices#3-code-style-practices)
 
