@@ -1,12 +1,4 @@
-import pkgObj from "../../package.json";
-import path from "path";
-
-// Validate the file type
-const ext = path.extname("../../package.json");
-if (ext.toLowerCase() !== ".json") {
-  throw new Error("Invalid file type. Expected JSON file.");
-}
-
+import pkgObj from "../../package.json" assert { type: "json" };
 import config from "../../app/config/config.js";
 
 const swaggerDef = {
